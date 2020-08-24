@@ -7,14 +7,9 @@ spec:
     namespace: metrics-server
     server: 'https://kubernetes.default.svc'
   source:
-    path: ''
-    repoURL: 'https://kubernetes-charts.storage.googleapis.com'
-    targetRevision: '2.11.1'
-    chart: metrics-server
-    helm:
-      parameters:
-        - name: rbac.pspEnabled
-          value: 'true'
+    path: manifests/base
+    repoURL: 'https://github.com/kubernetes-sigs/metrics-server'
+    targetRevision: 6d92704c5a68cd29a7a81bce68e6c2230c7a6912
   project: metrics-server
   syncPolicy:
     automated:
