@@ -14,7 +14,7 @@ spec:
           - name: uabierta-backup
             image: eoluchile/backup_container:v0.0.8
             args:
-            - /root/scripts/backup.sh
+            - /root/scripts/backup_hourly.sh
             volumeMounts:
             - mountPath: /volume/nfs
               name: uabierta-backup
