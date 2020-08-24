@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+spec:
+  destination:
+    namespace: metrics-server
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://kubernetes-charts.storage.googleapis.com'
+    targetRevision: '2.11.1'
+    chart: metrics-server
+    helm:
+      parameters:
+        - name: rbac.pspEnabled
+          value: 'true'
+  project: metrics-server
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
