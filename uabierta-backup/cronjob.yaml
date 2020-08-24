@@ -23,7 +23,7 @@ spec:
           volumes:
           - name: uabierta-backup
             nfs:
-              server: 172.16.244.12
+              server: 172.16.244.123
               path: /eol_backup/uabierta
           - name: env-secrets
             secret:
