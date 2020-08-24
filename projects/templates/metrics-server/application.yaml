@@ -4,17 +4,13 @@ metadata:
   name: metrics-server
 spec:
   destination:
-    namespace: metrics-server
+    namespace: kube-system
     server: 'https://kubernetes.default.svc'
   source:
     path: ''
     repoURL: 'https://kubernetes-charts.storage.googleapis.com'
     targetRevision: '2.11.1'
     chart: metrics-server
-    helm:
-      parameters:
-        - name: rbac.pspEnabled
-          value: 'true'
   project: metrics-server
   syncPolicy:
     automated:
