@@ -1,4 +1,6 @@
 resources:
 - argocd/ingress.yaml
+- uabierta-backup/namespace.yaml
+- uabierta-backup/project.yaml
 
 namespace: argocd

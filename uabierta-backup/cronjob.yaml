@@ -1,0 +1,29 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: uabierta-backup
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: uabierta-backup
+            image: eoluchile/backup_container:v0.0.8
+            args:
+            - /root/scripts/backup.sh
+            volumeMounts:
+            - mountPath: /volume/nfs
+              name: uabierta-backup
+            - mountPath: /root/env/config.env
+              name: env-secrets
+          volumes:
+          - name: uabierta-backup
+            nfs:
+              server: 172.16.244.12
+              path: /eol_backup/uabierta
+          - name: env-secrets
+            secret:
+              secretName: uabierta-config
