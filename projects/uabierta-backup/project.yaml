@@ -31,7 +31,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: argocd
+    namespace: uabierta-backup
     server: 'https://kubernetes.default.svc'
   source:
     path: uabierta-backup
