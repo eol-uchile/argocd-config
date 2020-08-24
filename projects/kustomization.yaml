@@ -1,0 +1,7 @@
+resources:
+- argocd/ingress.yaml
+- cert-manager/application.yaml
+- cert-manager/namespace.yaml
+- cert-manager/project.yaml
+
+namespace: argocd

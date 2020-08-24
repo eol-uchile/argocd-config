@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-argocd
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  tls:
+    - hosts:
+      - argocd.staging.eol.espinoza.dev
+      secretName: argocd-ingress-cert
+  rules:
+    - host: argocd.staging.eol.espinoza.dev
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: argocd-server
+            servicePort: https

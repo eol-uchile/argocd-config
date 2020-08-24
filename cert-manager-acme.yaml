@@ -2,11 +2,9 @@ apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
-  labels:
-    {{- include "projects.labels" . | nindent 4 }}
 spec:
   acme:
-    email: {{ .Values.email }}
+    email: felipe.espinoza.r@uchile.cl
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.

@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+spec:
+  destination:
+    namespace: cert-manager
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: 'cert-manager'
+    repoURL: 'https://github.com/fdns/argocd-config'
+    targetRevision: HEAD
+  project: cert-manager
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
