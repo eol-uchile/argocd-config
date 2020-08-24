@@ -18,7 +18,7 @@ spec:
             volumeMounts:
             - mountPath: /volume/nfs
               name: uabierta-backup
-            - mountPath: /root/env/config.env
+            - mountPath: /root/env/
               name: env-secrets
           volumes:
           - name: uabierta-backup
