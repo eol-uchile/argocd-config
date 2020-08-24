@@ -22,7 +22,7 @@ spec:
   - group: 'bitnami.com'
     kind: SealedSecret
   - group: 'batch'
-    king: CronJob
+    kind: CronJob
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
