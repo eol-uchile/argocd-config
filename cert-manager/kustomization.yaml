@@ -1,5 +1,0 @@
-resources:
-- cert-manager.yaml
-- cert-manager-acme.yaml
-
-namespace: cert-manager
