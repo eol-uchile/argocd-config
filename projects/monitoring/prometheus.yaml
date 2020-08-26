@@ -15,11 +15,11 @@ spec:
     helm:
       parameters:
         - name: alertmanager.persistentVolume.storageClass
-          value: true
+          value: "true"
         - name: server.persistentVolume.storageClass
           value: local-path
         - name: server.statefulSet.enabled
-          value: true
+          value: "true"
   project: monitoring
   syncPolicy:
     automated:

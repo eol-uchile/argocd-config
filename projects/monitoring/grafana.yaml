@@ -15,7 +15,7 @@ spec:
     helm:
       parameters:
         - name: persistence.enabled
-          value: true
+          value: "true"
         - name: persistence.storageClassName
           value: local-path
         - name: persistence.type
