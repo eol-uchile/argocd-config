@@ -1,5 +1,5 @@
 resources:
-- manifests/setup/0namespace-namespace.yaml
+#- manifests/setup/0namespace-namespace.yaml
 - ingress.yaml
 - secret.yaml
 - manifests/setup/prometheus-operator-0alertmanagerCustomResourceDefinition.yaml
