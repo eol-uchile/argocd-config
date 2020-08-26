@@ -12,6 +12,10 @@ spec:
   destinations:
   - namespace: monitoring
     server: https://kubernetes.default.svc
+  - namespace: default
+    server: https://kubernetes.default.svc
+  - namespace: kube-system
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
