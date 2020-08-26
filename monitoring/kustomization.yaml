@@ -1,7 +1,5 @@
 resources:
-- prometheus.yaml
-- grafana.yaml
-- secret.yaml
 - ingress.yaml
+- secret.yaml
 
 namespace: monitoring
