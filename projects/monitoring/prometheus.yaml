@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://kubernetes-charts.storage.googleapis.com/'
+    targetRevision: 11.12.0
+    chart: prometheus
+    helm:
+      parameters:
+        - name: alertmanager.persistentVolume.storageClass
+          value: true
+        - name: server.persistentVolume.storageClass
+          value: local-path
+        - name: server.statefulSet.enabled
+          value: true
+  project: monitoring
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false

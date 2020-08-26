@@ -2,5 +2,9 @@ resources:
 - argocd-ingress/project.yaml
 - uabierta-backup/namespace.yaml
 - uabierta-backup/project.yaml
+- monitoring/project.yaml
+- monitoring/namespace.yaml
+- monitoring/grafana.yaml
+- monitoring/prometheus.yaml
 
 namespace: argocd
