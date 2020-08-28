@@ -21,6 +21,8 @@ spec:
     kind: SealedSecret
   - group: 'batch'
     kind: '*'
+  - group: ''
+    kins: 'Service'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
