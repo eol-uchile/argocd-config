@@ -4,5 +4,9 @@ resources:
 - uabierta-backup/project.yaml
 - monitoring/project.yaml
 - monitoring/namespace.yaml
+- edx-staging/namespace.yaml
+- edx-staging/project.yaml
 
 namespace: argocd
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

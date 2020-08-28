@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: edx-staging
+  namespace: argocd
+spec:
+  description: Project to backup uabierta databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: edx-staging
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edx-staging
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-staging
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: edx-staging
+    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
+    targetRevision: HEAD
+  project: edx-staging
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
