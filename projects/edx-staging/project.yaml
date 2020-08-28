@@ -22,7 +22,7 @@ spec:
   - group: 'batch'
     kind: '*'
   - group: ''
-    kins: 'Service'
+    kind: 'Service'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
