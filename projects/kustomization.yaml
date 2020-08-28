@@ -6,6 +6,8 @@ resources:
 - monitoring/namespace.yaml
 - edx-staging/namespace.yaml
 - edx-staging/project.yaml
+- reloader/namespace.yaml
+- reloader/project.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
