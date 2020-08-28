@@ -32,7 +32,7 @@ spec:
     namespace: edx-staging
     server: 'https://kubernetes.default.svc'
   source:
-    path: .
+    path: staging
     repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
     targetRevision: HEAD
   project: edx-staging
