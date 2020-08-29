@@ -10,7 +10,7 @@ metadata:
     release: "reloader"
     heritage: "Tiller"
   name: reloader-reloader-role
-  namespace: default
+  namespace: reloader
 rules:
   - apiGroups:
       - ""
@@ -55,7 +55,7 @@ metadata:
     release: "reloader"
     heritage: "Tiller"
   name: reloader-reloader-role-binding
-  namespace: default
+  namespace: reloader
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -63,7 +63,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: reloader-reloader
-    namespace: default
+    namespace: reloader
 
 ---
 # Source: reloader/templates/deployment.yaml
