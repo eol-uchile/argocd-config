@@ -11,11 +11,6 @@ metadata:
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
-    nginx.ingress.kubernetes.io/server-snippets: |
-      location /api/webhook {
-        auth_basic "off";
-      }
-
 spec:
   tls:
     - hosts:
@@ -29,3 +24,27 @@ spec:
           backend:
             serviceName: argocd-server
             servicePort: https
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-argocd
+  namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  tls:
+    - hosts:
+      - argocd.staging.eol.espinoza.dev
+      secretName: argocd-ingress-cert
+  rules:
+    - host: argocd.staging.eol.espinoza.dev
+      http:
+        paths:
+        - path: /api/webhook
+          backend:
+            serviceName: argocd-server
+            servicePort: https
+
