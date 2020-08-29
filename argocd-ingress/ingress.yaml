@@ -28,7 +28,7 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-argocd
+  name: ingress-argocd-webhook
   namespace: argocd
   annotations:
     kubernetes.io/ingress.class: nginx
