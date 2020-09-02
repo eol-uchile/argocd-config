@@ -23,6 +23,8 @@ spec:
     kind: '*'
   - group: ''
     kind: 'Service'
+  - group: ''
+    kind: 'Endpoints'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
