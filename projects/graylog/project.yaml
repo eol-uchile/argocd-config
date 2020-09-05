@@ -18,11 +18,13 @@ spec:
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceWhitelist:
   - group: 'apps'
-    kind: Deployment
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
   - group: 'bitnami.com'
     kind: SealedSecret
-  - group: 'batch'
-    kind: CronJob
   - group: ""
     kind: PersistentVolumeClaim
 ---
