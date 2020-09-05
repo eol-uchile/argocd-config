@@ -27,6 +27,8 @@ spec:
     kind: SealedSecret
   - group: ""
     kind: PersistentVolumeClaim
+  - group: ""
+    kind: ConfigMap
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
