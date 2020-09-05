@@ -6,4 +6,5 @@ resources:
 - ./ingress.yaml
 - ./mongo.yaml
 - ./secrets/graylog.yaml
+- vector.yaml
 namespace: graylog

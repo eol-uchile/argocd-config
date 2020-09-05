@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vector-logger
+  labels:
+    k8s-app: fluentd-logging
+spec:
+  selector:
+    matchLabels:
+      name: vector-logger
+  template:
+    metadata:
+      labels:
+        name: vector-logger
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: vector-monitoring
+        image: timberio/vector:0.10.0-alpine
+        resources:
+          limits:
+            cpu: 50m
+            memory: 50Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: varlibdockersock
+          mountPath: /var/run/docker.sock
+          readOnly: true
+        - name: vector-config
+          mountPath: /etc/vector/
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlibdockersock
+        hostPath:
+          path: /var/run/docker.sock
+      - name: vector-config
+        configMap:
+          name: vector-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vector-config
+data:
+  vector.toml: |
+    [sources.in]
+      type = "docker"
+
+    [sinks.out]
+      encoding.codec = "json"
+      inputs = ["in"]
+      
+      mode = "tcp"
+      address = "graylog-deploy:5555"
