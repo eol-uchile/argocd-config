@@ -55,10 +55,10 @@ spec:
           subPath: elasticsearch
         resources:
           requests:
-            memory: 1Gi
+            memory: 2Gi
             cpu: 250m
           limits:
-            memory: 1Gi
+            memory: 2Gi
             cpu: 500m
       volumes:
       - name: datastore
