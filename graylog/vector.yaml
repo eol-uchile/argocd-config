@@ -4,6 +4,8 @@ metadata:
   name: vector-logger
   labels:
     k8s-app: fluentd-logging
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   selector:
     matchLabels:
@@ -56,4 +58,4 @@ data:
       
       type = "socket"
       mode = "tcp"
-      address = "graylog-deploy:5555"
+      address = "graylog3:5555"
