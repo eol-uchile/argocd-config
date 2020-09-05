@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: graylog
+  namespace: argocd
+spec:
+  description: Project to backup uabierta databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: graylog
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: CronJob
+  - group: ""
+    kind: PersistentVolumeClaim
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: graylog
+  namespace: argocd
+spec:
+  destination:
+    namespace: graylog
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: graylog
+    repoURL: 'https://github.com/fdns/argocd-config'
+    targetRevision: HEAD
+  project: graylog
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
+

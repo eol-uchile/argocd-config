@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ./es6.yaml
+- ./graylog.yaml
+- ./ingress.yaml
+- ./mongo.yaml
+- ./secrets/graylog.yaml
+namespace: graylog

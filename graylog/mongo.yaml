@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-deploy
+  labels:
+    service: mongo-deploy
+spec:
+  replicas: 1
+  serviceName: mongo-deploy
+  selector:
+    matchLabels:
+      service: mongo-deploy
+  template:
+    metadata:
+      labels:
+        service: mongo-deploy
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:3.6.19
+        command: ["mongod", "--smallfiles", "--storageEngine", "wiredTiger", "--wiredTigerCacheSizeGB", "1", "--bind_ip_all"]
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: datastore
+          mountPath: /data/db
+          subPath: mongodb
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 50m
+          limits:
+            memory: 2Gi
+            cpu: 150m
+      volumes:
+      - name: datastore
+        persistentVolumeClaim:
+          claimName: graylog-mongodb-volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    service: mongo-deploy
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: graylog-mongodb-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 2Gi

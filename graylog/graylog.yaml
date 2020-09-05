@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graylog-deploy
+  labels:
+    service: graylog-deploy
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: graylog-deploy
+  template:
+    metadata:
+      labels:
+        service: graylog-deploy
+    spec:
+      containers:
+      - name: graylog3
+        image: graylog/graylog:3.3
+        env:
+        - name: GRAYLOG_PASSWORD_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: graylog
+              key: GRAYLOG_PASSWORD_SECRET
+        - name: GRAYLOG_ROOT_PASSWORD_SHA2
+          valueFrom:
+            secretKeyRef:
+              name: graylog
+              key: GRAYLOG_ROOT_PASSWORD_SHA2
+        - name: GRAYLOG_HTTP_EXTERNAL_URI
+          valueFrom:
+            secretKeyRef:
+              name: graylog
+              key: GRAYLOG_HTTP_EXTERNAL_URI
+        - name: GRAYLOG_ELASTICSEARCH_HOSTS
+          valueFrom:
+            secretKeyRef:
+              name: graylog
+              key: GRAYLOG_ELASTICSEARCH_HOSTS
+        - name: GRAYLOG_MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: graylog
+              key: GRAYLOG_MONGODB_URI
+        ports:
+        - containerPort: 9000
+        - containerPort: 5555
+#        volumeMounts:
+#        - name: graylog-tls
+#          mountPath: /etc/graylog/certs/
+#          readOnly: true
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 250m
+          limits:
+            memory: 2Gi
+            cpu: 500m
+#      volumes:
+#      - name: graylog-tls
+#        secret:
+#          secretName: graylog-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog3
+spec:
+  selector:
+    service: graylog-deploy
+  ports:
+  - name: "9000"
+    port: 9000
+    targetPort: 9000
+  - name: "5555"
+    port: 5555
+    targetPort: 5555

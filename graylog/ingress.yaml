@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: graylog-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  tls:
+    - secretName: graylog-ingress-certificate
+      hosts:
+      - graylog.staging.eol.espinoza.dev
+  rules:
+  - host: graylog.staging.eol.espinoza.dev
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: graylog3
+          servicePort: 9000
