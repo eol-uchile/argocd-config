@@ -20,10 +20,10 @@ spec:
       - name: vector-monitoring
         image: timberio/vector:0.10.0-alpine
         resources:
-          limits:
+          requests:
             cpu: 50m
             memory: 50Mi
-          requests:
+          limits:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
