@@ -10,6 +10,8 @@ resources:
 - reloader/project.yaml
 - graylog/namespace.yaml
 - graylog/project.yaml
+- edx-sandbox/namespace.yaml
+- edx-sandbox/project.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
