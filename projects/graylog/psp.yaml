@@ -58,4 +58,3 @@ subjects:
 roleRef:
   kind: Role
   name: policy-vector
-  namespace: graylog
