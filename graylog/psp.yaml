@@ -26,6 +26,7 @@ spec:
   - 'persistentVolumeClaim'
   - 'secret'
   - 'projected'
+  - 'hostPath'
   allowedHostPaths:
   - pathPrefix: /var/run/docker.sock
   allowedCapabilities:
