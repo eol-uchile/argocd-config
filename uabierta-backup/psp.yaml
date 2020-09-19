@@ -1,0 +1,60 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: 5policy-uabierta-backup
+  namespace: uabierta-backup
+spec:
+  privileged: false
+  hostNetwork: false
+  hostPorts: []
+  allowPrivilegeEscalation: false
+  defaultAllowPrivilegeEscalation: false
+  hostPID: false
+  hostIPC: false
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - 'configMap'
+  - 'downwardAPI'
+  - 'emptyDir'
+  - 'persistentVolumeClaim'
+  - 'secret'
+  - 'projected'
+  - 'nfs'
+  allowedCapabilities:
+  - '*'
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: policy-uabierta-backup
+  namespace: uabierta-backup
+rules:
+- apiGroups:
+  - extensions
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - 5policy-uabierta-backup
+  verbs:
+  - use
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: policy-uabierta-backup
+  namespace: uabierta-backup
+subjects:
+- kind: ServiceAccount
+  namespace: uabierta-backup
+  name: default
+roleRef:
+  kind: Role
+  name: policy-uabierta-backup
+  apiGroup: rbac.authorization.k8s.io

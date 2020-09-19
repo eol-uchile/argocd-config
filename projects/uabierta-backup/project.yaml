@@ -8,14 +8,14 @@ spec:
   # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
-  # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
   - namespace: uabierta-backup
     server: https://kubernetes.default.svc
+  - group: 'policy'
+    kind: PodSecurityPolicy
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
-  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceWhitelist:
   - group: 'apps'
     kind: Deployment
@@ -23,6 +23,10 @@ spec:
     kind: SealedSecret
   - group: 'batch'
     kind: CronJob
+  - group: rbac.authorization.k8s.io
+    kind: Role
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
