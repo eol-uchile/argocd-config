@@ -58,3 +58,4 @@ subjects:
 roleRef:
   kind: Role
   name: policy-vector
+  apiGroup: rbac.authorization.k8s.io
