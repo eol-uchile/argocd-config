@@ -10,7 +10,6 @@ resources:
 - reloader/project.yaml
 - graylog/namespace.yaml
 - graylog/project.yaml
-- graylog/psp.yaml
 - edx-sandbox/namespace.yaml
 - edx-sandbox/project.yaml
 

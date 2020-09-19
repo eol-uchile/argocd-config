@@ -7,4 +7,5 @@ resources:
 - ./mongo.yaml
 - ./secrets/graylog.yaml
 - vector.yaml
+- psp.yaml
 namespace: graylog
