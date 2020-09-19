@@ -11,11 +11,11 @@ spec:
   destinations:
   - namespace: uabierta-backup
     server: https://kubernetes.default.svc
-  - group: 'policy'
-    kind: PodSecurityPolicy
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
+  - group: 'policy'
+    kind: PodSecurityPolicy
   namespaceResourceWhitelist:
   - group: 'apps'
     kind: Deployment
