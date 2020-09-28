@@ -34,6 +34,8 @@ spec:
           readOnly: true
         - name: vector-config
           mountPath: /etc/vector/
+        - name: vector-cert
+          mountPath: /etc/certs/vector/
       terminationGracePeriodSeconds: 30
       volumes:
       - name: varlibdockersock
@@ -42,6 +44,9 @@ spec:
       - name: vector-config
         configMap:
           name: vector-config
+      - name: vector-cert
+        secret:
+          secretName: vector-cert
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -59,3 +64,10 @@ data:
       type = "socket"
       mode = "tcp"
       address = "graylog3:5555"
+
+      # TLS
+      tls.ca_file = "/etc/certs/vector/server.cert"
+      tls.crt_file = "/etc/certs/vector/client.cert"
+      tls.enabled = true
+      tls.key_file = "/etc/certs/vector/client.key"
+      tls.verify_certificate = true

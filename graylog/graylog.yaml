@@ -48,10 +48,10 @@ spec:
         ports:
         - containerPort: 9000
         - containerPort: 5555
-#        volumeMounts:
-#        - name: graylog-tls
-#          mountPath: /etc/graylog/certs/
-#          readOnly: true
+        volumeMounts:
+        - name: graylog-ca
+          mountPath: /etc/graylog/certs/
+          readOnly: true
         resources:
           requests:
             memory: 1Gi
@@ -59,10 +59,10 @@ spec:
           limits:
             memory: 2Gi
             cpu: 500m
-#      volumes:
-#      - name: graylog-tls
-#        secret:
-#          secretName: graylog-tls
+      volumes:
+      - name: graylog-ca
+        secret:
+          secretName: graylog-ca
 ---
 apiVersion: v1
 kind: Service
