@@ -5,7 +5,9 @@ resources:
 - ./graylog.yaml
 - ./ingress.yaml
 - ./mongo.yaml
-- ./secrets/graylog.yaml
 - vector.yaml
 - psp.yaml
+- secrets/graylog-ca.yaml
+- secrets/graylog.yaml
+- secrets/vector-cert.yaml
 namespace: graylog
