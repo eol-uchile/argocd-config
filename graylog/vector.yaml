@@ -68,6 +68,6 @@ data:
       # TLS
       tls.ca_file = "/etc/certs/vector/server.cert"
       tls.crt_file = "/etc/certs/vector/client.cert"
-      tls.enabled = false
+      tls.enabled = true
       tls.key_file = "/etc/certs/vector/client.key"
-      tls.verify_certificate = true
+      tls.verify_certificate = false
