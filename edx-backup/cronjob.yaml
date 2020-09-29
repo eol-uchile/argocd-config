@@ -15,6 +15,87 @@ spec:
             image: ghcr.io/eol-uchile/backup_container:91f5a84e94a789b09fbca26630f2e8841dafeee9
             args:
             - /root/scripts/backup_hourly.sh
+            env:
+            - name: BACKUP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: BACKUP_PASSWORD
+            - name: PLATFORM_GDRIVE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GDRIVE_CLIENT_SECRET
+            - name: PLATFORM_GDRIVE_SCOPE
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GDRIVE_SCOPE
+            - name: PLATFORM_GDRIVE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GDRIVE_TOKEN
+            - name: PLATFORM_GRIVE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GRIVE_CLIENT_ID
+            - name: PLATFORM_MONGODB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_HOST
+            - name: PLATFORM_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_PASSWORD
+            - name: PLATFORM_MONGODB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_USER
+            - name: PLATFORM_MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_HOST
+            - name: PLATFORM_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_PASSWORD
+            - name: PLATFORM_MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_USER
+            - name: PLATFORM_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_NAME
+            - name: PLATFORM_S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_ACCESS_KEY
+            - name: PLATFORM_S3_BUCKETS
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_BUCKETS
+            - name: PLATFORM_S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_SECRET_KEY
+            - name: PLATFORM_S3_URL
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_URL
             volumeMounts:
             - mountPath: /volume/nfs
               name: eol-backup
@@ -25,9 +106,6 @@ spec:
             nfs:
               server: 172.16.244.123
               path: /eol_backup/eol
-          - name: env-secrets
-            secret:
-              secretName: eol-config
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -46,6 +124,87 @@ spec:
             image: ghcr.io/eol-uchile/backup_container:91f5a84e94a789b09fbca26630f2e8841dafeee9
             args:
             - /root/scripts/backup.sh
+            env:
+            - name: BACKUP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: BACKUP_PASSWORD
+            - name: PLATFORM_GDRIVE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GDRIVE_CLIENT_SECRET
+            - name: PLATFORM_GDRIVE_SCOPE
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GDRIVE_SCOPE
+            - name: PLATFORM_GDRIVE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GDRIVE_TOKEN
+            - name: PLATFORM_GRIVE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_GRIVE_CLIENT_ID
+            - name: PLATFORM_MONGODB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_HOST
+            - name: PLATFORM_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_PASSWORD
+            - name: PLATFORM_MONGODB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_USER
+            - name: PLATFORM_MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_HOST
+            - name: PLATFORM_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_PASSWORD
+            - name: PLATFORM_MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_USER
+            - name: PLATFORM_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_NAME
+            - name: PLATFORM_S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_ACCESS_KEY
+            - name: PLATFORM_S3_BUCKETS
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_BUCKETS
+            - name: PLATFORM_S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_SECRET_KEY
+            - name: PLATFORM_S3_URL
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_S3_URL
             volumeMounts:
             - mountPath: /volume/nfs
               name: eol-backup
@@ -56,6 +215,3 @@ spec:
             nfs:
               server: 172.16.244.123
               path: /eol_backup/eol
-          - name: env-secrets
-            secret:
-              secretName: eol-config
