@@ -99,8 +99,6 @@ spec:
             volumeMounts:
             - mountPath: /volume/nfs
               name: eol-backup
-            - mountPath: /root/env/
-              name: env-secrets
           volumes:
           - name: eol-backup
             nfs:
@@ -208,8 +206,6 @@ spec:
             volumeMounts:
             - mountPath: /volume/nfs
               name: eol-backup
-            - mountPath: /root/env/
-              name: env-secrets
           volumes:
           - name: eol-backup
             nfs:
