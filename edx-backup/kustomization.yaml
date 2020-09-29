@@ -1,0 +1,6 @@
+resources:
+- cronjob.yaml
+- secrets/eol.yaml
+- psp.yaml
+
+namespace: edx-backup

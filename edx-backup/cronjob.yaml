@@ -1,0 +1,61 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: eol-backup
+spec:
+  schedule: "0 0-5,7-23 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: eol-backup
+            image: ghcr.io/eol-uchile/backup_container:d7f8cb150fbe635eacbb6e6e806bff1e82416278
+            args:
+            - /root/scripts/backup_hourly.sh
+            volumeMounts:
+            - mountPath: /volume/nfs
+              name: eol-backup
+            - mountPath: /root/env/
+              name: env-secrets
+          volumes:
+          - name: eol-backup
+            nfs:
+              server: 172.16.244.123
+              path: /eol_backup/eol
+          - name: env-secrets
+            secret:
+              secretName: eol-config
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: eol-backup-daily
+spec:
+  schedule: "0 6 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: eol-backup
+            image: ghcr.io/eol-uchile/backup_container:d7f8cb150fbe635eacbb6e6e806bff1e82416278
+            args:
+            - /root/scripts/backup.sh
+            volumeMounts:
+            - mountPath: /volume/nfs
+              name: eol-backup
+            - mountPath: /root/env/
+              name: env-secrets
+          volumes:
+          - name: eol-backup
+            nfs:
+              server: 172.16.244.123
+              path: /eol_backup/eol
+          - name: env-secrets
+            secret:
+              secretName: eol-config

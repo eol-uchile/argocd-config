@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: edx-backup
+  namespace: argocd
+spec:
+  description: Project to backup edx databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: edx-backup
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: 'policy'
+    kind: PodSecurityPolicy
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: CronJob
+  - group: rbac.authorization.k8s.io
+    kind: Role
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edx-backup
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-backup
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: edx-backup
+    repoURL: 'https://github.com/fdns/argocd-config'
+    targetRevision: HEAD
+  project: edx-backup
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
+

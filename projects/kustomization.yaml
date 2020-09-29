@@ -12,6 +12,8 @@ resources:
 - graylog/project.yaml
 - edx-sandbox/namespace.yaml
 - edx-sandbox/project.yaml
+- edx-backup/namespace.yaml
+- edx-backup/project.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
