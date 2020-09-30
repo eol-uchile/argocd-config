@@ -12,9 +12,9 @@ spec:
   tls:
     - secretName: metabase-ingress-certificate
       hosts:
-      - metabase.staging.eol.espinoza.dev
+      - metabase.eol.espinoza.dev
   rules:
-  - host: metabase.staging.eol.espinoza.dev
+  - host: metabase.eol.espinoza.dev
     http:
       paths:
       - path: /
