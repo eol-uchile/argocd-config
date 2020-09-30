@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metabase-deploy
+  labels:
+    service: metabase-deploy
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: metabase-deploy
+  template:
+    metadata:
+      labels:
+        service: metabase-deploy
+    spec:
+      containers:
+      - name: metabase
+        image: metabase/metabase:v0.36.6
+        env:
+        - name: MB_DB_TYPE
+          value: postgres
+        - name: MB_DB_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: metabase
+              key: MB_DB_DBNAME
+        - name: MB_DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: metabase
+              key: MB_DB_PORT
+        - name: MB_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: metabase
+              key: MB_DB_USER
+        - name: MB_DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: metabase
+              key: MB_DB_PASS
+        - name: MB_DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: metabase
+              key: MB_DB_HOST
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 50m
+          limits:
+            memory: 2Gi
+            cpu: 100m
+      volumes:
+      - name: metabase-ca
+        secret:
+          secretName: metabase-ca
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metabase
+spec:
+  selector:
+    service: metabase-deploy
+  ports:
+  - name: "3000"
+    port: 3000
+    targetPort: 3000

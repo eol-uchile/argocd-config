@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: "true"
+  creationTimestamp: null
+  name: basic-auth
+spec:
+  encryptedData:
+    password: AgCcu912+u1UqXQyVq4Srw+jGYgck3s3CgyA7+LdOTx/eyp6BNcx4XYQ1xwrbniw6r52ojcnGYIJaLgMfwrMR1NkNzA6B32dIioavd/Oz4+xa3gtSeqZgGraypVIgmEUXfJ6M2rnmOkVWsfxut8DsRM3hNyj9Lysp7R8p4xEqcL99nRsnTJS3LSbztpBPg8YiSea07kQSAL/QhLTJ9a9rBP+DF1oUZlHDCKpSQfcCkfk63zUEtoTo6NfZ76R0SVNbtWBD7CM1pAy6RYVMhZThR4QNgX+7Jd4ki2F3a4gHEEAgScBVfmzNfKUGoJQJgVsxLFIhnoBE3jLBIOdPoMDFW+SeGaPbaFHe70v7K0LHyTm7lTwPd59sPd5r1N19XNluL42V8sKT1BD4q/aIdC7Oo1h3Tsam8BDXEbySvAvQzOUd+nLwOq8OnnHhx61von3jg8lSUer0IbDiZ9TQ9Blaltq/Vh3cLbVFYkbFm7PFzGHOQQBZr6p1O/eoGPI0cYH3U2B8QP7AUcve6Cmh4IbKdjFRZSeW5c/hDp3qDQ+GfqlEYW07S8HBICSrnW/RIokT20/BfmoRV/2DFKOuVs+na7+Li7dRVq5pBw8z2UxpUXkV9HPmVhDhmdCzW2BB2IJfs94jGwozmbN9swed6zB6EXJifRlyfxJj0Ds6bFMP5Vs3rhkkXaWCb+iAX4bSlRWXrcA+VsCAq3rXZJxZOFamuvZt2bE26AHYqCF6tN9gkzbTiHaJO8ivx71R1E=
+  template:
+    metadata:
+      annotations:
+        sealedsecrets.bitnami.com/cluster-wide: "true"
+      creationTimestamp: null
+      name: basic-auth
+

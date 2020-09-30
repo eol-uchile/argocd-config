@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: metabase
+  namespace: argocd
+spec:
+  description: Metabase database exploring service
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: metabase
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
+  - group: ''
+    kind: 'Endpoints'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metabase
+  namespace: argocd
+spec:
+  destination:
+    namespace: metabase
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: metabase
+    repoURL: 'https://github.com/fdns/argocd-config'
+    targetRevision: HEAD
+  project: metabase
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
+
