@@ -29,7 +29,7 @@ spec:
         - name: OTRS_TIMEZONE
           value: UTC
         - name: SHOW_OTRS_LOGO
-          value: no
+          value: "no"
         - name: OTRS_DEFAULT_EMAIL
           value: no-reply@eol.uchile.cl
         - name: OTRS_DB_HOST
