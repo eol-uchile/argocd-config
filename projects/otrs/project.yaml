@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: otrs
+  namespace: argocd
+spec:
+  description: otrs database exploring service
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: otrs
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
+  - group: ''
+    kind: 'Endpoints'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: otrs
+  namespace: argocd
+spec:
+  destination:
+    namespace: otrs
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: otrs
+    repoURL: 'https://github.com/fdns/argocd-config'
+    targetRevision: HEAD
+  project: otrs
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false

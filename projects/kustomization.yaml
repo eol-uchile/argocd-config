@@ -16,6 +16,8 @@ resources:
 - edx-backup/project.yaml
 - metabase/namespace.yaml
 - metabase/project.yaml
+- otrs/namespace.yaml
+- otrs/project.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1

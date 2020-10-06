@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: otrs-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  tls:
+    - secretName: otrs-ingress-certificate
+      hosts:
+      - eol-ayuda.uchile.cl
+  rules:
+  - host: eol-ayuda.uchile.cl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: otrs
+          servicePort: 80
