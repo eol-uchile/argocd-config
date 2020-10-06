@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: otrs-deploy
   labels:
@@ -7,6 +7,7 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
+  serviceName: otrs-deploy
   replicas: 1
   selector:
     matchLabels:
