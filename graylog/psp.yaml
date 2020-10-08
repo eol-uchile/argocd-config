@@ -7,7 +7,7 @@ spec:
   privileged: true
   hostNetwork: false
   hostPorts: []
-  allowPrivilegeEscalation: false
+  allowPrivilegeEscalation: true
   defaultAllowPrivilegeEscalation: false
   hostPID: false
   hostIPC: false
