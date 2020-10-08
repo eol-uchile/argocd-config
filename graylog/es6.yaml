@@ -30,6 +30,7 @@ spec:
         image: busybox:1.30
         command: ["sysctl", "-w", "vm.max_map_count=262144"]
         securityContext:
+          allowPrivilegeEscalation: true
           privileged: true
       containers:
       - name: es
