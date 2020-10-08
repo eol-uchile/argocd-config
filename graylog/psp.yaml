@@ -4,7 +4,7 @@ metadata:
   name: 5policy-vector
   namespace: graylog
 spec:
-  privileged: false
+  privileged: true
   hostNetwork: false
   hostPorts: []
   allowPrivilegeEscalation: false
