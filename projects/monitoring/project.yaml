@@ -54,7 +54,7 @@ spec:
     namespace: monitoring
     server: 'https://kubernetes.default.svc'
   source:
-    path: monitoring
+    path: .
     repoURL: 'https://github.com/eol-uchile/kube-prometheus'
     targetRevision: HEAD
   project: monitoring
