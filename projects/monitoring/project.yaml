@@ -69,6 +69,6 @@ spec:
   ignoreDifferences:
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
-      name: '*'
+      name: alertmanagers.monitoring.coreos.com
       jsonPointers:
       - /status
