@@ -25,7 +25,7 @@ spec:
     kind: 'Service'
   - group: ''
     kind: 'Endpoints'
-  - group: 'autoscaling/v1'
+  - group: 'autoscaling'
     kind: 'HorizontalPodAutoscaler'
 ---
 apiVersion: argoproj.io/v1alpha1
