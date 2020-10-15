@@ -72,3 +72,33 @@ spec:
       name: alertmanagers.monitoring.coreos.com
       jsonPointers:
       - /status
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: podmonitors.monitoring.coreos.com
+      jsonPointers:
+      - /status
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: probes.monitoring.coreos.com
+      jsonPointers:
+      - /status
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: prometheuses.monitoring.coreos.com
+      jsonPointers:
+      - /status
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: prometheusrules.monitoring.coreos.com
+      jsonPointers:
+      - /status
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: servicemonitors.monitoring.coreos.com
+      jsonPointers:
+      - /status
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: thanosrulers.monitoring.coreos.com
+      jsonPointers:
+      - /status
