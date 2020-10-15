@@ -56,7 +56,7 @@ spec:
   source:
     path: .
     repoURL: 'https://github.com/eol-uchile/kube-prometheus'
-    targetRevision: HEAD
+    targetRevision: eol
   project: monitoring
   syncPolicy:
     automated:
