@@ -63,3 +63,12 @@ spec:
       automated:
         prune: false
         selfHeal: false
+  # This solves a bug where argo-cd will mark the application as healthy but OutOfSync
+  # this occurs because kube-prometheus updates the status field in the CRD. This field 
+  # makes argo-cd diff's think it is out of sync.
+  ignoreDifferences:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: '*'
+      jsonPointers:
+      - /status
