@@ -43,4 +43,23 @@ spec:
       automated:
         prune: false
         selfHeal: false
-
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-kube-prometheus
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: monitoring
+    repoURL: 'https://github.com/eol-uchile/kube-prometheus'
+    targetRevision: HEAD
+  project: monitoring
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
