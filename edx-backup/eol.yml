@@ -12,7 +12,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:324246aa2830e6ca7270de9d1574dc5229331e20
+            image: ghcr.io/eol-uchile/backup_container:fccacab0ae8ff79e32a2a68abd33981bcbdbca84
             args:
             - /root/scripts/backup_hourly.sh
             env:
@@ -129,7 +129,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:324246aa2830e6ca7270de9d1574dc5229331e20
+            image: ghcr.io/eol-uchile/backup_container:fccacab0ae8ff79e32a2a68abd33981bcbdbca84
             args:
             - /root/scripts/backup.sh
             env:
