@@ -46,6 +46,11 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_MONGODB_HOST
+            - name: PLATFORM_MONGODB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_PORT
             - name: PLATFORM_MONGODB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -61,6 +66,11 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_MYSQL_HOST
+            - name: PLATFORM_MYSQL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_PORT
             - name: PLATFORM_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -153,6 +163,11 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_MONGODB_HOST
+            - name: PLATFORM_MONGODB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MONGODB_PORT
             - name: PLATFORM_MONGODB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -168,6 +183,11 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_MYSQL_HOST
+            - name: PLATFORM_MYSQL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_PORT
             - name: PLATFORM_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
