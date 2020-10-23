@@ -12,7 +12,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eduabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:ebd86bd029e0e71ea22515a91963404b777a5d53
+            image: ghcr.io/eol-uchile/backup_container:bac7f891fb3f32f6419cf1218ff0808d350cd341
             args:
             - /root/scripts/backup_hourly.sh
             env:
@@ -129,7 +129,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eduabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:ebd86bd029e0e71ea22515a91963404b777a5d53
+            image: ghcr.io/eol-uchile/backup_container:bac7f891fb3f32f6419cf1218ff0808d350cd341
             args:
             - /root/scripts/backup.sh
             env:
