@@ -27,6 +27,8 @@ spec:
     kind: 'Endpoints'
   - group: 'autoscaling'
     kind: 'HorizontalPodAutoscaler'
+  - group: ''
+    kind: 'PersistentVolumeClaim'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
