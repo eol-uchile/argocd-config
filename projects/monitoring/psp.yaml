@@ -11,3 +11,6 @@ subjects:
 - kind: ServiceAccount
   name: node-exporter
   namespace: monitoring
+- kind: ServiceAccount
+  name: kube-state-metrics
+  namespace: monitoring
