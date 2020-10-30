@@ -3,7 +3,6 @@ resources:
 - uabierta-backup/namespace.yaml
 - uabierta-backup/project.yaml
 - monitoring/namespace.yaml
-- monitoring/psp.yaml
 - monitoring/project.yaml
 - edx-staging/namespace.yaml
 - edx-staging/project.yaml
