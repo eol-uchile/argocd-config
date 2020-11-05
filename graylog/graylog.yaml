@@ -45,6 +45,22 @@ spec:
             secretKeyRef:
               name: graylog
               key: GRAYLOG_MONGODB_URI
+        - name: GRAYLOG_TRANSPORT_EMAIL_ENABLED
+          value: "true"
+        - name: GRAYLOG_TRANSPORT_EMAIL_HOSTNAME
+          value: "mtaprod.uchile.cl"
+        - name: GRAYLOG_TRANSPORT_EMAIL_PORT
+          value: "22"
+        - name: GRAYLOG_TRANSPORT_EMAIL_USE_AUTH
+          value: "false"
+        - name: GRAYLOG_TRANSPORT_EMAIL_USE_TLS
+          value: "false"
+        - name: GRAYLOG_TRANSPORT_EMAIL_USE_SSL
+          value: "false"
+        - name: GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL
+          value: "no-reply@eol.uchile.cl"
+        - name: GRAYLOG_TRANSPORT_EMAIL_WEB_INTERFACE_URL
+          value: "https://graylog.staging.eol.espinoza.dev"
         ports:
         - containerPort: 9000
         - containerPort: 5555
