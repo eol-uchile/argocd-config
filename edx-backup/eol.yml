@@ -110,8 +110,8 @@ spec:
               requests:
                 memory: 2Gi
                 cpu: 750m
-             limits:
-               memory: 2Gi
+              limits:
+                memory: 2Gi
                 cpu: 750m
             volumeMounts:
             - mountPath: /volume/nfs
@@ -234,8 +234,8 @@ spec:
               requests:
                 memory: 2Gi
                 cpu: 750m
-             limits:
-               memory: 2Gi
+              limits:
+                memory: 2Gi
                 cpu: 750m
             volumeMounts:
             - mountPath: /volume/nfs
