@@ -106,6 +106,13 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_S3_URL
+            resources:
+              requests:
+                memory: 2Gi
+                cpu: 750m
+             limits:
+               memory: 2Gi
+                cpu: 750m
             volumeMounts:
             - mountPath: /volume/nfs
               name: eol-backup
@@ -223,6 +230,13 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_S3_URL
+            resources:
+              requests:
+                memory: 2Gi
+                cpu: 750m
+             limits:
+               memory: 2Gi
+                cpu: 750m
             volumeMounts:
             - mountPath: /volume/nfs
               name: eol-backup
