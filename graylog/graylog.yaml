@@ -50,7 +50,7 @@ spec:
         - name: GRAYLOG_TRANSPORT_EMAIL_HOSTNAME
           value: "mtaprod.uchile.cl"
         - name: GRAYLOG_TRANSPORT_EMAIL_PORT
-          value: "22"
+          value: "25"
         - name: GRAYLOG_TRANSPORT_EMAIL_USE_AUTH
           value: "false"
         - name: GRAYLOG_TRANSPORT_EMAIL_USE_TLS
