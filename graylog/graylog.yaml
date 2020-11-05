@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: graylog3
-        image: graylog/graylog:3.3.7
+        image: graylog/graylog:3.3.8
         env:
         - name: GRAYLOG_PASSWORD_SECRET
           valueFrom:
