@@ -4,6 +4,8 @@ resources:
 - secrets/eduabierta.yaml
 - eol.yml
 - eduabierta.yaml
+- uabierta.yaml
+- secrets/uabierta.yaml
 
 namespace: edx-backup
 apiVersion: kustomize.config.k8s.io/v1beta1
