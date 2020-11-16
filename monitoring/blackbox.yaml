@@ -45,6 +45,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: prometheus-blackbox-exporter-other
+  labels:
+    type: blackbox
 spec:
   endpoints:
   - interval: 30s
@@ -70,4 +72,4 @@ spec:
     - monitoring
   selector:
     matchLabels:
-      name: blackbox
+      type: blackbox
