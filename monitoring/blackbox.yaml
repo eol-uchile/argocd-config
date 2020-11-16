@@ -70,4 +70,4 @@ spec:
     - monitoring
   selector:
     matchLabels:
-      service: blackbox-deploy
+      service: blackbox
