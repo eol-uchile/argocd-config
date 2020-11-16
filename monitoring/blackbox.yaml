@@ -4,8 +4,6 @@ metadata:
   name: blackbox-deploy
   labels:
     service: blackbox-deploy
-  annotations:
-    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -34,7 +32,7 @@ kind: Service
 metadata:
   name: blackbox
   labels:
-    type: blackbox
+    name: blackbox
 spec:
   selector:
     service: blackbox-deploy
@@ -63,8 +61,8 @@ spec:
       target:
       - https://staging.eol.espinoza.dev/heartbeat
     path: /probe
-    port: https
-    scheme: https
+    port: http
+    scheme: http
     scrapeTimeout: 30s
   jobLabel: prometheus-blackbox-exporter
   namespaceSelector:
@@ -72,4 +70,4 @@ spec:
     - monitoring
   selector:
     matchLabels:
-      type: blackbox
+      name: blackbox
