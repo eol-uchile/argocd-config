@@ -55,7 +55,7 @@ spec:
     - sourceLabels:
       - __param_target
       targetLabel: instance
-    - target_label: __address__
+    - targetLabel: __address__
       replacement: blackbox:9115
     params:
       module:
