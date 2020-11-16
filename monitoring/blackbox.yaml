@@ -55,13 +55,15 @@ spec:
     - sourceLabels:
       - __param_target
       targetLabel: instance
+    - target_label: __address__
+      replacement: blackbox:9115
     params:
       module:
       - http_2xx
       target:
       - https://staging.eol.espinoza.dev/heartbeat
     path: /probe
-    port: http
+    port: "80"
     scheme: http
     scrapeTimeout: 30s
   jobLabel: prometheus-blackbox-exporter
