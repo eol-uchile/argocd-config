@@ -20,7 +20,7 @@ spec:
       - name: blackbox
         image: prom/blackbox-exporter:v0.14.0
         ports:
-        - containerPort: 80
+        - containerPort: 9115
         resources:
           requests:
             memory: 50m
@@ -39,4 +39,4 @@ spec:
   ports:
   - name: "80"
     port: 80
-    targetPort: 80
+    targetPort: 9115
