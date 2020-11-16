@@ -40,3 +40,35 @@ spec:
   - name: "80"
     port: 80
     targetPort: 9115
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-blackbox-exporter-other
+spec:
+  endpoints:
+  - interval: 30s
+    metricRelabelings:
+    - sourceLabels:
+      - __address__
+      targetLabel: __param_target
+    - sourceLabels:
+      - __param_target
+      targetLabel: instance
+    params:
+      module:
+      - http_2xx
+      target:
+      - https://staging.eol.espinoza.dev/heartbeat
+      - https://studio.staging.eol.espinoza.dev/heartbeat
+    path: /probe
+    port: http
+    scheme: http
+    scrapeTimeout: 30s
+  jobLabel: prometheus-blackbox-exporter
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      service: blackbox-deploy
