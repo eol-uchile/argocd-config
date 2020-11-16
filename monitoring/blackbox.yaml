@@ -60,10 +60,9 @@ spec:
       - http_2xx
       target:
       - https://staging.eol.espinoza.dev/heartbeat
-      - https://studio.staging.eol.espinoza.dev/heartbeat
     path: /probe
-    port: http
-    scheme: http
+    port: https
+    scheme: https
     scrapeTimeout: 30s
   jobLabel: prometheus-blackbox-exporter
   namespaceSelector:
