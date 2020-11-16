@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox-deploy
+  labels:
+    service: blackbox-deploy
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: blackbox-deploy
+  template:
+    metadata:
+      labels:
+        service: blackbox-deploy
+    spec:
+      containers:
+      - name: blackbox
+        image: prom/blackbox-exporter:v0.14.0
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: 50m
+            cpu: 50m
+          limits:
+            memory: 50m
+            cpu: 50m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox
+spec:
+  selector:
+    service: blackbox-deploy
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 80
