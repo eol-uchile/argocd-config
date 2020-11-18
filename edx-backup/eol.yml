@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: eol-backup
 spec:
-  schedule: "0 0-5,7-23 * * *"
+  schedule: "30 0-5,7-23 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -127,7 +127,7 @@ kind: CronJob
 metadata:
   name: eol-backup-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "30 6 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
