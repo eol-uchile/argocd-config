@@ -34,7 +34,7 @@ spec:
           privileged: true
       containers:
       - name: es
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.7.2
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.8.13
         readinessProbe:
           tcpSocket:
             port: 9200
