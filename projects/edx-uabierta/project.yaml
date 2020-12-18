@@ -44,6 +44,11 @@ spec:
     repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
     targetRevision: HEAD
   project: edx-uabierta
+  syncPolicy:
+    automated:
+      automated:
+        prune: false
+        selfHeal: false
   ignoreDifferences:
   - group: apps
     kind: Deployment
