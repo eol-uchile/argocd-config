@@ -20,8 +20,8 @@ resources:
 - otrs/project.yaml
 - edx-eol/namespace.yaml
 - edx-eol/project.yaml
-- edx-eduabierta/namespace.yaml
-- edx-eduabierta/project.yaml
+#- edx-eduabierta/namespace.yaml
+#- edx-eduabierta/project.yaml
 - edx-uabierta/namespace.yaml
 - edx-uabierta/project.yaml
 
