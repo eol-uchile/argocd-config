@@ -24,6 +24,8 @@ resources:
 - edx-eduabierta/project.yaml
 - edx-uabierta/namespace.yaml
 - edx-uabierta/project.yaml
+- edx-dgd/namespace.yaml
+- edx-dgd/project.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
