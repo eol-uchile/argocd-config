@@ -1,9 +1,7 @@
 resources:
 - secrets/eol.yaml
 - psp.yaml
-- secrets/eduabierta.yaml
 - eol.yml
-- eduabierta.yaml
 - uabierta.yaml
 - secrets/uabierta.yaml
 
