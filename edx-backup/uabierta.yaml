@@ -223,9 +223,9 @@ spec:
                 secretKeyRef:
                   name: uabierta-config
                   key: PLATFORM_S3_URL
-            volumeMounts:
-            - mountPath: /volume/nfs
-              name: uabierta-backup
+          #  volumeMounts:
+          #  - mountPath: /volume/nfs
+          #    name: uabierta-backup
           #volumes:
           #- name: uabierta-backup
           #  nfs:
