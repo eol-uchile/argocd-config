@@ -81,6 +81,11 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_MYSQL_USER
+            - name: PLATFORM_MYSQL_DATABASES
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_DATABASES
             - name: PLATFORM_NAME
               valueFrom:
                 secretKeyRef:
@@ -214,6 +219,11 @@ spec:
                 secretKeyRef:
                   name: eol-config
                   key: PLATFORM_MYSQL_USER
+            - name: PLATFORM_MYSQL_DATABASES
+              valueFrom:
+                secretKeyRef:
+                  name: eol-config
+                  key: PLATFORM_MYSQL_DATABASES
             - name: PLATFORM_NAME
               valueFrom:
                 secretKeyRef:
