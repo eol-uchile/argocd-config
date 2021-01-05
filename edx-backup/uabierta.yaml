@@ -84,7 +84,7 @@ spec:
             - name: PLATFORM_MYSQL_DATABASES
               valueFrom:
                 secretKeyRef:
-                  name: eol-config
+                  name: xuabierta-config
                   key: PLATFORM_MYSQL_DATABASES
             - name: PLATFORM_NAME
               valueFrom:
@@ -206,7 +206,7 @@ spec:
             - name: PLATFORM_MYSQL_DATABASES
               valueFrom:
                 secretKeyRef:
-                  name: eol-config
+                  name: uabierta-config
                   key: PLATFORM_MYSQL_DATABASES
             - name: PLATFORM_NAME
               valueFrom:
