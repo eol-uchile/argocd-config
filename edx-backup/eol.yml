@@ -113,14 +113,14 @@ spec:
               limits:
                 memory: 2Gi
                 cpu: 750m
-            volumeMounts:
-            - mountPath: /volume/nfs
-              name: eol-backup
-          volumes:
-          - name: eol-backup
-            nfs:
-              server: 172.16.244.123
-              path: /eol_backup/eol
+          #  volumeMounts:
+          #  - mountPath: /volume/nfs
+          #    name: eol-backup
+          #volumes:
+          #- name: eol-backup
+          #  nfs:
+          #    server: 172.16.244.123
+          #    path: /eol_backup/eol
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -246,14 +246,14 @@ spec:
               limits:
                 memory: 2Gi
                 cpu: 750m
-            volumeMounts:
-            - mountPath: /volume/nfs
-              name: eol-backup
-          volumes:
-          - name: eol-backup
-            nfs:
-              server: 172.16.244.123
-              path: /eol_backup/eol
+          #  volumeMounts:
+          #  - mountPath: /volume/nfs
+          #    name: eol-backup
+          #volumes:
+          #- name: eol-backup
+          #  nfs:
+          #    server: 172.16.244.123
+          #    path: /eol_backup/eol
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:

@@ -106,14 +106,14 @@ spec:
                 secretKeyRef:
                   name: uabierta-config
                   key: PLATFORM_S3_URL
-            volumeMounts:
-            - mountPath: /volume/nfs
-              name: uabierta-backup
-          volumes:
-          - name: uabierta-backup
-            nfs:
-              server: 172.16.244.123
-              path: /eol_backup/uabierta
+          #  volumeMounts:
+          #  - mountPath: /volume/nfs
+          #    name: uabierta-backup
+          #volumes:
+          #- name: uabierta-backup
+          #  nfs:
+          #    server: 172.16.244.123
+          #    path: /eol_backup/uabierta
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -226,8 +226,8 @@ spec:
             volumeMounts:
             - mountPath: /volume/nfs
               name: uabierta-backup
-          volumes:
-          - name: uabierta-backup
-            nfs:
-              server: 172.16.244.123
-              path: /eol_backup/uabierta
+          #volumes:
+          #- name: uabierta-backup
+          #  nfs:
+          #    server: 172.16.244.123
+          #    path: /eol_backup/uabierta
