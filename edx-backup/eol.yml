@@ -135,6 +135,7 @@ spec:
                     operator: NotIn
                     values:
                     - k8seol0101
+                    - k8seol0102
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -273,3 +274,4 @@ spec:
                     operator: NotIn
                     values:
                     - k8seol0101
+                    - k8seol0102
