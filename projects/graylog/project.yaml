@@ -33,6 +33,12 @@ spec:
     kind: Role
   - group: rbac.authorization.k8s.io
     kind: RoleBinding
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: rbac.authorization.k8s.io
+    kind: ServiceAccount
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
