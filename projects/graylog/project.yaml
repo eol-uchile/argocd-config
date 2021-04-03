@@ -16,6 +16,10 @@ spec:
     kind: Namespace
   - group: 'policy'
     kind: PodSecurityPolicy
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
   namespaceResourceWhitelist:
   - group: 'apps'
     kind: '*'
@@ -33,11 +37,7 @@ spec:
     kind: Role
   - group: rbac.authorization.k8s.io
     kind: RoleBinding
-  - group: rbac.authorization.k8s.io
-    kind: ClusterRole
-  - group: rbac.authorization.k8s.io
-    kind: ClusterRoleBinding
-  - group: rbac.authorization.k8s.io
+  - group: ''
     kind: ServiceAccount
 ---
 apiVersion: argoproj.io/v1alpha1
