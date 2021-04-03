@@ -18,29 +18,37 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      serviceAccountName: vector-logger
       containers:
       - name: vector-monitoring
-        image: timberio/vector:0.10.0-alpine
+        image: timberio/vector:0.12.2-alpine
+        env:
+        - name: VECTOR_SELF_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: VECTOR_SELF_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: VECTOR_SELF_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         resources:
           requests:
-            cpu: 50m
+            cpu: 10m
             memory: 50Mi
           limits:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-        - name: varlibdockersock
-          mountPath: /var/run/docker.sock
-          readOnly: true
         - name: vector-config
           mountPath: /etc/vector/
         - name: vector-cert
           mountPath: /etc/certs/vector/
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: varlibdockersock
-        hostPath:
-          path: /var/run/docker.sock
       - name: vector-config
         configMap:
           name: vector-config
@@ -55,7 +63,7 @@ metadata:
 data:
   vector.toml: |
     [sources.in]
-      type = "docker"
+      type = "kubernetes_logs"
 
     [sinks.out]
       encoding.codec = "json"
@@ -71,3 +79,33 @@ data:
       tls.enabled = true
       tls.key_file = "/etc/certs/vector/client.key"
       tls.verify_certificate = false
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vector-logger
+rules:
+- apiGroups:
+    - ""
+  resources:
+    - pods
+  verbs:
+    - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vector-logger
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vector-logger
+subjects:
+  - kind: ServiceAccount
+    name: vector-logger
+    namespace: graylog
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vector-logger
