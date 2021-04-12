@@ -1,7 +1,5 @@
 resources:
 - argocd-ingress/project.yaml
-- uabierta-backup/namespace.yaml
-- uabierta-backup/project.yaml
 - monitoring/namespace.yaml
 - monitoring/project.yaml
 - edx-staging/namespace.yaml
