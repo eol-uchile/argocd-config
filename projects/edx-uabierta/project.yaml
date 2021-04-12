@@ -12,6 +12,9 @@ spec:
   destinations:
   - namespace: edx-uabierta
     server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
   namespaceResourceWhitelist:
   - group: 'apps'
     kind: '*'

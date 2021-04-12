@@ -10,6 +10,9 @@ spec:
   destinations:
   - namespace: metabase
     server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
   namespaceResourceWhitelist:
   - group: 'apps'
     kind: '*'
