@@ -37,3 +37,7 @@ spec:
     repoURL: 'https://github.com/fdns/argocd-config'
     targetRevision: HEAD
   project: reloader
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+

@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: metabase
-  namespace: argocd
 spec:
   description: Metabase database exploring service
   # Allow manifests to deploy from any Git repos
@@ -41,7 +40,7 @@ spec:
   project: metabase
   syncPolicy:
     automated:
-      automated:
-        prune: false
-        selfHeal: false
-
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true

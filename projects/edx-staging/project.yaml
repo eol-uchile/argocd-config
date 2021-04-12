@@ -44,9 +44,10 @@ spec:
   project: edx-staging
   syncPolicy:
     automated:
-      automated:
-        prune: false
-        selfHeal: false
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
   ignoreDifferences:
   - group: apps
     kind: Deployment
