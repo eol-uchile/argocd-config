@@ -41,6 +41,7 @@ spec:
   project: otrs
   syncPolicy:
     automated:
-      automated:
-        prune: false
-        selfHeal: false
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true

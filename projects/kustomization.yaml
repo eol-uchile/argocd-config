@@ -1,26 +1,15 @@
 resources:
 - argocd-ingress/project.yaml
-- monitoring/namespace.yaml
 - monitoring/project.yaml
-- edx-staging/namespace.yaml
 - edx-staging/project.yaml
-- reloader/namespace.yaml
 - reloader/project.yaml
-- graylog/namespace.yaml
 - graylog/project.yaml
-- edx-sandbox/namespace.yaml
 - edx-sandbox/project.yaml
-- edx-backup/namespace.yaml
 - edx-backup/project.yaml
-- metabase/namespace.yaml
 - metabase/project.yaml
-- otrs/namespace.yaml
 - otrs/project.yaml
-- edx-eol/namespace.yaml
 - edx-eol/project.yaml
-- edx-uabierta/namespace.yaml
 - edx-uabierta/project.yaml
-- edx-dgd/namespace.yaml
 - edx-dgd/project.yaml
 
 namespace: argocd
