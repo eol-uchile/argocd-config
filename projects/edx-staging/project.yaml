@@ -27,6 +27,9 @@ spec:
     kind: 'Endpoints'
   - group: 'autoscaling'
     kind: 'HorizontalPodAutoscaler'
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
