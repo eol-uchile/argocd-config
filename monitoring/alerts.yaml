@@ -3,6 +3,9 @@ kind: PrometheusRule
 metadata:
   name: blackbox-alerts
   namespace: monitoring
+  labels:
+    prometheus: k8s
+    role: alert-rules
 spec:
   groups:
   - name: blackbox-alerts
