@@ -27,7 +27,7 @@ spec:
     kind: 'Endpoints'
   - group: 'autoscaling'
     kind: 'HorizontalPodAutoscaler'
-  - group: 'monitoring.coreos.com/v1'
+  - group: 'monitoring.coreos.com'
     kind: Probe
   clusterResourceWhitelist:
   - group: ''
