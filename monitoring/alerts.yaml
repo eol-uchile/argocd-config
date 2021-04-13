@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: blackbox-alerts
+  namespace: monitoring
+spec:
+  groups:
+  - name: blackbox-alerts
+    rules:
+    - alert: CertificateExpirationSoon
+      annotations:
+        description: A Domain certificate has not been renewed and going to expire. If this is not resolved, the domain will be inaccessible until resolved (Check cert-manager for any error)
+        runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/CertificateExpirationSoon
+        summary: A certificate is expiring.
+      expr: |
+        probe_ssl_earliest_cert_expiry - time()
+        < 1728000
+      for: 15m
+      labels:
+        severity: critical
+    - alert: SiteNotAvailable
+      annotations:
+        description: The site is not available and can't be accessed from the internet. Check if the pods or nodes have failed.
+        runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/SiteNotAvailable
+        summary: A site is not available.
+      expr: |
+        probe_success
+        < 1
+      for: 1m
+      labels:
+        severity: critical
