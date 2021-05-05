@@ -1,0 +1,9 @@
+resources:
+- secrets/otrs.yaml
+- secrets/metabase.yaml
+- otrs.yml
+- metabase.yaml
+
+namespace: service-backup
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
