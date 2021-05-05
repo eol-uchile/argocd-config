@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: service-backup
+  namespace: argocd
+spec:
+  description: Project to backup metabase and otrs databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: service-backup
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: 'policy'
+    kind: PodSecurityPolicy
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: CronJob
+  - group: rbac.authorization.k8s.io
+    kind: Role
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: service-backup
+  namespace: argocd
+spec:
+  destination:
+    namespace: service-backup
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: service-backup
+    repoURL: 'https://github.com/fdns/argocd-config'
+    targetRevision: HEAD
+  project: service-backup
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
