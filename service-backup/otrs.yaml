@@ -9,7 +9,7 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
           - name: uabierta-backup
             image: ghcr.io/eol-uchile/backup_container:9135d168aa43c6313b7fd3212bb470a38b033b6e
@@ -18,3 +18,5 @@ spec:
             envFrom:
             - secretRef:
                 name: otrs
+            - secretRef:
+                name: common
