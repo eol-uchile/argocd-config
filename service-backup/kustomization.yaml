@@ -2,7 +2,7 @@ resources:
 - secrets/common.yaml
 - secrets/otrs.yaml
 - secrets/metabase.yaml
-- otrs.yml
+- otrs.yaml
 - metabase.yaml
 
 namespace: service-backup
