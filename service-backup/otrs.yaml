@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: uabierta-backup-daily
+  name: otrs-backup-daily
 spec:
   schedule: "0 6 * * *"
   concurrencyPolicy: Forbid
@@ -11,7 +11,7 @@ spec:
         spec:
           restartPolicy: Never
           containers:
-          - name: uabierta-backup
+          - name: otrs-backup
             image: ghcr.io/eol-uchile/backup_container:9135d168aa43c6313b7fd3212bb470a38b033b6e
             args:
             - /root/scripts/backup_postgresql.sh
