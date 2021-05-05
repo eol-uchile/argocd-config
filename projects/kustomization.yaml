@@ -12,6 +12,7 @@ resources:
 - edx-eol/project.yaml
 - edx-uabierta/project.yaml
 - edx-dgd/project.yaml
+- edx-virtuallabx.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
