@@ -12,7 +12,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: metabase-backup
-            image: ghcr.io/eol-uchile/backup_container:9135d168aa43c6313b7fd3212bb470a38b033b6e
+            image: ghcr.io/eol-uchile/backup_container:d661d8e8bd88a21bb2479cdb65d4b807604db638
             args:
             - /root/scripts/backup_postgresql.sh
             envFrom:
