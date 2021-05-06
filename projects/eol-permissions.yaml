@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: eol-permissions
+  namespace: argocd
+spec:
+  description: Project to backup uabierta databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: eol-permissions
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: 'rbac.authorization.k8s.io'
+    kind: '*'
+  namespaceResourceWhitelist: []
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eol-permissions
+  namespace: argocd
+spec:
+  destination:
+    namespace: eol-permissions
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: '.'
+    repoURL: 'git@github.com:eol-uchile/eol-permissions.git'
+    targetRevision: HEAD
+  project: eol-permissions
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: false
+
