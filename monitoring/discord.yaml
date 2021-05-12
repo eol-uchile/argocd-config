@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: discord
+  name: discord
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: discord
+    spec:
+      containers:
+      - image: ghcr.io/eol-uchile/alertmanager-discord:latest
+        name: alertmanager-discord
+        envFrom:
+        - secretRef:
+            name: discord
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: discord
+  name: discord
+  namespace: monitoring
+spec:
+  ports:
+  - port: 9094
+    protocol: TCP
+    targetPort: 9094
+  selector:
+    app: discord
