@@ -9,7 +9,7 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: *
+  - namespace: '*'
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
@@ -29,7 +29,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: eol-permissions
+    namespace: 'default'
     server: 'https://kubernetes.default.svc'
   source:
     path: '.'
