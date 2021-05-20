@@ -17,7 +17,11 @@ spec:
     kind: Namespace
   - group: 'rbac.authorization.k8s.io'
     kind: '*'
-  namespaceResourceWhitelist: []
+  namespaceResourceWhitelist:
+  - group: 'rbac.authorization.k8s.io'
+    kind: 'Role'
+  - group: 'rbac.authorization.k8s.io'
+    kind: 'RoleBinding'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
