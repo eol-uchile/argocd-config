@@ -14,10 +14,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - argocd.staging.eol.espinoza.dev
+      - argo.eol-ing.uchile.cl
       secretName: argocd-ingress-cert
   rules:
-    - host: argocd.staging.eol.espinoza.dev
+    - host: argo.eol-ing.uchile.cl
       http:
         paths:
         - path: /
@@ -37,10 +37,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - argocd.staging.eol.espinoza.dev
+      - argo.eol-ing.uchile.cl
       secretName: argocd-ingress-cert
   rules:
-    - host: argocd.staging.eol.espinoza.dev
+    - host: argo.eol-ing.uchile.cl
       http:
         paths:
         - path: /api/webhook
