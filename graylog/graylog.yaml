@@ -60,7 +60,7 @@ spec:
         - name: GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL
           value: "no-reply@eol.uchile.cl"
         - name: GRAYLOG_TRANSPORT_EMAIL_WEB_INTERFACE_URL
-          value: "https://graylog.staging.eol.espinoza.dev"
+          value: "https://logmonitoring.eol-ing.uchile.cl"
         ports:
         - containerPort: 9000
         - containerPort: 5555

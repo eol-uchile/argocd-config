@@ -13,10 +13,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - grafana.staging.eol.espinoza.dev
+      - monitoring.eol-ing.uchile.cl
       secretName: argocd-ingress-cert
   rules:
-    - host: grafana.staging.eol.espinoza.dev
+    - host: monitoring.eol-ing.uchile.cl
       http:
         paths:
         - path: /

@@ -12,9 +12,9 @@ spec:
   tls:
     - secretName: metabase-ingress-certificate
       hosts:
-      - metabase.eol.espinoza.dev
+      - reporting.eol-ing.uchile.cl
   rules:
-  - host: metabase.eol.espinoza.dev
+  - host: reporting.eol-ing.uchile.cl
     http:
       paths:
       - path: /
