@@ -9,9 +9,9 @@ spec:
   tls:
     - secretName: graylog-ingress-certificate
       hosts:
-      - graylog.staging.eol.espinoza.dev
+      - logmonitoring.eol-ing.uchile.cl
   rules:
-  - host: graylog.staging.eol.espinoza.dev
+  - host: logmonitoring.eol-ing.uchile.cl
     http:
       paths:
       - path: /
