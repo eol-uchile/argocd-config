@@ -10,5 +10,4 @@ resources:
 - secrets/graylog-ca.yaml
 - secrets/graylog.yaml
 - secrets/vector-cert.yaml
-- secrets/auth.yaml
 namespace: graylog
