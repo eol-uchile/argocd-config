@@ -12,9 +12,10 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:9dfe72bc3048d510f08e88ce97f700104c6431ed
+            image: ghcr.io/eol-uchile/backup_container:a1003dc48007750558dafdb5a62aee864fc2966a
             args:
-            - /root/scripts/backup_hourly.sh
+            - /root/scripts/backup.sh
+            - hourly
             env:
             - name: BACKUP_PASSWORD
               valueFrom:
@@ -151,9 +152,10 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:9dfe72bc3048d510f08e88ce97f700104c6431ed
+            image: ghcr.io/eol-uchile/backup_container:a1003dc48007750558dafdb5a62aee864fc2966a
             args:
             - /root/scripts/backup.sh
+            - daily
             env:
             - name: BACKUP_PASSWORD
               valueFrom:
