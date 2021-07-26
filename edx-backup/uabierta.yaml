@@ -12,9 +12,10 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:9dfe72bc3048d510f08e88ce97f700104c6431ed
+            image: ghcr.io/eol-uchile/backup_container:a944a5c7a527f8c3e48b40b254b1885647159fd9
             args:
-            - /root/scripts/backup_hourly.sh
+            - /root/scripts/backup.sh
+            - hourly
             env:
             - name: BACKUP_PASSWORD
               valueFrom:
@@ -134,9 +135,10 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:9dfe72bc3048d510f08e88ce97f700104c6431ed
+            image: ghcr.io/eol-uchile/backup_container:a944a5c7a527f8c3e48b40b254b1885647159fd9
             args:
             - /root/scripts/backup.sh
+            - daily
             env:
             - name: BACKUP_PASSWORD
               valueFrom:
