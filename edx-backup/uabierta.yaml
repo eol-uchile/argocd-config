@@ -6,6 +6,7 @@ spec:
   schedule: "0 0-5,7-23 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
@@ -13,7 +14,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:e8207dd8f13b961f47eb8c643d65ee09e22154d5
+            image: ghcr.io/eol-uchile/backup_container:4a9dd8cd0feb1810fc0802a003544a8ce4081584
             args:
             - /root/scripts/backup.sh
             - hourly
@@ -130,6 +131,7 @@ spec:
   schedule: "0 6 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
@@ -137,7 +139,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:e8207dd8f13b961f47eb8c643d65ee09e22154d5
+            image: ghcr.io/eol-uchile/backup_container:4a9dd8cd0feb1810fc0802a003544a8ce4081584
             args:
             - /root/scripts/backup.sh
             - daily
