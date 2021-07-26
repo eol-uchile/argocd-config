@@ -14,7 +14,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:4a9dd8cd0feb1810fc0802a003544a8ce4081584
+            image: ghcr.io/eol-uchile/backup_container:a1003dc48007750558dafdb5a62aee864fc2966a
             resources:
               requests:
                 cpu: 750m
@@ -154,7 +154,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:4a9dd8cd0feb1810fc0802a003544a8ce4081584
+            image: ghcr.io/eol-uchile/backup_container:a1003dc48007750558dafdb5a62aee864fc2966a
             resources:
               requests:
                 cpu: 750m
