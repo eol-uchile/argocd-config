@@ -5,6 +5,7 @@ metadata:
 spec:
   schedule: "0 0-5,7-23 * * *"
   concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
@@ -12,9 +13,10 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:9dfe72bc3048d510f08e88ce97f700104c6431ed
+            image: ghcr.io/eol-uchile/backup_container:e8207dd8f13b961f47eb8c643d65ee09e22154d5
             args:
-            - /root/scripts/backup_hourly.sh
+            - /root/scripts/backup.sh
+            - hourly
             env:
             - name: BACKUP_PASSWORD
               valueFrom:
@@ -127,6 +129,7 @@ metadata:
 spec:
   schedule: "0 6 * * *"
   concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -134,9 +137,10 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:9dfe72bc3048d510f08e88ce97f700104c6431ed
+            image: ghcr.io/eol-uchile/backup_container:e8207dd8f13b961f47eb8c643d65ee09e22154d5
             args:
             - /root/scripts/backup.sh
+            - daily
             env:
             - name: BACKUP_PASSWORD
               valueFrom:
