@@ -5,6 +5,8 @@ metadata:
 spec:
   schedule: "30 0-4,8-23 * * *"
   concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
@@ -16,105 +18,12 @@ spec:
             args:
             - /root/scripts/backup.sh
             - hourly
-            env:
-            - name: BACKUP_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: BACKUP_PASSWORD
-            - name: PLATFORM_GDRIVE_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GDRIVE_CLIENT_SECRET
-            - name: PLATFORM_GDRIVE_SCOPE
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GDRIVE_SCOPE
-            - name: PLATFORM_GDRIVE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GDRIVE_TOKEN
-            - name: PLATFORM_GRIVE_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GRIVE_CLIENT_ID
-            - name: PLATFORM_MONGODB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_HOST
-            - name: PLATFORM_MONGODB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_PORT
-            - name: PLATFORM_MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_PASSWORD
-            - name: PLATFORM_MONGODB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_USER
-            - name: PLATFORM_MYSQL_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_HOST
-            - name: PLATFORM_MYSQL_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_PORT
-            - name: PLATFORM_MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_PASSWORD
-            - name: PLATFORM_MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_USER
-            - name: PLATFORM_MYSQL_DATABASES
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_DATABASES
-            - name: PLATFORM_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_NAME
-            - name: PLATFORM_S3_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_ACCESS_KEY
-            - name: PLATFORM_S3_BUCKETS
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_BUCKETS
-            - name: PLATFORM_S3_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_SECRET_KEY
-            - name: PLATFORM_S3_URL
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_URL
+            envFrom:
+            - secretRef:
+                name: eol-config
             resources:
               requests:
-                memory: 2Gi
+                memory: 256Mi
                 cpu: 750m
               limits:
                 memory: 2Gi
@@ -145,6 +54,8 @@ metadata:
 spec:
   schedule: "30 6 * * *"
   concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
@@ -156,105 +67,60 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            env:
-            - name: BACKUP_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: BACKUP_PASSWORD
-            - name: PLATFORM_GDRIVE_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GDRIVE_CLIENT_SECRET
-            - name: PLATFORM_GDRIVE_SCOPE
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GDRIVE_SCOPE
-            - name: PLATFORM_GDRIVE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GDRIVE_TOKEN
-            - name: PLATFORM_GRIVE_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_GRIVE_CLIENT_ID
-            - name: PLATFORM_MONGODB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_HOST
-            - name: PLATFORM_MONGODB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_PORT
-            - name: PLATFORM_MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_PASSWORD
-            - name: PLATFORM_MONGODB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MONGODB_USER
-            - name: PLATFORM_MYSQL_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_HOST
-            - name: PLATFORM_MYSQL_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_PORT
-            - name: PLATFORM_MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_PASSWORD
-            - name: PLATFORM_MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_USER
-            - name: PLATFORM_MYSQL_DATABASES
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_MYSQL_DATABASES
-            - name: PLATFORM_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_NAME
-            - name: PLATFORM_S3_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_ACCESS_KEY
-            - name: PLATFORM_S3_BUCKETS
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_BUCKETS
-            - name: PLATFORM_S3_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_SECRET_KEY
-            - name: PLATFORM_S3_URL
-              valueFrom:
-                secretKeyRef:
-                  name: eol-config
-                  key: PLATFORM_S3_URL
+            envFrom:
+            - secretRef:
+                name: eol-config
             resources:
               requests:
+                memory: 256Mi
+                cpu: 750m
+              limits:
                 memory: 2Gi
+                cpu: 750m
+          #  volumeMounts:
+          #  - mountPath: /volume/nfs
+          #    name: eol-backup
+          #volumes:
+          #- name: eol-backup
+          #  nfs:
+          #    server: 172.16.244.123
+          #    path: /eol_backup/eol
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                    - k8seol0101
+                    - k8seol0102
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: eol-backup-minio-daily
+spec:
+  schedule: "30 3 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: eol-backup
+            image: ghcr.io/eol-uchile/backup_container:a1003dc48007750558dafdb5a62aee864fc2966a
+            args:
+            - /root/scripts/backup_minio.sh
+            envFrom:
+            - secretRef:
+                name: eol-config
+            resources:
+              requests:
+                memory: 256Mi
                 cpu: 750m
               limits:
                 memory: 2Gi
