@@ -99,7 +99,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-minio-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "0 3 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 1
