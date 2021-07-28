@@ -14,7 +14,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:ecf6aafdae1e00a9ac5dea6b385a4375cdc46157
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             resources:
               requests:
                 memory: 256Mi
@@ -62,7 +62,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:ecf6aafdae1e00a9ac5dea6b385a4375cdc46157
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             resources:
               requests:
                 memory: 256Mi
@@ -110,7 +110,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: uabierta-backup
-            image: ghcr.io/eol-uchile/backup_container:ecf6aafdae1e00a9ac5dea6b385a4375cdc46157
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             resources:
               requests:
                 memory: 256Mi

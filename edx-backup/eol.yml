@@ -14,7 +14,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:ecf6aafdae1e00a9ac5dea6b385a4375cdc46157
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             args:
             - /root/scripts/backup.sh
             - hourly
@@ -63,7 +63,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:ecf6aafdae1e00a9ac5dea6b385a4375cdc46157
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             args:
             - /root/scripts/backup.sh
             - daily
@@ -112,7 +112,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: ghcr.io/eol-uchile/backup_container:ecf6aafdae1e00a9ac5dea6b385a4375cdc46157
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             args:
             - /root/scripts/backup_minio.sh
             envFrom:
