@@ -4,7 +4,7 @@ resources:
 - eol.yml
 - uabierta.yaml
 - secrets/uabierta.yaml
-- virtuallabx.yaml
+- virtuallabx.yml
 - secrets/virtuallabx.yaml
 
 namespace: edx-backup
