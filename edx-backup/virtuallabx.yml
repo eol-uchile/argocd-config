@@ -1,0 +1,48 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: virtuallabx-backup-daily
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: virtuallabx-backup
+            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
+            args:
+            - /root/scripts/backup.sh
+            - daily
+            envFrom:
+            - secretRef:
+                name: virtuallabx-config
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 750m
+              limits:
+                memory: 2Gi
+                cpu: 750m
+          #  volumeMounts:
+          #  - mountPath: /volume/nfs
+          #    name: eol-backup
+          #volumes:
+          #- name: eol-backup
+          #  nfs:
+          #    server: 172.16.244.123
+          #    path: /eol_backup/eol
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                    - k8seol0101
+                    - k8seol0102
