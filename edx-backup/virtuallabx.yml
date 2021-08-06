@@ -13,7 +13,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: virtuallabx-backup
+          - name: edx-backup
             image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
             args:
             - /root/scripts/backup.sh
