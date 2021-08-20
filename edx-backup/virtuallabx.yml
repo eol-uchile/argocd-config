@@ -14,7 +14,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
+            image: vlabx-backup-container
             args:
             - /root/scripts/backup.sh
             - daily
@@ -63,7 +63,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: ghcr.io/eol-uchile/backup_container:50851d2a1ba3646fd598a22b483e56ed97333771
+            image: vlabx-backup-container
             args:
             - /root/scripts/backup_minio.sh
             envFrom:
