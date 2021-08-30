@@ -1,0 +1,55 @@
+name: Update staging image
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install kustomize
+        run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash && sudo install -m 755 kustomize /usr/local/bin/kustomize
+
+      - name: Check backup build
+        run: |
+          cd edx-backup
+          kustomize build . > /dev/null
+          cd ..
+
+      - name: Check graylog build
+        run: |
+          cd graylog
+          kustomize build . > /dev/null
+          cd ..
+
+      - name: Check metabase build
+        run: |
+          cd metabase
+          kustomize build . > /dev/null
+          cd ..
+
+      - name: Check metabase build
+        run: |
+          cd metabase
+          kustomize build . > /dev/null
+          cd ..
+
+      - name: Check OTRS build
+        run: |
+          cd otrs
+          kustomize build . > /dev/null
+          cd ..
+
+      - name: Check reloader build
+        run: |
+          cd reloader
+          kustomize build . > /dev/null
+          cd ..
+      
+      - name: Check service-backup build
+        run: |
+          cd service-backup
+          kustomize build . > /dev/null
+          cd ..
