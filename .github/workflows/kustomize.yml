@@ -30,12 +30,6 @@ jobs:
           kustomize build . > /dev/null
           cd ..
 
-      - name: Check metabase build
-        run: |
-          cd metabase
-          kustomize build . > /dev/null
-          cd ..
-
       - name: Check OTRS build
         run: |
           cd otrs
