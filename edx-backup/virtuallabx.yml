@@ -46,6 +46,13 @@ spec:
                     values:
                     - k8seol0101
                     - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+          tolerations:
+          - key: "dev"
+            operator: "Equal"
+            value: "nosso"
+            effect: "NoSchedule"
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -94,3 +101,10 @@ spec:
                     values:
                     - k8seol0101
                     - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+          tolerations:
+          - key: "dev"
+            operator: "Equal"
+            value: "nosso"
+            effect: "NoSchedule"
