@@ -37,6 +37,13 @@ spec:
                     values:
                     - k8seol0101
                     - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+          tolerations:
+          - key: "dev"
+            operator: "Equal"
+            value: "nosso"
+            effect: "NoSchedule"
           #  volumeMounts:
           #  - mountPath: /volume/nfs
           #    name: uabierta-backup
@@ -85,6 +92,13 @@ spec:
                     values:
                     - k8seol0101
                     - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+          tolerations:
+          - key: "dev"
+            operator: "Equal"
+            value: "nosso"
+            effect: "NoSchedule"
           #  volumeMounts:
           #  - mountPath: /volume/nfs
           #    name: uabierta-backup
@@ -132,6 +146,13 @@ spec:
                     values:
                     - k8seol0101
                     - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+          tolerations:
+          - key: "dev"
+            operator: "Equal"
+            value: "nosso"
+            effect: "NoSchedule"
           #  volumeMounts:
           #  - mountPath: /volume/nfs
           #    name: uabierta-backup
