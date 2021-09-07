@@ -47,3 +47,9 @@ jobs:
           cd service-backup
           kustomize build . > /dev/null
           cd ..
+      
+      - name: Check projects build
+        run: |
+          cd projects
+          kustomize build . > /dev/null
+          
