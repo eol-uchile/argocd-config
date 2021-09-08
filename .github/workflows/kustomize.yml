@@ -30,6 +30,12 @@ jobs:
           kustomize build . > /dev/null
           cd ..
 
+      - name: Check monitoring build
+        run: |
+          cd monitoring
+          kustomize build . > /dev/null
+          cd ..
+
       - name: Check OTRS build
         run: |
           cd otrs

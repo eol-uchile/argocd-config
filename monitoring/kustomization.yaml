@@ -4,6 +4,7 @@ resources:
 - psp.yaml
 - alerts.yaml
 - external/node-exporter.yaml
+- external/mysqld-exporter.yaml
 - discord.yaml
 - discord-secrets.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
