@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-exporter-eol
+  namespace: monitoring
+  labels:
+    name: mongodb-exporter-eol
+spec:
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 9216
+      targetPort: 27525
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: mongodb-exporter-eol
+  namespace: monitoring
+subsets:
+ - addresses:
+   - ip: 146.83.63.76
+   ports:
+   - port: 27525
+     name: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mongodb-exporter-eol
+  namespace: monitoring
+  labels:
+    name: mongodb-exporter-eol
+    prometheus: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      name: mongodb-exporter-eol
+  endpoints:
+  - port: metrics
+    interval: 30s
