@@ -6,6 +6,8 @@ resources:
 - external/node-exporter.yaml
 - external/mysql-external/eol.yaml
 - external/mysql-external/uabierta.yaml
+- external/mongodb-external/eol.yaml
+- external/mongodb-external/uabierta.yaml
 - discord.yaml
 - discord-secrets.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
