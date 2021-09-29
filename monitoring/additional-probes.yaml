@@ -11,7 +11,24 @@ spec:
   targets:
     staticConfig:
       static:
-      - https://preview.cajalosandes.virtual-labx.cl
-      - https://studio.cajalosandes.virtual-labx.cl
-      - https://cajalosandes.virtual-labx.cl
-      - https://virtual-labx.cl
+      - https://preview.cajalosandes.virtual-labx.cl/heartbeat
+      - https://studio.cajalosandes.virtual-labx.cl/heartbeat
+      - https://cajalosandes.virtual-labx.cl/heartbeat
+      - https://virtual-labx.cl/heartbeat
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: open-uchile-blackbox-monitoring
+  namespace: monitoring
+spec:
+  interval: 60s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:19115
+  targets:
+    staticConfig:
+      static:
+      - https://open.andhael.cl/heartbeat
+      - https://studio.open.andhael.cl/heartbeat
+      - https://preview.open.andhael.cl/heartbeat
