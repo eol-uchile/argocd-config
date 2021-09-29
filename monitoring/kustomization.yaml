@@ -10,5 +10,6 @@ resources:
 - external/mongodb-external/uabierta.yaml
 - discord.yaml
 - discord-secrets.yaml
+- additional-probes.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
