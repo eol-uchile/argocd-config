@@ -1,0 +1,17 @@
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: virtual-labx-blackbox-monitoring
+  namespace: monitoring
+spec:
+  interval: 60s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:19115
+  targets:
+    staticConfig:
+      static:
+      - https://preview.cajalosandes.virtual-labx.cl
+      - https://studio.cajalosandes.virtual-labx.cl
+      - https://cajalosandes.virtual-labx.cl
+      - https://virtual-labx.cl
