@@ -27,10 +27,10 @@ subsets:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: minio-exporter-stg
+  name: minio-exporter-staging
   namespace: monitoring
   labels:
-    name: minio-exporter-stg
+    name: minio-exporter-staging
     prometheus: kube-prometheus
 spec:
   selector:
