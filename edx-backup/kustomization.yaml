@@ -12,7 +12,7 @@ resources:
 images:
 - name: uabierta-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 5eb694cbf479db4e19e670eae61a75898a3a7565
+  newTag: b127d14b4649b584f5bc9a14c34ce4a61f7b5ff4
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
   newTag: 5eb694cbf479db4e19e670eae61a75898a3a7565
