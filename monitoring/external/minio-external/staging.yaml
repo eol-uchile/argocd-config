@@ -38,4 +38,5 @@ spec:
       name: minio-exporter-staging
   endpoints:
   - port: metrics
+    path: /minio/v2/metrics/cluster
     interval: 30s
