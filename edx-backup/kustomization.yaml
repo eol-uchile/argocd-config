@@ -18,4 +18,4 @@ images:
   newTag: 5eb694cbf479db4e19e670eae61a75898a3a7565
 - name: vlabx-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 50851d2a1ba3646fd598a22b483e56ed97333771
+  newTag: old-5eb694cbf479db4e19e670eae61a75898a3a7565
