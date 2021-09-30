@@ -8,6 +8,7 @@ resources:
 - external/mysql-external/uabierta.yaml
 - external/mongodb-external/eol.yaml
 - external/mongodb-external/uabierta.yaml
+- external/minio-external/staging.yaml
 - discord.yaml
 - discord-secrets.yaml
 - additional-probes.yaml
