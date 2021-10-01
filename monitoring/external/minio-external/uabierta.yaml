@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-exporter-uabierta
+  namespace: monitoring
+  labels:
+    name: minio-exporter-uabierta
+spec:
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 9000
+      targetPort: 27421
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: minio-exporter-uabierta
+  namespace: monitoring
+subsets:
+ - addresses:
+   - ip: 146.83.63.75
+   ports:
+   - port: 27421
+     name: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: minio-exporter-uabierta
+  namespace: monitoring
+  labels:
+    name: minio-exporter-uabierta
+    prometheus: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      name: minio-exporter-uabierta
+  endpoints:
+  - port: metrics
+    path: /minio/prometheus/metrics
+    interval: 30s
