@@ -38,5 +38,5 @@ spec:
       name: minio-exporter-uabierta
   endpoints:
   - port: metrics
-    path: /minio/v2/metrics/cluster
+    path: /minio/prometheus/metrics
     interval: 30s
