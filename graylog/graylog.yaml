@@ -17,8 +17,8 @@ spec:
         service: graylog-deploy
     spec:
       containers:
-      - name: graylog3
-        image: graylog/graylog:4.0
+      - name: graylog4
+        image: graylog/graylog:4.1.5
         env:
         - name: GRAYLOG_PASSWORD_SECRET
           valueFrom:
