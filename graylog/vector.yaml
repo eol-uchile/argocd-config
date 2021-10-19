@@ -4,10 +4,10 @@ kind: ServiceAccount
 metadata:
   name: vector-agent
   labels:
-    helm.sh/chart: vector-agent-0.16.1
+    helm.sh/chart: vector-agent-0.12.2
     app.kubernetes.io/name: vector-agent
     app.kubernetes.io/instance: vector
-    app.kubernetes.io/version: "0.16.1"
+    app.kubernetes.io/version: "0.12.2"
     app.kubernetes.io/managed-by: Helm
 automountServiceAccountToken: true
 ---
@@ -17,10 +17,10 @@ kind: ConfigMap
 metadata:
   name: vector-agent
   labels:
-    helm.sh/chart: vector-agent-0.16.1
+    helm.sh/chart: vector-agent-0.12.2
     app.kubernetes.io/name: vector-agent
     app.kubernetes.io/instance: vector
-    app.kubernetes.io/version: "0.16.1"
+    app.kubernetes.io/version: "0.12.2"
     app.kubernetes.io/managed-by: Helm
 data:
   # We leave `vector.toml` file name available to let externally managed config
@@ -82,10 +82,10 @@ kind: ClusterRoleBinding
 metadata:
   name: vector-agent
   labels:
-    helm.sh/chart: vector-agent-0.16.1
+    helm.sh/chart: vector-agent-0.12.2
     app.kubernetes.io/name: vector-agent
     app.kubernetes.io/instance: vector
-    app.kubernetes.io/version: "0.16.1"
+    app.kubernetes.io/version: "0.12.2"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -104,10 +104,10 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
   labels:
-    helm.sh/chart: vector-agent-0.16.1
+    helm.sh/chart: vector-agent-0.12.2
     app.kubernetes.io/name: vector-agent
     app.kubernetes.io/instance: vector
-    app.kubernetes.io/version: "0.16.1"
+    app.kubernetes.io/version: "0.12.2"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
@@ -135,7 +135,7 @@ spec:
         - name: vector
           securityContext:
             {}
-          image: "timberio/vector:0.16.1-debian"
+          image: "timberio/vector:0.12.2-debian"
           imagePullPolicy: "IfNotPresent"
           args:
             - --config
