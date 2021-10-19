@@ -16,5 +16,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: graylog3
+          serviceName: graylog4
           servicePort: 9000
