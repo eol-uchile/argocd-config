@@ -2,6 +2,7 @@ resources:
 - secrets/common.yaml
 - secrets/otrs.yaml
 - secrets/metabase.yaml
+- secrets/graylog.yaml
 - otrs.yaml
 - metabase.yaml
 - graylog.yaml
