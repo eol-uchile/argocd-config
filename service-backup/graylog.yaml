@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: otrs-backup-daily
+  name: graylog-backup-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "0 7 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -11,15 +11,15 @@ spec:
         spec:
           restartPolicy: Never
           containers:
-          - name: otrs-backup
+          - name: graylog-backup
             image: backup-container
             args:
             - /root/scripts/backup.sh
             - daily
-            - postgresql
+            - mongodb_graylog
             envFrom:
             - secretRef:
-                name: otrs
+                name: graylog
             - secretRef:
                 name: common
                 
