@@ -18,6 +18,7 @@ spec:
             args:
             - /root/scripts/backup.sh
             - hourly
+            - mongodb_comments,mongodb,mysql
             envFrom:
             - secretRef:
                 name: eol-config
@@ -74,61 +75,7 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            envFrom:
-            - secretRef:
-                name: eol-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 750m
-              limits:
-                memory: 2Gi
-                cpu: 750m
-          #  volumeMounts:
-          #  - mountPath: /volume/nfs
-          #    name: eol-backup
-          #volumes:
-          #- name: eol-backup
-          #  nfs:
-          #    server: 172.16.244.123
-          #    path: /eol_backup/eol
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
-          tolerations:
-          - key: "dev"
-            operator: "Equal"
-            value: "nosso"
-            effect: "NoSchedule"
----
-apiVersion: batch/v1beta1
-kind: CronJob
-metadata:
-  name: eol-backup-minio-daily
-spec:
-  schedule: "30 3 * * *"
-  concurrencyPolicy: Forbid
-  failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 1
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          restartPolicy: OnFailure
-          containers:
-          - name: eol-backup
-            image: eol-backup-container
-            args:
-            - /root/scripts/backup_minio.sh
+            - mongodb_comments,mongodb,mysql,minio
             envFrom:
             - secretRef:
                 name: eol-config
