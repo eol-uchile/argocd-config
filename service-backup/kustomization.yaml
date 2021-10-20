@@ -4,7 +4,11 @@ resources:
 - secrets/metabase.yaml
 - otrs.yaml
 - metabase.yaml
-
+- graylog.yaml
 namespace: service-backup
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+images:
+- name: backup-container
+  newName: ghcr.io/eol-uchile/backup_container
+  newTag: f89f32c5ddd551cbed5c935ba4a2d47514a96e8e
