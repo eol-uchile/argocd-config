@@ -9,6 +9,7 @@ resources:
 - service-backup/project.yaml
 - metabase/project.yaml
 - otrs/project.yaml
+- portal-eol/project.yaml
 - edx-eol/project.yaml
 - edx-uabierta/project.yaml
 - edx-dgd/project.yaml
