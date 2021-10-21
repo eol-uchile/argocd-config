@@ -38,7 +38,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: metabase
-    repoURL: 'https://github.com/fdns/argocd-config'
+    repoURL: 'https://github.com/eol-uchile/argocd-config'
     targetRevision: HEAD
   project: metabase
   syncPolicy:

@@ -36,7 +36,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: reloader
-    repoURL: 'https://github.com/fdns/argocd-config'
+    repoURL: 'https://github.com/eol-uchile/argocd-config'
     targetRevision: HEAD
   project: reloader
   syncPolicy:
