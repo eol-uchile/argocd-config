@@ -54,8 +54,13 @@ jobs:
           kustomize build . > /dev/null
           cd ..
       
+      - name: Check portal-eol build
+        run: |
+          cd portal-eol
+          kustomize build . > /dev/null
+          cd ..
+      
       - name: Check projects build
         run: |
           cd projects
           kustomize build . > /dev/null
-          
