@@ -4,6 +4,6 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-  - name: portal
-    newName: ghcr.io/eol-uchile/portal-eol
-    newTag: a3664fe2710cdded9b3b847ed1fd47fed925ddcb
+- name: portal
+  newName: ghcr.io/eol-uchile/portal-eol
+  newTag: 161af6217e7005c2009515a4376e0215c6a3bd68
