@@ -6,6 +6,7 @@ resources:
 - external/node-exporter.yaml
 - external/mysql-external/eol.yaml
 - external/mysql-external/uabierta.yaml
+- external/mysql-external/staging.yaml
 - external/mongodb-external/eol.yaml
 - external/mongodb-external/uabierta.yaml
 - external/minio-external/staging.yaml
