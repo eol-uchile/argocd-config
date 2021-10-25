@@ -4,6 +4,7 @@ resources:
 - psp.yaml
 - alerts.yaml
 - external/node-exporter.yaml
+- external/elastic-external/staging.yaml
 - external/mysql-external/eol.yaml
 - external/mysql-external/uabierta.yaml
 - external/mysql-external/staging.yaml
