@@ -1,0 +1,67 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: uchiletv-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  tls:
+    - secretName: uchiletv-tls-secret
+      hosts:
+      - uchiletv.cl
+      - www.uchiletv.cl
+  rules:
+  - host: uchiletv.cl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: uchiletv-svc
+          servicePort: 80
+  - host: www.uchiletv.cl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: uchiletv-svc
+          servicePort: 80
+# ---
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: uchiletv-ingress-cached
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     cert-manager.io/cluster-issuer: letsencrypt-production
+#     nginx.ingress.kubernetes.io/proxy-buffering: "on"
+#     nginx.ingress.kubernetes.io/use-regex: "true"
+#     nginx.ingress.kubernetes.io/configuration-snippet: |
+#       more_set_headers "cache-control: max-age=315360000";
+#       proxy_cache static-cache;
+#       proxy_cache_use_stale error timeout updating http_404 http_500 http_502 http_503 http_504;
+#       proxy_cache_valid 200 302 10m;
+#       proxy_ignore_headers "Set-Cookie";
+#       proxy_hide_header "Set-Cookie";
+#       add_header X-Cache-Status $upstream_cache_status;
+# spec:
+#   tls:
+#     - secretName: uchiletv-tls-secret
+#       hosts:
+#       - uchiletv.cl
+#       - www.uchiletv.cl
+#   rules:
+#   - host: uchiletv.cl
+#     http:
+#       paths:
+#       - path: /images/(.*\.[0-9a-f]{12}\..*)
+#         backend:
+#           serviceName: uchiletv-svc
+#           servicePort: 80
+#   - host: www.uchiletv.cl
+#     http:
+#       paths:
+#       - path: /images/(.*\.[0-9a-f]{12}\..*)
+#         backend:
+#           serviceName: uchiletv-svc
+#           servicePort: 80

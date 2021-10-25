@@ -1,0 +1,9 @@
+resources:
+- uchiletv.yaml
+- ingress.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: uchiletv
+  newName: ghcr.io/eol-uchile/uchiletv
+  newTag: 932166cc9249f17b7060f53e8280cd1fbd69adc7
