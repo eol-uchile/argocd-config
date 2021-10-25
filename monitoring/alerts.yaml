@@ -32,3 +32,15 @@ spec:
       for: 1m
       labels:
         severity: critical
+  - name: mysqld-alerts
+    rules:
+    - alert: MySQLDown
+      annotations:
+        description: 'MySQL {{$labels.job}} on {{$labels.instance}} is not up.'
+        summary: MySQL not up
+      expr: mysql_up != 1
+      for: 1m
+      labels:
+        severity: critical
+  
+      
