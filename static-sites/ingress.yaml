@@ -22,11 +22,15 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: redirect-www-uchiletv
+  name: www-uchiletv-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/temporal-redirect: https://uchiletv.cl
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
+  tls:
+    - secretName: www-uchiletv-tls-secret
+      hosts:
+      - www.uchiletv.cl
   rules:
   - host: www.uchiletv.cl
     http:
