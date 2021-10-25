@@ -10,7 +10,7 @@ spec:
     - secretName: uchiletv-tls-secret
       hosts:
       - uchiletv.cl
-      #- www.uchiletv.cl
+      - www.uchiletv.cl
   rules:
   - host: uchiletv.cl
     http:
@@ -19,13 +19,13 @@ spec:
         backend:
           serviceName: uchiletv-svc
           servicePort: 80
-  #- host: www.uchiletv.cl
-  #  http:
-  #    paths:
-  #    - path: /
-  #      backend:
-  #        serviceName: uchiletv-svc
-  #        servicePort: 80
+  - host: www.uchiletv.cl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: uchiletv-svc
+          servicePort: 80
 # ---
 # apiVersion: networking.k8s.io/v1beta1
 # kind: Ingress
