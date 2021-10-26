@@ -64,3 +64,8 @@ jobs:
         run: |
           cd projects
           kustomize build . > /dev/null
+
+      - name: Check static-sites build
+        run: |
+          cd static-sites
+          kustomize build . > /dev/null
