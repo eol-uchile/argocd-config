@@ -12,6 +12,7 @@ resources:
 - external/mongodb-external/uabierta.yaml
 - external/minio-external/staging.yaml
 - external/minio-external/uabierta.yaml
+- external/redis-external/staging.yaml
 - discord.yaml
 - discord-secrets.yaml
 - additional-probes.yaml
