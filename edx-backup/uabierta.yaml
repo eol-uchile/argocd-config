@@ -25,6 +25,7 @@ spec:
             - /root/scripts/backup.sh
             - hourly
             - mongodb_comments,mongodb,mysql
+            - .
             envFrom:
             - secretRef:
                 name: common-config
