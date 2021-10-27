@@ -14,10 +14,10 @@ resources:
 images:
 - name: uabierta-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 80c25ca21183b93f78c494c0c4e3f06a235684a3
+  newTag: 9d87e869bd7e759a41da85d01b2403231c4d1836
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 80c25ca21183b93f78c494c0c4e3f06a235684a3
+  newTag: 9d87e869bd7e759a41da85d01b2403231c4d1836
 - name: vlabx-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: old-80c25ca21183b93f78c494c0c4e3f06a235684a3
+  newTag: old-9d87e869bd7e759a41da85d01b2403231c4d1836
