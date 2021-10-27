@@ -2,20 +2,22 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 namespace: edx-backup
 kind: Kustomization
 resources:
+- secrets/common.yaml
 - secrets/eol.yaml
+- secrets/uabierta.yaml
+- secrets/virtuallabx.yaml
 - psp.yaml
 - eol.yml
 - uabierta.yaml
-- secrets/uabierta.yaml
 - virtuallabx.yml
-- secrets/virtuallabx.yaml
+- clean-node.yml
 images:
 - name: uabierta-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: cb3a3e1340f13f9a65696a0cdacc58e5c9e4400d
+  newTag: 80c25ca21183b93f78c494c0c4e3f06a235684a3
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: cb3a3e1340f13f9a65696a0cdacc58e5c9e4400d
+  newTag: 80c25ca21183b93f78c494c0c4e3f06a235684a3
 - name: vlabx-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: old-cb3a3e1340f13f9a65696a0cdacc58e5c9e4400d
+  newTag: old-80c25ca21183b93f78c494c0c4e3f06a235684a3

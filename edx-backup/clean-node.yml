@@ -1,12 +1,12 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: virtuallabx-backup-daily
+  name: clean-node-daily
 spec:
-  schedule: "30 3 * * *"
+  schedule: "0 8 * * *"
   concurrencyPolicy: Forbid
-  failedJobsHistoryLimit: 2
-  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -14,23 +14,18 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: vlabx-backup-container
+            image: eol-backup-container
             args:
-            - /root/scripts/backup.sh
-            - daily
-            - mongodb_comments,mongodb,mysql,minio
-            - keep
+            - /root/scripts/clear_mount.sh
             envFrom:
             - secretRef:
                 name: common-config
-            - secretRef:
-                name: virtuallabx-config
             resources:
               requests:
                 memory: 256Mi
-                cpu: 750m
+                cpu: 100m
               limits:
-                memory: 2Gi
+                memory: 1Gi
                 cpu: 750m
           affinity:
             nodeAffinity:
