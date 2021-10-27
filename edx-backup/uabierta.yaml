@@ -90,6 +90,14 @@ spec:
                 name: common-config
             - secretRef:
                 name: uabierta-config
+            volumeMounts:
+              - name: node3-persistent
+                mountPath: /host_mount
+          volumes:
+            - name: node3-persistent
+              hostPath:
+                path: /mnt/data
+                type: Directory
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
