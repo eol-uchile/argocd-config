@@ -21,6 +21,8 @@ spec:
             - mongodb_comments,mongodb,mysql
             envFrom:
             - secretRef:
+                name: common-config
+            - secretRef:
                 name: eol-config
             resources:
               requests:
@@ -60,7 +62,7 @@ kind: CronJob
 metadata:
   name: eol-backup-daily
 spec:
-  schedule: "30 6 * * *"
+  schedule: "0 4 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -76,7 +78,10 @@ spec:
             - /root/scripts/backup.sh
             - daily
             - mongodb_comments,mongodb,mysql,minio
+            - keep
             envFrom:
+            - secretRef:
+                name: common-config
             - secretRef:
                 name: eol-config
             resources:
@@ -86,28 +91,12 @@ spec:
               limits:
                 memory: 2Gi
                 cpu: 750m
-          #  volumeMounts:
-          #  - mountPath: /volume/nfs
-          #    name: eol-backup
-          #volumes:
-          #- name: eol-backup
-          #  nfs:
-          #    server: 172.16.244.123
-          #    path: /eol_backup/eol
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                 - matchExpressions:
                   - key: kubernetes.io/hostname
-                    operator: NotIn
+                    operator: In
                     values:
-                    - k8seol0101
-                    - k8seol0102
                     - k8seol0103
-                    - k8seol0104
-          tolerations:
-          - key: "dev"
-            operator: "Equal"
-            value: "nosso"
-            effect: "NoSchedule"

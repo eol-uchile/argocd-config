@@ -27,6 +27,8 @@ spec:
             - mongodb_comments,mongodb,mysql
             envFrom:
             - secretRef:
+                name: common-config
+            - secretRef:
                 name: uabierta-config
           affinity:
             nodeAffinity:
@@ -59,7 +61,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "0 3 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 2
@@ -81,7 +83,10 @@ spec:
             - /root/scripts/backup.sh
             - daily
             - mongodb_comments,mongodb,mysql,minio
+            - keep
             envFrom:
+            - secretRef:
+                name: common-config
             - secretRef:
                 name: uabierta-config
           affinity:
@@ -90,22 +95,6 @@ spec:
                 nodeSelectorTerms:
                 - matchExpressions:
                   - key: kubernetes.io/hostname
-                    operator: NotIn
+                    operator: In
                     values:
-                    - k8seol0101
-                    - k8seol0102
                     - k8seol0103
-                    - k8seol0104
-          tolerations:
-          - key: "dev"
-            operator: "Equal"
-            value: "nosso"
-            effect: "NoSchedule"
-          #  volumeMounts:
-          #  - mountPath: /volume/nfs
-          #    name: uabierta-backup
-          #volumes:
-          #- name: uabierta-backup
-          #  nfs:
-          #    server: 172.16.244.123
-          #    path: /eol_backup/uabierta
