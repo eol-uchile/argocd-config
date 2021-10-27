@@ -6,4 +6,4 @@ kind: Kustomization
 images:
 - name: uchiletv
   newName: ghcr.io/eol-uchile/uchiletv
-  newTag: 932166cc9249f17b7060f53e8280cd1fbd69adc7
+  newTag: 840c158f6c7694dc8f6b0d45247fe53f159c645e
