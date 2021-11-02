@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: graylog4
-        image: graylog/graylog:4.1.5
+        image: graylog/graylog:4.2.0
         env:
         - name: GRAYLOG_PASSWORD_SECRET
           valueFrom:
@@ -74,7 +74,7 @@ spec:
             cpu: 250m
           limits:
             memory: 2Gi
-            cpu: 500m
+            cpu: 600m
       volumes:
       - name: graylog-ca
         secret:
