@@ -32,3 +32,18 @@ spec:
       - https://open.andhael.cl/heartbeat
       - https://studio.open.andhael.cl/heartbeat
       - https://preview.open.andhael.cl/heartbeat
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: aulavirtual-blackbox-monitoring
+  namespace: monitoring
+spec:
+  interval: 60s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:19115
+  targets:
+    staticConfig:
+      static:
+      - https://aulavirtual.institutonacional.cl/
