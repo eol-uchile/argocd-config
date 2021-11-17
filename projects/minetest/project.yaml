@@ -19,6 +19,8 @@ spec:
   - group: 'apps'
     kind: 'Deployment'
   - group: ''
+    kind: 'ConfigMap'
+  - group: ''
     kind: 'Service'
   - group: ''
     kind: 'PersistentVolumeClaim'

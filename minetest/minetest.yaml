@@ -21,6 +21,8 @@ spec:
         volumeMounts:
         - name: minetest-data
           mountPath: /var/lib/minetest
+        - name: config
+          mountPath: /etc/minetest
         resources:
           requests:
             memory: 3Gi
@@ -30,6 +32,9 @@ spec:
       - name: minetest-data
         persistentVolumeClaim:
           claimName: minetest-data-volume
+      - name: config
+        configMap:
+          name: minetest-config
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -39,6 +44,17 @@ spec:
                 operator: In
                 values:
                 - k8seol0104
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minetest-config
+  labels:
+    app: minetest
+data:
+  minetestconf.toml: |
+    enable_minimap = true
+    creative_mode = true
 ---
 apiVersion: v1
 kind: Service
