@@ -21,8 +21,6 @@ spec:
         volumeMounts:
         - name: minetest-data
           mountPath: /var/lib/minetest
-        - name: config
-          mountPath: /etc/minetest
         resources:
           requests:
             memory: 3Gi
