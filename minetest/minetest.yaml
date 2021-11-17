@@ -52,7 +52,7 @@ metadata:
   labels:
     app: minetest
 data:
-  minetestconf.toml: |
+  minetest.conf: |
     enable_minimap = true
     creative_mode = true
 ---
