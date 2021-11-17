@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: minetest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minetest
+  template:
+    metadata:
+      labels:
+        app: minetest
+    spec:
+      containers:
+      - name: minetest
+        image: registry.gitlab.com/minetest/minetest/server:master
+        ports:
+        - containerPort: 30000
+          protocol: UDP
+        volumeMounts:
+        - name: minetest-data
+          mountPath: /var/lib/minetest
+        - name: config
+          mountPath: /etc/minetest
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 500m
+      restartPolicy: Always
+      volumes:
+      - name: minetest-data
+        persistentVolumeClaim:
+          claimName: minetest-data-volume
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8seol0104
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minetest-svc
+  labels:
+    app: minetest
+spec:
+  ports:
+  - name: minetest
+    port: 30000
+    nodePort: 30000
+    protocol: UDP
+  selector:
+    app: minetest
+  type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minetest-data-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "local-path"
+  resources:
+    requests:
+      storage: 3Gi
