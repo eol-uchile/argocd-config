@@ -32,10 +32,6 @@ spec:
       - name: minetest-data
         persistentVolumeClaim:
           claimName: minetest-data-volume
-      - configMap:
-          defaultMode: 420
-          name: minetest
-        name: config
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
