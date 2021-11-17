@@ -14,6 +14,7 @@ resources:
 - edx-eol/project.yaml
 - edx-uabierta/project.yaml
 - edx-dgd/project.yaml
+- minetest/project.yaml
 - edx-virtuallabx.yaml
 - edx-openuchile.yaml
 - eol-permissions.yaml
