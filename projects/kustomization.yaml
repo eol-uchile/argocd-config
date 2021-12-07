@@ -8,7 +8,6 @@ resources:
 - edx-backup/project.yaml
 - service-backup/project.yaml
 - metabase/project.yaml
-- minetest/project.yaml
 - otrs/project.yaml
 - portal-eol/project.yaml
 - static-sites/project.yaml
