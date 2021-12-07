@@ -15,6 +15,7 @@ spec:
       - https://studio.cajalosandes.virtual-labx.cl/heartbeat
       - https://cajalosandes.virtual-labx.cl/heartbeat
       - https://virtual-labx.cl/heartbeat
+      - https://norteamericano.virtual-labx.cl/heartbeat
 ---
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
