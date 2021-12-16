@@ -27,6 +27,8 @@ spec:
   - group: ''
     kind: 'Service'
   - group: ''
+    kind: ConfigMap
+  - group: ''
     kind: 'Endpoints'
   - group: 'autoscaling'
     kind: 'HorizontalPodAutoscaler'
