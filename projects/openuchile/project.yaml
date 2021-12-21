@@ -4,14 +4,14 @@ metadata:
   name: openuchile-services
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Store generic services for openuchile cluster
   # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
   - namespace: '*'
-    server: https://146.83.63.78:6443
+    server: 'https://146.83.63.78:6443'
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
@@ -22,8 +22,8 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: reloader
-  namespace: reloader
+  name: openuchile-reloader
+  namespace: argocd
 spec:
   destination:
     namespace: reloader
