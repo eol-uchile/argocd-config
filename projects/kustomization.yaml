@@ -17,6 +17,7 @@ resources:
 - edx-virtuallabx.yaml
 - edx-openuchile.yaml
 - eol-permissions.yaml
+- openuchile/project.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
