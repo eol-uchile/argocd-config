@@ -18,6 +18,10 @@ resources:
 - edx-openuchile.yaml
 - eol-permissions.yaml
 - openuchile/project.yaml
+- openuchile/cert-manager.yaml
+- openuchile/nginx.yaml
+- openuchile/reloader.yaml
+- openuchile/sealed-secrets.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1
