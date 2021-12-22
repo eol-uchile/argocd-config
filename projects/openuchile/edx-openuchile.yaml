@@ -46,7 +46,7 @@ spec:
     path: openuchile
     repoURL: 'git@github.com:open-uchile/argocd-config.git'
     targetRevision: HEAD
-  project: edx-openuchile
+  project: openuchile-edx-openuchile
   syncPolicy:
     automated:
       prune: false
