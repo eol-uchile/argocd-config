@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openuchile-nginx
+  namespace: argocd
+spec:
+  destination:
+    namespace: reloader
+    server: 'https://146.83.63.78:6443'
+  source:
+    path: services/nginx
+    repoURL: 'git@github.com:open-uchile/argocd-config.git'
+    targetRevision: HEAD
+  project: openuchile-services
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
