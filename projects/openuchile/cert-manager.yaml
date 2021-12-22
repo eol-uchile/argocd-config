@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: reloader
+    namespace: cert-manager
     server: 'https://146.83.63.78:6443'
   source:
     path: services/cert-manager
