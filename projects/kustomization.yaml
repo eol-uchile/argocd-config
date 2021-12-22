@@ -22,6 +22,7 @@ resources:
 - openuchile/nginx.yaml
 - openuchile/reloader.yaml
 - openuchile/sealed-secrets.yaml
+- openuchile/edx-openuchile.yaml
 
 namespace: argocd
 apiVersion: kustomize.config.k8s.io/v1beta1

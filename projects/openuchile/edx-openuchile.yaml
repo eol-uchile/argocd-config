@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: openuchile-edx-openuchile
+  namespace: argocd
+spec:
+  description: Project to backup uabierta databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - 'git@github.com:open-uchile/argocd-config.git'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: edx-openuchile
+    server: 'https://146.83.63.78:6443'
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
+  - group: ''
+    kind: 'Endpoints'
+  - group: 'autoscaling'
+    kind: 'HorizontalPodAutoscaler'
+  - group: 'monitoring.coreos.com'
+    kind: Probe
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openuchile-edx-openuchile
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-openuchile
+    server: 'https://146.83.63.78:6443'
+  source:
+    path: openuchile
+    repoURL: 'git@github.com:open-uchile/argocd-config.git'
+    targetRevision: HEAD
+  project: edx-openuchile
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
