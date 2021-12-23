@@ -15,7 +15,6 @@ resources:
 - edx-uabierta/project.yaml
 - edx-dgd/project.yaml
 - edx-virtuallabx.yaml
-- edx-openuchile.yaml
 - eol-permissions.yaml
 - openuchile/project.yaml
 - openuchile/cert-manager.yaml
