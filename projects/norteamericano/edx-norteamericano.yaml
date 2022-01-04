@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: edx-norteamericano
+  namespace: argocd
+spec:
+  description: Norteamericano project
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - 'git@github.com:open-uchile/argocd-config.git'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: edx-norteamericano
+    server: 'https://146.83.63.78:6443'
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
+  - group: ''
+    kind: 'Endpoints'
+  - group: 'autoscaling'
+    kind: 'HorizontalPodAutoscaler'
+  - group: 'monitoring.coreos.com'
+    kind: Probe
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edx-norteamericano
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-norteamericano
+    server: 'https://146.83.63.78:6443'
+  source:
+    path: edx-norteamericano
+    repoURL: 'git@github.com:eol-virtuallabx/edx-argocd.git'
+    targetRevision: HEAD
+  project: edx-norteamericano
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
