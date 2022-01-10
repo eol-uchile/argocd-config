@@ -10,7 +10,6 @@ resources:
 - metabase/project.yaml
 - otrs/project.yaml
 - portal-eol/project.yaml
-- static-sites/project.yaml
 - edx-eol/project.yaml
 - edx-uabierta/project.yaml
 - edx-dgd/project.yaml
