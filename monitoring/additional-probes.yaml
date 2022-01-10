@@ -29,9 +29,9 @@ spec:
   targets:
     staticConfig:
       static:
-      - https://open.andhael.cl/heartbeat
-      - https://studio.open.andhael.cl/heartbeat
-      - https://preview.open.andhael.cl/heartbeat
+      - https://open.uchile.cl/heartbeat
+      - https://studio.open.uchile.cl/heartbeat
+      - https://preview.open.uchile.cl/heartbeat
 ---
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
