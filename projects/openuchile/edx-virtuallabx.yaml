@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: edx-virtuallabx
+  name: edx-virtuallabx-openuchile
   namespace: argocd
 spec:
   description: Project to backup uabierta databases
@@ -36,7 +36,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edx-virtuallabx
+  name: edx-virtuallabx-openuchile
   namespace: argocd
 spec:
   destination:
@@ -46,7 +46,7 @@ spec:
     path: edx-virtuallabx
     repoURL: 'git@github.com:eol-virtuallabx/edx-argocd.git'
     targetRevision: HEAD
-  project: edx-virtuallabx
+  project: edx-virtuallabx-openuchile
   syncPolicy:
     automated:
       prune: false
