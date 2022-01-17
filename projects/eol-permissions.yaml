@@ -11,8 +11,6 @@ spec:
   destinations:
   - namespace: '*'
     server: https://kubernetes.default.svc
-  - namespace: virtuallabx
-    server: 'https://146.83.63.40:6443'
   - namespace: default
     server: 'https://146.83.63.78:6443'
   clusterResourceWhitelist:
@@ -35,32 +33,6 @@ spec:
   destination:
     namespace: 'default'
     server: 'https://kubernetes.default.svc'
-  source:
-    path: '.'
-    repoURL: 'git@github.com:eol-uchile/eol-permissions.git'
-    targetRevision: HEAD
-  project: eol-permissions
-  ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
-  syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: false
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: eol-permissions-virtuallabx
-  namespace: argocd
-spec:
-  destination:
-    namespace: virtuallabx
-    server: 'https://146.83.63.40:6443'
   source:
     path: '.'
     repoURL: 'git@github.com:eol-uchile/eol-permissions.git'
