@@ -14,24 +14,26 @@ spec:
       - https://preview.cajalosandes.virtual-labx.cl/heartbeat
       - https://studio.cajalosandes.virtual-labx.cl/heartbeat
       - https://cajalosandes.virtual-labx.cl/heartbeat
+      - https://preview.norteamericano.virtual-labx.cl/heartbeat
+      - https://studio.norteamericano.virtual-labx.cl/heartbeat
       - https://norteamericano.virtual-labx.cl/heartbeat
-#---
-# kind: Probe
-# apiVersion: monitoring.coreos.com/v1
-# metadata:
-#  name: open-uchile-blackbox-monitoring
-#  namespace: monitoring
-#spec:
-#  interval: 90s
-#  module: http_2xx
-#  prober:
-#    url: blackbox-exporter.monitoring.svc.cluster.local:19115
-#  targets:
-#    staticConfig:
-#      static:
-#      - https://open.uchile.cl/heartbeat
-#      - https://studio.open.uchile.cl/heartbeat
-#      - https://preview.open.uchile.cl/heartbeat
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+ name: open-uchile-blackbox-monitoring
+ namespace: monitoring
+spec:
+ interval: 90s
+ module: http_2xx
+ prober:
+   url: blackbox-exporter.monitoring.svc.cluster.local:19115
+ targets:
+   staticConfig:
+     static:
+     - https://open.uchile.cl/heartbeat
+     - https://studio.open.uchile.cl/heartbeat
+     - https://preview.open.uchile.cl/heartbeat
 ---
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
