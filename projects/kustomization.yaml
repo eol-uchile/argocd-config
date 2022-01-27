@@ -22,7 +22,7 @@ resources:
 - openuchile/edx-openuchile.yaml
 - openuchile/metrics.yaml
 - norteamericano/edx-norteamericano.yaml
-- openuchile/edx-virtuallabx.yaml
+- edx-virtuallabx/virtuallabx.yaml
 
 
 namespace: argocd
