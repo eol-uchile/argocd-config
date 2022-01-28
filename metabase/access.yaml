@@ -1,17 +1,15 @@
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
-  annotations:
-    sealedsecrets.bitnami.com/cluster-wide: "true"
   creationTimestamp: null
   name: basic-auth
+  namespace: metabase
 spec:
   encryptedData:
-    auth: AgCGWNmheZ+euC0QdXutuYTHIS4Bm1Fki0aU0U3TlVHA8Kg8jMIy7Q1GPAIEcHz6KL8b0otM8BhpJ+jkWn8Fh5So2cQlvQxr0MkJgwRYNFB+0cM0W9Z+Y08Xljg8RLDrZvWOMxkTOaBJ5wW1vBlGlER3G/Q9/8PWu14uXdzcO8F8jQjUc/xcAXJ6NFKKA8ikZLiMmq+QCwETOmLub7HKJ8aE3HmGzK0yYmvC2yUmhURw1eGcOiOVO/7DVP5LeJIGbEWaGn/XwJwjtZ30ND0arT1lQpvqCYkWLjPODZ51CZRRqwNz2gsjdvdFgWgMp1WXITowTpmGFgNMiEEndKMVY7bjXgcF6MO+XbwKxTxfxjzTrrortxNZJk+kZdVNB3CP+aQt69WClVpxMMjhX7x19uavscxPck/1fxq++UgjyTIytxkmASPrsNGaoXPI2URVteEIp9ZajtduQIXy8R6J1hskZiHFndxA38tyBOBtwfmI34bNVhorzY+hubKMUdCWVxAa8DQjs2uOAlp6tFeB+wiiCYm9K0Sx1hPuDfvOYJ3UQMlV3UyhrEPjr2DfVwZaTd8Blfiwlm+As1Uk6UCBO87kxoIoTNg//+meLo34JA4D6rbLd9uw+84t+LLXXMnUI3QgORacoidknVVhCZzCkHx/yGKgiR/Yrps56MdIkU0RkpftdPKwXlx0NozfC8+BSuDrRlQMk8f+++7wh3GMrDuHAuFfzF2rfSzNUEnykxvOn9HUvZP+Qj0ekfp+hAcnfaCT0SXOoTLlhIwHqEXycCXSNsAUXQ4nAChSaBkp+l/oGRsPwtOz2mVnzw==
+    auth: AgBrWeOMAw54cx3N/kLqS8+avc5EmPpPrR8odpz66IlSZhAmgn+lX8FnlXP3xv9Enldz+hRNZIfDcfs8D89SpcCKcw17HrUzgnCMBApel4RgkIoS79IhqFnXEAGGbKCP+qBxAg5KgC/jkPQ564pu/3L9iluKqKnHN/PexRtccEMO4eH7hBFvJGM/ByPi5d+8o/CN0+ZNIkATcfGzw+87H5fMDkjIHMzIBIf4y3cdUrQOQR1L3836mry3/fPBfAoYSLsYVdwEcFhxq1xev0tKQ1rkj+iEJibXqVkHfshnrXn4fJSLvUA18cs2O274sxibXWfih49cdW70g0NRIychMXKhEd9dGl/k+/maBR1d/17oQm4cJ2Tv6cPf+IjgxMa8MKIuoEhBDuu+EdMgo3RVSy+6XtM3D2UTqBqIWa7wji+82SRNwO/vwVcUYO+glGJ0XO+3xQE7J+87y/2Qef7lT0dpz5mVJSGgQDcDcyobQBzhZ+2ierTulpFw/9ntmAhVkbOM/EWQ2fdWSxg2t2F85RFg8WvdOm6u63/0WdE9DBgmuqDYk1owX6vkJgHjMzemNhkM18CQTYAQEe/KyAuJ+sQ0PeXCYl2ePs1RoW9slJFgmLyv8sw0sgZYllh7O4cMKttxC/SXBb6VWTfN85dWvem+AUaqF8epJ0GsLO/L6yZkiuw0+2QL/oB0LdzPL5A4KXf+y5dD71IBIvLOIuQWQq9ZO9ttOsOMsl83ggYOQPaMFePPdc6EtmftvZn007uDQRTbT0fSfbWXsfzf9z7/MnusCGpTUzxcBrxF/NFxTL1jHeUFMpt0rCyD9JFEmQ==
   template:
     metadata:
-      annotations:
-        sealedsecrets.bitnami.com/cluster-wide: "true"
       creationTimestamp: null
       name: basic-auth
+      namespace: metabase
 
