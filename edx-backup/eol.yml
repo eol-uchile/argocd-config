@@ -52,7 +52,7 @@ spec:
                     operator: In
                     values:
                     - edx-backup
-              topologyKey: "kubernetes.io/hostname"
+                topologyKey: "kubernetes.io/hostname"
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
