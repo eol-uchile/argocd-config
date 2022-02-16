@@ -10,6 +10,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: edx-backup
         spec:
           restartPolicy: OnFailure
           containers:
@@ -41,6 +44,15 @@ spec:
           #    server: 172.16.244.123
           #    path: /eol_backup/eol
           affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - edx-backup
+            topologyKey: "kubernetes.io/hostname"
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
