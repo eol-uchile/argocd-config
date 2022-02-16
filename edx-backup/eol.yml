@@ -82,6 +82,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: edx-backup
         spec:
           restartPolicy: OnFailure
           containers:
@@ -113,6 +116,15 @@ spec:
                 path: /mnt/data
                 type: Directory
           affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - edx-backup
+                topologyKey: "kubernetes.io/hostname"
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
