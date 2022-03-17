@@ -6,18 +6,28 @@ resources:
 - secrets/eol.yaml
 - secrets/uabierta.yaml
 - secrets/virtuallabx.yaml
+- secrets/norteamericano.yaml
+- secrets/openuchile.yaml
 - psp.yaml
-- eol.yml
+- eol.yaml
 - uabierta.yaml
-- virtuallabx.yml
-- clean-node.yml
+- virtuallabx.yaml
+- norteamericano.yaml
+- openuchile.yaml
+- clean-node.yaml
 images:
 - name: uabierta-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 480c6aae789f98431456c2aa9fe6150e24c1ff1e
+  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 480c6aae789f98431456c2aa9fe6150e24c1ff1e
+  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
 - name: vlabx-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: old-480c6aae789f98431456c2aa9fe6150e24c1ff1e
+  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+- name: norteamericano-backup-container
+  newName: ghcr.io/eol-uchile/backup_container
+  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+- name: openuchile-backup-container
+  newName: ghcr.io/eol-uchile/backup_container
+  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5

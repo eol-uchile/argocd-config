@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
- kubectl config use-context eol
+kubectl config use-context eol
 export EDX_NAMESPACE=edx-backup
 
 # configs
@@ -9,3 +9,5 @@ kubectl -n $EDX_NAMESPACE get secret common-config -o json | jq -r '.data | keys
 kubectl -n $EDX_NAMESPACE get secret uabierta-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > uabierta.env
 kubectl -n $EDX_NAMESPACE get secret eol-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > eol.env
 kubectl -n $EDX_NAMESPACE get secret virtuallabx-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > virtuallabx.env
+kubectl -n $EDX_NAMESPACE get secret norteamericano-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > norteamericano.env
+kubectl -n $EDX_NAMESPACE get secret openuchile-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > openuchile.env
