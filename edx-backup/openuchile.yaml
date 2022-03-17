@@ -1,31 +1,39 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: clean-node-daily
+  name: openuchile-backup-daily
 spec:
-  schedule: "0 1 * * *"
+  schedule: "0 23 * * *"
   concurrencyPolicy: Forbid
-  failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: edx-backup
         spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: eol-backup-container
+            image: openuchile-backup-container
             args:
-            - /root/scripts/clear_mount.sh
+            - /root/scripts/backup.sh
+            - daily
+            - mongodb_comments,mongodb,mysql,minio
+            - keep
             envFrom:
             - secretRef:
                 name: common-config
+            - secretRef:
+                name: openuchile-config
             resources:
               requests:
                 memory: 256Mi
-                cpu: 100m
+                cpu: 750m
               limits:
-                memory: 1Gi
+                memory: 2Gi
                 cpu: 750m
             volumeMounts:
               - name: node3-persistent
@@ -36,6 +44,15 @@ spec:
                 path: /mnt/data
                 type: Directory
           affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - edx-backup
+                topologyKey: "kubernetes.io/hostname"
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:

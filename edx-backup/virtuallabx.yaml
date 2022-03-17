@@ -1,0 +1,63 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: virtuallabx-backup-daily
+spec:
+  schedule: "0 7 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: edx-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: edx-backup
+            image: vlabx-backup-container
+            args:
+            - /root/scripts/backup.sh
+            - daily
+            - mongodb_comments,mongodb,mysql,minio
+            - keep
+            envFrom:
+            - secretRef:
+                name: common-config
+            - secretRef:
+                name: virtuallabx-config
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 750m
+              limits:
+                memory: 2Gi
+                cpu: 750m
+            volumeMounts:
+              - name: node3-persistent
+                mountPath: /host_mount
+          volumes:
+            - name: node3-persistent
+              hostPath:
+                path: /mnt/data
+                type: Directory
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - edx-backup
+                topologyKey: "kubernetes.io/hostname"
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                    - k8seol0103
