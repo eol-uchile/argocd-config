@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: clean-node-daily
 spec:
-  schedule: "0 1 * * *"
+  schedule: "0 21 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 1

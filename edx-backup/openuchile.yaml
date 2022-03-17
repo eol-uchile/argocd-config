@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: virtuallabx-backup-daily
+  name: openuchile-backup-daily
 spec:
-  schedule: "0 7 * * *"
+  schedule: "0 23 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -17,7 +17,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: vlabx-backup-container
+            image: openuchile-backup-container
             args:
             - /root/scripts/backup.sh
             - daily
@@ -27,7 +27,7 @@ spec:
             - secretRef:
                 name: common-config
             - secretRef:
-                name: virtuallabx-config
+                name: openuchile-config
             resources:
               requests:
                 memory: 256Mi
