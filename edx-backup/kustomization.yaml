@@ -14,7 +14,8 @@ resources:
 - virtuallabx.yaml
 - norteamericano.yaml
 - openuchile.yaml
-- clean-node.yaml
+- clean-node3.yaml
+- clean-node5.yaml
 images:
 - name: uabierta-backup-container
   newName: ghcr.io/eol-uchile/backup_container
