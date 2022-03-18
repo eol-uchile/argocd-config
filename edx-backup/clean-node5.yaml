@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: clean-node-daily
+  name: clean-node5-daily
 spec:
   schedule: "0 23 * * *"
   concurrencyPolicy: Forbid
