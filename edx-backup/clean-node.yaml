@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: clean-node5-daily
+  name: clean-node-daily
 spec:
-  schedule: "0 23 * * *"
+  schedule: "0 21 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 1
@@ -28,10 +28,10 @@ spec:
                 memory: 1Gi
                 cpu: 750m
             volumeMounts:
-              - name: node5-persistent
+              - name: node3-persistent
                 mountPath: /host_mount
           volumes:
-            - name: node5-persistent
+            - name: node3-persistent
               hostPath:
                 path: /mnt/data
                 type: Directory
@@ -43,4 +43,4 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                    - k8seol0105
+                    - k8seol0103
