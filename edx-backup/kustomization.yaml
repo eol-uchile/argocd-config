@@ -18,16 +18,16 @@ resources:
 images:
 - name: uabierta-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+  newTag: bfe0d5581f2e15605360e7d5f255d5ce65a5ad5d
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+  newTag: bfe0d5581f2e15605360e7d5f255d5ce65a5ad5d
 - name: vlabx-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+  newTag: bfe0d5581f2e15605360e7d5f255d5ce65a5ad5d
 - name: norteamericano-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+  newTag: bfe0d5581f2e15605360e7d5f255d5ce65a5ad5d
 - name: openuchile-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 232f01fa23ed57c77b8909fc77cfe8a8c4096fa5
+  newTag: bfe0d5581f2e15605360e7d5f255d5ce65a5ad5d
