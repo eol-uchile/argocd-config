@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: openuchile-backup-daily
 spec:
-  schedule: "0 1 * * *"
+  schedule: "0 23 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -36,10 +36,10 @@ spec:
                 memory: 2Gi
                 cpu: 750m
             volumeMounts:
-              - name: node5-persistent
+              - name: node3-persistent
                 mountPath: /host_mount
           volumes:
-            - name: node5-persistent
+            - name: node3-persistent
               hostPath:
                 path: /mnt/data
                 type: Directory
@@ -60,4 +60,4 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                    - k8seol0105
+                    - k8seol0103
