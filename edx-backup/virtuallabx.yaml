@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: virtuallabx-backup-daily
 spec:
-  schedule: "0 7 * * *"
+  schedule: "0 10 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
