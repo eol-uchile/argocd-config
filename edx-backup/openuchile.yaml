@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: openuchile-backup-daily
 spec:
-  schedule: "0 23 * * *"
+  schedule: "0 2 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
