@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: docs-eol
+  namespace: argocd
+spec:
+  description: Project for eol documentation
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: docs-eol
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
+  - group: 'monitoring.coreos.com'
+    kind: Probe
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: docs-eol
+  namespace: argocd
+spec:
+  destination:
+    namespace: docs-eol
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: docs-eol
+    repoURL: 'https://github.com/eol-uchile/argocd-config'
+    targetRevision: HEAD
+  project: docs-eol
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
