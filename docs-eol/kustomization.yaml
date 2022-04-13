@@ -1,0 +1,9 @@
+resources:
+- docs-eol.yaml
+- ingress.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: docs
+  newName: ghcr.io/eol-uchile/docs-eol
+  newTag: 32dc01ce96fd95cdd5a2d33ea1c1a1821a025d13
