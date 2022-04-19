@@ -6,4 +6,4 @@ kind: Kustomization
 images:
 - name: docs
   newName: ghcr.io/eol-uchile/docs-eol
-  newTag: 43ad5e4f2b6ac196fe8ce60732873fe09bbe03fa
+  newTag: ab9422f3d45b9dfe3f36464a9f4464fdd20a3743
