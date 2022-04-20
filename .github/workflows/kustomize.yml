@@ -47,19 +47,25 @@ jobs:
           cd reloader
           kustomize build . > /dev/null
           cd ..
-      
+
       - name: Check service-backup build
         run: |
           cd service-backup
           kustomize build . > /dev/null
           cd ..
-      
+
       - name: Check portal-eol build
         run: |
           cd portal-eol
           kustomize build . > /dev/null
           cd ..
-      
+
+      - name: Check docs-eol build
+        run: |
+          cd docs-eol
+          kustomize build . > /dev/null
+          cd ..
+
       - name: Check projects build
         run: |
           cd projects

@@ -14,11 +14,18 @@ jobs:
       - name: Install kustomize
         run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash && sudo install -m 755 kustomize /usr/local/bin/kustomize
 
-      - name: Update eol version
+      - name: Update portal-eol version
         run: |
           cd portal-eol
           NEWVERSION=$(curl https://api.github.com/repos/eol-uchile/portal-eol/commits/master | jq -r '.sha')
           kustomize edit set image portal=ghcr.io/eol-uchile/portal-eol:$NEWVERSION
+          cd ..
+
+      - name: Update docs-eol version
+        run: |
+          cd docs-eol
+          NEWVERSION=$(curl https://api.github.com/repos/eol-uchile/docs-eol/commits/main | jq -r '.sha')
+          kustomize edit set image docs=ghcr.io/eol-uchile/docs-eol:$NEWVERSION
           cd ..
 
       - name: Push changes
@@ -26,5 +33,6 @@ jobs:
           git config --global user.name "eolito"
           git config --global user.email 'eol-uchile@users.noreply.github.com'
           git add portal-eol/kustomization.yaml
+          git add docs-eol/kustomization.yaml
           git commit -m "Update versions"
           git push https://eolito:${{ secrets.GITHUB_TOKEN }}@github.com/eol-uchile/argocd-config.git HEAD:master
