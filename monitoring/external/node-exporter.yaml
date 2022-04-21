@@ -19,6 +19,7 @@ metadata:
   namespace: monitoring
 subsets:
  - addresses:
+   - ip: 146.83.63.66
    - ip: 146.83.63.75
    - ip: 146.83.63.76
    ports:
