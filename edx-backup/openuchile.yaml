@@ -36,10 +36,10 @@ spec:
                 memory: 2Gi
                 cpu: 750m
             volumeMounts:
-              - name: node3-persistent
+              - name: node7-persistent
                 mountPath: /host_mount
           volumes:
-            - name: node3-persistent
+            - name: node7-persistent
               hostPath:
                 path: /mnt/data
                 type: Directory
@@ -53,11 +53,8 @@ spec:
                     values:
                     - edx-backup
                 topologyKey: "kubernetes.io/hostname"
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                    - k8seol0103
+          tolerations:
+          - key: "backups"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
