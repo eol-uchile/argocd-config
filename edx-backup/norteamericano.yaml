@@ -43,16 +43,16 @@ spec:
               hostPath:
                 path: /mnt/data
                 type: Directory
-          affinity:
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                    - edx-backup
-                topologyKey: "kubernetes.io/hostname"
+          # affinity:
+          #   podAntiAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #     - labelSelector:
+          #         matchExpressions:
+          #         - key: app
+          #           operator: In
+          #           values:
+          #           - edx-backup
+          #       topologyKey: "kubernetes.io/hostname"
           tolerations:
           - key: "backups"
             operator: "Equal"
