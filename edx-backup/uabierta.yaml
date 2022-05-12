@@ -34,7 +34,7 @@ spec:
                 name: common-config
             - secretRef:
                 name: uabierta-config
-          # affinity:
+          affinity:
           #   podAntiAffinity:
           #     requiredDuringSchedulingIgnoredDuringExecution:
           #     - labelSelector:
@@ -44,17 +44,18 @@ spec:
           #           values:
           #           - edx-backup
           #       topologyKey: "kubernetes.io/hostname"
-          #   nodeAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #       nodeSelectorTerms:
-          #       - matchExpressions:
-          #         - key: kubernetes.io/hostname
-          #           operator: NotIn
-          #           values:
-          #           - k8seol0101
-          #           - k8seol0102
-          #           - k8seol0103
-          #           - k8seol0104
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                    - k8seol0101
+                    - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+                    - k8seol0105
           # tolerations:
           # - key: "dev"
           #   operator: "Equal"
