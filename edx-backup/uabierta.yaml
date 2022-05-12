@@ -34,31 +34,36 @@ spec:
                 name: common-config
             - secretRef:
                 name: uabierta-config
-          affinity:
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                    - edx-backup
-                topologyKey: "kubernetes.io/hostname"
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
+          # affinity:
+          #   podAntiAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #     - labelSelector:
+          #         matchExpressions:
+          #         - key: app
+          #           operator: In
+          #           values:
+          #           - edx-backup
+          #       topologyKey: "kubernetes.io/hostname"
+          #   nodeAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #       nodeSelectorTerms:
+          #       - matchExpressions:
+          #         - key: kubernetes.io/hostname
+          #           operator: NotIn
+          #           values:
+          #           - k8seol0101
+          #           - k8seol0102
+          #           - k8seol0103
+          #           - k8seol0104
+          # tolerations:
+          # - key: "dev"
+          #   operator: "Equal"
+          #   value: "nosso"
+          #   effect: "NoSchedule"
           tolerations:
-          - key: "dev"
+          - key: "backups"
             operator: "Equal"
-            value: "nosso"
+            value: "true"
             effect: "NoSchedule"
           #  volumeMounts:
           #  - mountPath: /volume/nfs
@@ -113,16 +118,16 @@ spec:
               hostPath:
                 path: /mnt/data
                 type: Directory
-          affinity:
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                    - edx-backup
-                topologyKey: "kubernetes.io/hostname"
+          # affinity:
+          #   podAntiAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #     - labelSelector:
+          #         matchExpressions:
+          #         - key: app
+          #           operator: In
+          #           values:
+          #           - edx-backup
+          #       topologyKey: "kubernetes.io/hostname"
           tolerations:
           - key: "backups"
             operator: "Equal"
