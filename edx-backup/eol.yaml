@@ -131,6 +131,15 @@ spec:
           #           values:
           #           - edx-backup
           #       topologyKey: "kubernetes.io/hostname"
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                    - k8seol0107
           tolerations:
           - key: "backups"
             operator: "Equal"
