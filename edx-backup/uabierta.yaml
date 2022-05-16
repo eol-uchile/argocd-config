@@ -119,16 +119,6 @@ spec:
               hostPath:
                 path: /mnt/data
                 type: Directory
-          # affinity:
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -142,3 +132,18 @@ spec:
                     - k8seol0103
                     - k8seol0104
                     - k8seol0105
+          tolerations:
+          - key: "backups"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          # affinity:
+          #   podAntiAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #     - labelSelector:
+          #         matchExpressions:
+          #         - key: app
+          #           operator: In
+          #           values:
+          #           - edx-backup
+          #       topologyKey: "kubernetes.io/hostname"
