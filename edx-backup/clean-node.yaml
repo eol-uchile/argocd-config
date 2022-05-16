@@ -44,8 +44,3 @@ spec:
                     operator: In
                     values:
                     - k8seol0107
-          tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
