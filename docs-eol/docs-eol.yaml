@@ -28,6 +28,20 @@ spec:
           limits:
             memory: 500Mi
             cpu: 400m
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8seol0104
+      tolerations:
+      - key: "restrict"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
 ---
 apiVersion: v1
 kind: Service
