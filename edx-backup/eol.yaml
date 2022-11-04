@@ -149,3 +149,66 @@ spec:
           #           values:
           #           - edx-backup
           #       topologyKey: "kubernetes.io/hostname"
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: eol-backup-minio-daily
+spec:
+  schedule: "0 5 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: edx-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: eol-backup
+            image: eol-backup-container
+            args:
+            - /root/scripts/backup.sh
+            - daily
+            - minio
+            envFrom:
+            - secretRef:
+                name: common-config
+            - secretRef:
+                name: eol-config
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 750m
+              limits:
+                memory: 2Gi
+                cpu: 750m
+            volumeMounts:
+              - name: node7-persistent
+                mountPath: /host_mount
+          volumes:
+            - name: node7-persistent
+              hostPath:
+                path: /mnt/data
+                type: Directory
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                    - k8seol0101
+                    - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+                    - k8seol0105
+          tolerations:
+          - key: "backups"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
