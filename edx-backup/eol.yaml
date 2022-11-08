@@ -99,7 +99,7 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            - mongodb_comments,mongodb,mysql,minio
+            - mongodb_comments,mongodb,mysql
             - keep
             envFrom:
             - secretRef:
