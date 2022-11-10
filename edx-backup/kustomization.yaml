@@ -21,7 +21,7 @@ images:
   newTag: 87e8048f3f4df73ac0e1216454dbc34ff30f14f8
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
-  newTag: 3a7cf17a4d17cdcf1f89c72b25884d0222d452bc
+  newTag: 1568428873617d7386fab4cf35af7ff886214a72
 - name: vlabx-backup-container
   newName: ghcr.io/eol-uchile/backup_container
   newTag: 87e8048f3f4df73ac0e1216454dbc34ff30f14f8
