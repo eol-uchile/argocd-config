@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: eol-backup
+  name: eol-backup-00
 spec:
-  schedule: "30 0-4,8-23 * * *"
+  schedule: "0 10,17 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -32,11 +32,9 @@ spec:
               requests:
                 memory: 256Mi
                 cpu: 750m
-                ephemeral-storage: "2Gi"
               limits:
                 memory: 2Gi
                 cpu: 750m
-                ephemeral-storage: "4Gi"
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -55,35 +53,69 @@ spec:
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-          #  volumeMounts:
-          #  - mountPath: /volume/nfs
-          #    name: eol-backup
-          #volumes:
-          #- name: eol-backup
-          #  nfs:
-          #    server: 172.16.244.123
-          #    path: /eol_backup/eol
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
-          # tolerations:
-          # - key: "dev"
-          #   operator: "Equal"
-          #   value: "nosso"
-          #   effect: "NoSchedule"
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: eol-backup-30
+spec:
+  schedule: "30 13,20 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: edx-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: eol-backup
+            image: eol-backup-container
+            args:
+            - /root/scripts/backup.sh
+            - hourly
+            - mongodb_comments,mongodb,mysql
+            - .
+            envFrom:
+            - secretRef:
+                name: common-config
+            - secretRef:
+                name: eol-config
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 750m
+              limits:
+                memory: 2Gi
+                cpu: 750m
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                    - k8seol0101
+                    - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+                    - k8seol0105
+          tolerations:
+          - key: "backups"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: eol-backup-daily
 spec:
-  schedule: "0 5 * * *"
+  schedule: "0 1 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -101,7 +133,7 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            - mongodb_comments,mongodb,mysql
+            - minio,mongodb_comments,mongodb,mysql
             - keep
             envFrom:
             - secretRef:
@@ -112,86 +144,9 @@ spec:
               requests:
                 memory: 256Mi
                 cpu: 750m
-                ephemeral-storage: "2Gi"
               limits:
                 memory: 2Gi
                 cpu: 750m
-                ephemeral-storage: "4Gi"
-            volumeMounts:
-              - name: node7-persistent
-                mountPath: /host_mount
-          volumes:
-            - name: node7-persistent
-              hostPath:
-                path: /mnt/data
-                type: Directory
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
-                    - k8seol0105
-          tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
-          # affinity:
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
----
-apiVersion: batch/v1beta1
-kind: CronJob
-metadata:
-  name: eol-backup-minio-daily
-spec:
-  schedule: "0 5 * * *"
-  concurrencyPolicy: Forbid
-  failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 1
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: edx-backup
-        spec:
-          restartPolicy: OnFailure
-          containers:
-          - name: eol-backup
-            image: eol-backup-container
-            args:
-            - /root/scripts/backup.sh
-            - daily
-            - minio
-            envFrom:
-            - secretRef:
-                name: common-config
-            - secretRef:
-                name: eol-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 750m
-                ephemeral-storage: "2Gi"
-              limits:
-                memory: 2Gi
-                cpu: 750m
-                ephemeral-storage: "4Gi"
             volumeMounts:
               - name: node7-persistent
                 mountPath: /host_mount
