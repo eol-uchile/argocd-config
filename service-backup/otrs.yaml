@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: otrs-backup-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "0 8 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -32,12 +32,11 @@ spec:
                     values:
                     - k8seol0101
                     - k8seol0102
-                    - k8seol0103
                     - k8seol0104
                     - k8seol0105
+                    - k8seol0107
           tolerations:
           - key: "backups"
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-                

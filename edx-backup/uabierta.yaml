@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: uabierta-backup
+  name: uabierta-backup-00
 spec:
-  schedule: "0 0-5,7-23 * * *"
+  schedule: "0 4,23 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -35,15 +35,6 @@ spec:
             - secretRef:
                 name: uabierta-config
           affinity:
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
@@ -56,31 +47,73 @@ spec:
                     - k8seol0103
                     - k8seol0104
                     - k8seol0105
-          # tolerations:
-          # - key: "dev"
-          #   operator: "Equal"
-          #   value: "nosso"
-          #   effect: "NoSchedule"
           tolerations:
           - key: "backups"
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-          #  volumeMounts:
-          #  - mountPath: /volume/nfs
-          #    name: uabierta-backup
-          #volumes:
-          #- name: uabierta-backup
-          #  nfs:
-          #    server: 172.16.244.123
-          #    path: /eol_backup/uabierta
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: uabierta-backup-30
+spec:
+  schedule: "30 12,19 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: edx-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: uabierta-backup
+            image: uabierta-backup-container
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+                cpu: "1"
+            args:
+            - /root/scripts/backup.sh
+            - hourly
+            - mongodb_comments,mongodb,mysql
+            - .
+            envFrom:
+            - secretRef:
+                name: common-config
+            - secretRef:
+                name: uabierta-config
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                    - k8seol0101
+                    - k8seol0102
+                    - k8seol0103
+                    - k8seol0104
+                    - k8seol0105
+          tolerations:
+          - key: "backups"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: uabierta-backup-daily
 spec:
-  schedule: "0 3 * * *"
+  schedule: "0 6 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 2
@@ -104,7 +137,7 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            - mongodb_comments,mongodb,mysql,minio
+            - minio,mongodb_comments,mongodb,mysql
             - keep
             envFrom:
             - secretRef:
@@ -137,13 +170,3 @@ spec:
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-          # affinity:
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"

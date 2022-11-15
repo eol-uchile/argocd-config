@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: virtuallabx-backup-daily
 spec:
-  schedule: "30 8 * * *"
+  schedule: "0 4 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -21,7 +21,7 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            - mongodb_comments,mongodb,mysql,minio
+            - minio,mongodb_comments,mongodb,mysql
             - keep
             envFrom:
             - secretRef:
@@ -61,13 +61,3 @@ spec:
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-          # affinity:
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
