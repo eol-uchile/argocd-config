@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: metabase-backup-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "30 7 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
