@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: eol-backup
+  name: eol-backup-00
 spec:
-  schedule: "30 0-4,8-23 * * *"
+  schedule: "0 10,17 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -53,35 +53,13 @@ spec:
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-          #  volumeMounts:
-          #  - mountPath: /volume/nfs
-          #    name: eol-backup
-          #volumes:
-          #- name: eol-backup
-          #  nfs:
-          #    server: 172.16.244.123
-          #    path: /eol_backup/eol
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
-          # tolerations:
-          # - key: "dev"
-          #   operator: "Equal"
-          #   value: "nosso"
-          #   effect: "NoSchedule"
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: eol-backup-daily
+  name: eol-backup-30
 spec:
-  schedule: "0 5 * * *"
+  schedule: "30 13,20 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -98,9 +76,9 @@ spec:
             image: eol-backup-container
             args:
             - /root/scripts/backup.sh
-            - daily
+            - hourly
             - mongodb_comments,mongodb,mysql
-            - keep
+            - .
             envFrom:
             - secretRef:
                 name: common-config
@@ -113,14 +91,6 @@ spec:
               limits:
                 memory: 2Gi
                 cpu: 750m
-            volumeMounts:
-              - name: node7-persistent
-                mountPath: /host_mount
-          volumes:
-            - name: node7-persistent
-              hostPath:
-                path: /mnt/data
-                type: Directory
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -139,26 +109,16 @@ spec:
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
-          # affinity:
-          #   podAntiAffinity:
-          #     requiredDuringSchedulingIgnoredDuringExecution:
-          #     - labelSelector:
-          #         matchExpressions:
-          #         - key: app
-          #           operator: In
-          #           values:
-          #           - edx-backup
-          #       topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: eol-backup-minio-daily
+  name: eol-backup-daily
 spec:
-  schedule: "0 5 * * *"
+  schedule: "0 1 * * *"
   concurrencyPolicy: Forbid
-  failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
@@ -173,7 +133,8 @@ spec:
             args:
             - /root/scripts/backup.sh
             - daily
-            - minio
+            - minio,mongodb_comments,mongodb,mysql
+            - keep
             envFrom:
             - secretRef:
                 name: common-config
