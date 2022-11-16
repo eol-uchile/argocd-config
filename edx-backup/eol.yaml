@@ -115,7 +115,7 @@ kind: CronJob
 metadata:
   name: eol-backup-daily
 spec:
-  schedule: "0 1 * * *"
+  schedule: "30 13,20 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
