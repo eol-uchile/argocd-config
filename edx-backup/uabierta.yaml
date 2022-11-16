@@ -113,7 +113,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-daily
 spec:
-  schedule: "0 6 * * *"
+  schedule: "0 7 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 2
