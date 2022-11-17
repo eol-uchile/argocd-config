@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: norteamericano-backup-daily
 spec:
-  schedule: "0 9 * * *"
+  schedule: "0 10 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2

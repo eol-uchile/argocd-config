@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-00
 spec:
-  schedule: "0 16,23 * * *"
+  schedule: "0 17 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -58,7 +58,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-30
 spec:
-  schedule: "30 12,19 * * *"
+  schedule: "30 13,20 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -113,7 +113,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-daily
 spec:
-  schedule: "0 7 * * *"
+  schedule: "30 7 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 2
