@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: eol-backup-00
 spec:
-  schedule: "0 10,17 * * *"
+  schedule: "0 11,18 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -59,7 +59,7 @@ kind: CronJob
 metadata:
   name: eol-backup-30
 spec:
-  schedule: "30 13,20 * * *"
+  schedule: "30 14,21 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
