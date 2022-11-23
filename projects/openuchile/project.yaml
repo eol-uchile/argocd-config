@@ -16,23 +16,5 @@ spec:
   - group: '*'
     kind: '*'
   namespaceResourceWhitelist:
-  - group: 'apps'
+  - group: '*'
     kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: ConfigMap
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
-  - group: ''
-    kind: 'PersistentVolumeClaim'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
