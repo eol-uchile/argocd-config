@@ -18,3 +18,5 @@ spec:
   namespaceResourceWhitelist:
   - group: '*'
     kind: '*'
+  - group: ''
+    kind: ConfigMap
