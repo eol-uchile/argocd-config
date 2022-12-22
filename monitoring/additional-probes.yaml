@@ -17,23 +17,23 @@ spec:
       - https://jcpp2030.cl/heartbeat
       - https://studio.jcpp2030.cl/heartbeat
       - https://preview.jcpp2030.cl/heartbeat
----
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
-metadata:
- name: norteamericano-blackbox-monitoring
- namespace: monitoring
-spec:
- interval: 90s
- module: http_2xx
- prober:
-   url: blackbox-exporter.monitoring.svc.cluster.local:19115
- targets:
-   staticConfig:
-     static:
-     - https://norteamericano.virtual-labx.cl/heartbeat
-     - https://studio.norteamericano.virtual-labx.cl/heartbeat
-     - https://preview.norteamericano.virtual-labx.cl/heartbeat
+# ---
+# kind: Probe
+# apiVersion: monitoring.coreos.com/v1
+# metadata:
+#  name: norteamericano-blackbox-monitoring
+#  namespace: monitoring
+# spec:
+#  interval: 90s
+#  module: http_2xx
+#  prober:
+#    url: blackbox-exporter.monitoring.svc.cluster.local:19115
+#  targets:
+#    staticConfig:
+#      static:
+#      - https://norteamericano.virtual-labx.cl/heartbeat
+#      - https://studio.norteamericano.virtual-labx.cl/heartbeat
+#      - https://preview.norteamericano.virtual-labx.cl/heartbeat
 ---
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
