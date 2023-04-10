@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: metabase
-        image: metabase/metabase:v0.41.1
+        image: metabase/metabase:v0.46.1
         env:
         - name: MB_DB_TYPE
           value: postgres
@@ -51,11 +51,11 @@ spec:
         - containerPort: 3000
         resources:
           requests:
-            memory: 1Gi
-            cpu: 200m
+            memory: 1.2Gi
+            cpu: 350m
           limits:
             memory: 2Gi
-            cpu: 400m
+            cpu: 500m
       volumes:
       - name: metabase-ca
         secret:
