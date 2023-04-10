@@ -52,10 +52,10 @@ spec:
         resources:
           requests:
             memory: 1.2Gi
-            cpu: 350m
+            cpu: 600m
           limits:
             memory: 2Gi
-            cpu: 500m
+            cpu: 800m
       volumes:
       - name: metabase-ca
         secret:
