@@ -29,7 +29,7 @@ spec:
       expr: |
         probe_success
         < 1
-      for: 1m
+      for: 2m
       labels:
         severity: critical
   - name: mysqld-alerts
@@ -42,5 +42,5 @@ spec:
       for: 1m
       labels:
         severity: critical
-  
-      
+
+
