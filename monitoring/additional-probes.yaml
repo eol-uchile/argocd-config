@@ -13,7 +13,7 @@ spec:
       static:
       - https://preview.cajalosandes.virtual-labx.cl/heartbeat
       - https://studio.cajalosandes.virtual-labx.cl/heartbeat
-      - https://cajalosandes.virtual-labx.cl/heartbeat
+      # - https://cajalosandes.virtual-labx.cl/heartbeat
       - https://jcpp2030.cl/heartbeat
       - https://studio.jcpp2030.cl/heartbeat
       - https://preview.jcpp2030.cl/heartbeat
