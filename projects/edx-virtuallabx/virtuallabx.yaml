@@ -4,7 +4,7 @@ metadata:
   name: edx-virtuallabx
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project for applications in virtuallabx
   # Allow manifests to deploy from any Git repos
   sourceRepos:
   - 'git@github.com:eol-virtuallabx/edx-argocd.git'
@@ -32,6 +32,8 @@ spec:
     kind: 'Endpoints'
   - group: 'autoscaling'
     kind: 'HorizontalPodAutoscaler'
+  - group: ''
+    kind: 'PersistentVolumeClaim'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
