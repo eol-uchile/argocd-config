@@ -23,7 +23,7 @@ spec:
         - containerPort: 80
         envFrom:
         - secretRef:
-            name: s3-settings
+            name: s3-config
         resources:
           requests:
             memory: 100Mi
