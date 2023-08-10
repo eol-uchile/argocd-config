@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: test-host-eol
+  namespace: argocd
+spec:
+  description: Project to hosting testing aplications
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - '*'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+  - namespace: test-eol
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: '*'
+  - group: 'networking.k8s.io'
+    kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
+  - group: 'batch'
+    kind: '*'
+  - group: ''
+    kind: 'Service'
+  - group: ''
+    kind: ConfigMap
+  - group: ''
+    kind: 'Endpoints'
+  - group: 'autoscaling'
+    kind: 'HorizontalPodAutoscaler'
+  - group: ''
+    kind: 'PersistentVolumeClaim'
+  - group: 'monitoring.coreos.com'
+    kind: Probe
