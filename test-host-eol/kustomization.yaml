@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+namespace: test-eol
+kind: Kustomization
+resources:
+#- nginx-s3-gateway.yaml
+#- secrets/s3-settings.yaml
+#- ingress.yaml
