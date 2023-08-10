@@ -4,12 +4,12 @@ metadata:
   name: test-host-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-production
+#    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  tls:
-    - secretName: test-host-tls-secret
-      hosts:
-      - test.eol.uchile.cl
+#  tls:
+#    - secretName: test-host-tls-secret
+#      hosts:
+#      - test.eol.uchile.cl
   rules:
   - host: test.eol.uchile.cl
     http:
