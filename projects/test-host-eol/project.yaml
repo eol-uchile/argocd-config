@@ -36,3 +36,24 @@ spec:
     kind: 'PersistentVolumeClaim'
   - group: 'monitoring.coreos.com'
     kind: Probe
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-host-eol
+  namespace: argocd
+spec:
+  destination:
+    namespace: test-eol
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: test-host-eol
+    repoURL: 'git@github.com:eol-uchile/argocd-config.git'
+    targetRevision: HEAD
+  project: test-host-eol
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
