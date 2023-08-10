@@ -1,4 +1,2 @@
 tmp/
-
-edx-backup/secret_updates
-service-backup/secret_updates
+*.env
