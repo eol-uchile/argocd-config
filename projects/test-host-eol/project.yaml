@@ -48,7 +48,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: test-host-eol
-    repoURL: 'git@github.com:eol-uchile/argocd-config.git'
+    repoURL: 'git@github.com/eol-uchile/argocd-config.git'
     targetRevision: HEAD
   project: test-host-eol
   syncPolicy:
