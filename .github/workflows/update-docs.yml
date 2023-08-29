@@ -17,7 +17,7 @@ jobs:
       - name: Update docs-eol version
         run: |
           cd docs-eol
-          NEWVERSION=$(curl https://api.github.com/repos/eol-uchile/docs-eol/commits/master | jq -r '.sha')
+          NEWVERSION=$(curl https://api.github.com/repos/eol-uchile/docs-eol/commits/main | jq -r '.sha')
           kustomize edit set image docs=ghcr.io/eol-uchile/docs-eol:$NEWVERSION
           cd ..
 
