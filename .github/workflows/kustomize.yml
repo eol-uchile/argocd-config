@@ -66,6 +66,12 @@ jobs:
           kustomize build . > /dev/null
           cd ..
 
+      - name: Check test-host-eol build
+        run: |
+          cd test-host-eol
+          kustomize build . > /dev/null
+          cd ..
+
       - name: Check projects build
         run: |
           cd projects
