@@ -58,7 +58,7 @@ spec:
         - name: GRAYLOG_TRANSPORT_EMAIL_USE_SSL
           value: "false"
         - name: GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL
-          value: "no-reply@eol.uchile.cl"
+          value: "no-reply@uchile.cl"
         - name: GRAYLOG_TRANSPORT_EMAIL_WEB_INTERFACE_URL
           value: "https://logmonitoring.eol-ing.uchile.cl"
         ports:
