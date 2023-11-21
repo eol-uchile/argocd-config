@@ -32,7 +32,7 @@ spec:
         - name: SHOW_OTRS_LOGO
           value: "no"
         - name: OTRS_DEFAULT_EMAIL
-          value: noreply@uchile.cl
+          value: no-reply@uchile.cl
         - name: OTRS_DB_HOST
           valueFrom:
             secretKeyRef:
