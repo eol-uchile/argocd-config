@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v2
@@ -23,8 +25,7 @@ jobs:
 
       - name: Push changes
         run: |
-          git config --global user.name "eolito"
-          git config --global user.email 'eol-uchile@users.noreply.github.com'
+          git config --global user.name ${{ github.actor }}
           git add portal-eol/kustomization.yaml
           git commit -m "Update portal-eol version"
           git push https://eolito:${{ secrets.GITHUB_TOKEN }}@github.com/eol-uchile/argocd-config.git HEAD:master
