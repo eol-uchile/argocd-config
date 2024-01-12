@@ -1,13 +1,17 @@
-name: Update staging image
+name: Check kustomize integrity
 
-on: push
+on:
+  push:
+    paths-ignore:
+      - '.github/workflows/**'
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install kustomize
         run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash && sudo install -m 755 kustomize /usr/local/bin/kustomize
@@ -76,3 +80,4 @@ jobs:
         run: |
           cd projects
           kustomize build . > /dev/null
+          cd ..
