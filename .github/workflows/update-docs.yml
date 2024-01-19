@@ -25,7 +25,7 @@ jobs:
 
       - name: Push changes
         run: |
-          if [ "$(git status --porcelain portal-eol/)" != "" ]
+          if [ "$(git status --porcelain docs-eol/)" != "" ]
           then
             git config --global user.name ${{ github.actor }}
             git config --global user.email "${{ github.actor }}@users.noreply.github.com"
