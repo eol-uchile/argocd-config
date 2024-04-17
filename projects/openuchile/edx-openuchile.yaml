@@ -50,9 +50,6 @@ spec:
     targetRevision: HEAD
   project: openuchile-edx-openuchile
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
     - CreateNamespace=true
   ignoreDifferences:
