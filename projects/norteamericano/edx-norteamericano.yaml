@@ -48,9 +48,6 @@ spec:
     targetRevision: HEAD
   project: edx-norteamericano
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
     - CreateNamespace=true
   ignoreDifferences:
