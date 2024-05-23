@@ -4,10 +4,10 @@ metadata:
   name: openuchile-edx-openuchile
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project OpenUchile
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - 'git@github.com:open-uchile/argocd-config.git'
+  - '*'
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
   - namespace: edx-openuchile
@@ -46,7 +46,7 @@ spec:
     server: 'https://146.83.63.78:6443'
   source:
     path: openuchile
-    repoURL: 'git@github.com:open-uchile/argocd-config.git'
+    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
     targetRevision: HEAD
   project: openuchile-edx-openuchile
   syncPolicy:
