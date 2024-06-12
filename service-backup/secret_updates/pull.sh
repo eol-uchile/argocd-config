@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+kubectl config use-context eol
 export EDX_NAMESPACE=service-backup
 
 # configs
