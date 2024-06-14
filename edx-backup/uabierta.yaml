@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: uabierta-backup-00
@@ -54,7 +54,7 @@ spec:
             value: "true"
             effect: "NoSchedule"
 ---
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: uabierta-backup-30
@@ -109,7 +109,7 @@ spec:
             value: "true"
             effect: "NoSchedule"
 ---
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: uabierta-backup-daily
