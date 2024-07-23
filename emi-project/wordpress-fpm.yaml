@@ -27,7 +27,7 @@ spec:
           readOnly: true
           mountPath: /usr/local/etc/php/conf.d/wordpress.ini
           subPath: wordpress.ini
-        - name:  www-extra-conf
+        - name:  emi-www-extra-conf
           readOnly: true
           mountPath: /usr/local/etc/php-fpm.d/www-extra.conf
           subPath: www-extra.conf
@@ -47,10 +47,10 @@ spec:
           claimName: wordpress-emi-content-volume
       - name: emi-wordpress-fpm-ini
         configMap:
-          name: emi-wordpress-fpm-ini
+          name: wordpress-fpm-ini
       - name: emi-www-extra-conf
         configMap:
-          name: emi-www-extra-conf
+          name: www-extra-conf
       terminationGracePeriodSeconds: 45
 ---
 apiVersion: v1
@@ -81,7 +81,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: emi-wordpress-fpm-ini
+  name: wordpress-fpm-ini
 data:
   wordpress.ini: |
     upload_max_filesize = 300M
@@ -93,7 +93,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: emi-www-extra-conf
+  name: www-extra-conf
 data:
   www-extra.conf: |
     [www]
