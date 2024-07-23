@@ -23,17 +23,13 @@ spec:
   - group: 'bitnami.com'
     kind: SealedSecret
   - group: ''
-    kind: '*'
-  - group: ''
     kind: 'Service'
   - group: ''
     kind: ConfigMap
   - group: ''
-    kind: 'Endpoints'
-  - group: ''
-    kind: 'HorizontalPodAutoscaler'
-  - group: ''
     kind: 'PersistentVolumeClaim'
+  - group: 'monitoring.coreos.com'
+    kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
