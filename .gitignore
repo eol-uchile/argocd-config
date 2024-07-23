@@ -1,3 +1,4 @@
 tmp/
 secrets/*/*
 !secrets/*/*.sh
+secrets/emi-project/emi-wordpress.env
