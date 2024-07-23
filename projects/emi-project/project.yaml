@@ -22,7 +22,7 @@ spec:
     kind: '*'
   - group: 'bitnami.com'
     kind: SealedSecret
-  - group: 'batch'
+  - group: ''
     kind: '*'
   - group: ''
     kind: 'Service'
@@ -30,7 +30,7 @@ spec:
     kind: ConfigMap
   - group: ''
     kind: 'Endpoints'
-  - group: 'autoscaling'
+  - group: ''
     kind: 'HorizontalPodAutoscaler'
   - group: ''
     kind: 'PersistentVolumeClaim'
