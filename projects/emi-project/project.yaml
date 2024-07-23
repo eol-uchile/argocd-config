@@ -46,7 +46,7 @@ spec:
     server: 'https://146.83.63.78:6443'
   source:
     path: emi-project
-    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
+    repoURL: 'https://github.com/eol-uchile/argocd-config.git'
     targetRevision: HEAD
   project: emi-project
   syncPolicy:
