@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: emi-project
+resources:
+- ingress.yaml
+- secrets/emi-wordpress.yaml
+- wordpress-fpm.yaml
+- wordpress-nginx.yaml

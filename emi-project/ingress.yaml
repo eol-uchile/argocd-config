@@ -1,0 +1,26 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emi-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+spec:
+  tls:
+    - secretName: emi-project-ingress-certificate
+      hosts:
+      - emi.uchile.cl
+  rules:
+  - host: emi.uchile.cl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: emi-wordpress-nginx-svc
+            port:
+              number: 80
