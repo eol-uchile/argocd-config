@@ -81,3 +81,9 @@ jobs:
           cd projects
           kustomize build . > /dev/null
           cd ..
+
+      - name: Check emi-project build
+        run: |
+          cd emi-project
+          kustomize build . > /dev/null
+          cd ..
