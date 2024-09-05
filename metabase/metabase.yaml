@@ -22,6 +22,8 @@ spec:
         env:
         - name: MB_DB_TYPE
           value: postgres
+        - name: JAVA_OPTS
+          value: '-Xmx1g'
         - name: MB_DB_DBNAME
           valueFrom:
             secretKeyRef:
