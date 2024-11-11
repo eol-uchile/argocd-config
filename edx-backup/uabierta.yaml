@@ -3,6 +3,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-00
 spec:
+  suspend: true
   schedule: "0 13,16,19 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
