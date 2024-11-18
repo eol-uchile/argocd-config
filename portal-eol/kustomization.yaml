@@ -6,4 +6,4 @@ kind: Kustomization
 images:
 - name: portal
   newName: ghcr.io/eol-uchile/portal-eol
-  newTag: d1ab454d9cecd95dc61a7f23387c22961d3e6a61
+  newTag: 3af4eb2f97fe69c52e99b87ad5094a7b5fc87fa2
