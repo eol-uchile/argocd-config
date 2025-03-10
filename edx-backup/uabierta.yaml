@@ -115,6 +115,7 @@ kind: CronJob
 metadata:
   name: uabierta-backup-daily
 spec:
+  suspend: true
   schedule: "0 9 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
