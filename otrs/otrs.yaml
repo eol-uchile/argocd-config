@@ -25,7 +25,7 @@ spec:
           value: disabled
         - name: OTRS_FQDN
           value: eol-ayuda.uchile.cl
-        - name: OTRS_HTTP_TYPE
+        - name: OTRS_HTTPTYPE
           value: https
         - name: OTRS_TIMEZONE
           value: UTC
