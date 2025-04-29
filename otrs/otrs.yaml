@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: otrs
-        image: ghcr.io/eol-uchile/eol-otrs:9a4707b3990d898cff96e5a49d8b787089e0fa94
+        image: ghcr.io/eol-uchile/eol-otrs:d0a36c2ec0ea2fd6dd760b964d96f657ed8e7363
         env:
         - name: OTRS_BACKUP_TIME
           value: disabled
