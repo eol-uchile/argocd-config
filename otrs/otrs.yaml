@@ -23,7 +23,7 @@ spec:
         env:
         - name: OTRS_BACKUP_TIME
           value: disabled
-        - name: OTRS_HOSTNAME
+        - name: OTRS_FQDN
           value: eol-ayuda.uchile.cl
         - name: OTRS_HTTP_TYPE
           value: https
