@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: otrs
-        image: eoluchile/eol-otrs:4bb25b8dd1633cb2bf52eb63a2c8abc11b1de512
+        image: ghcr.io/eol-uchile/eol-otrs:9a4707b3990d898cff96e5a49d8b787089e0fa94
         env:
         - name: OTRS_BACKUP_TIME
           value: disabled
@@ -33,6 +33,8 @@ spec:
           value: "no"
         - name: OTRS_DEFAULT_EMAIL
           value: no-reply@uchile.cl
+        - name: OTRS_ADMINEMAIL
+          value: eol-ing@uchile.cl
         - name: OTRS_DB_HOST
           valueFrom:
             secretKeyRef:
