@@ -29,6 +29,8 @@ spec:
           value: https
         - name: OTRS_TIMEZONE
           value: UTC
+        - name: OTRS_NODEID
+          value: "1"
         - name: SHOW_OTRS_LOGO
           value: "no"
         - name: OTRS_DEFAULT_EMAIL
