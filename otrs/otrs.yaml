@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: otrs
-        image: ghcr.io/eol-uchile/eol-otrs:znuny-6.1.2
+        image: ghcr.io/eol-uchile/eol-otrs:znuny-6.2.2
         env:
         - name: OTRS_BACKUP_TIME
           value: disabled
