@@ -14,76 +14,54 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install kustomize
-        run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash && sudo install -m 755 kustomize /usr/local/bin/kustomize
+        run: |
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" > install_kustomize.sh
+          bash ./install_kustomize.sh 5.6.0
 
       - name: Check backup build
         run: |
-          cd edx-backup
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build edx-backup > /dev/null
 
       - name: Check graylog build
         run: |
-          cd graylog
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build graylog > /dev/null
 
       - name: Check metabase build
         run: |
-          cd metabase
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build metabase > /dev/null
 
       - name: Check monitoring build
         run: |
-          cd monitoring
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build monitoring > /dev/null
 
       - name: Check OTRS build
         run: |
-          cd otrs
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build otrs > /dev/null
 
       - name: Check reloader build
         run: |
-          cd reloader
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build reloader > /dev/null
 
       - name: Check service-backup build
         run: |
-          cd service-backup
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build service-backup > /dev/null
 
       - name: Check portal-eol build
         run: |
-          cd portal-eol
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build portal-eol > /dev/null
 
       - name: Check docs-eol build
         run: |
-          cd docs-eol
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build docs-eol > /dev/null
 
       - name: Check test-host-eol build
         run: |
-          cd test-host-eol
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build test-host-eol > /dev/null
 
       - name: Check projects build
         run: |
-          cd projects
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build projects > /dev/null
 
       - name: Check emi-project build
         run: |
-          cd emi-project
-          kustomize build . > /dev/null
-          cd ..
+          ./kustomize build emi-project > /dev/null
