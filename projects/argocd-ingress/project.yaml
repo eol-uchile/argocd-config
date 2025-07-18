@@ -34,7 +34,7 @@ spec:
   source:
     path: argocd-ingress
     repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    targetRevision: main
   project: argocd-ingress
   syncPolicy:
     automated:
