@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-kubectl config use-context eol
+kubectl config use-context oeol
 export EDX_NAMESPACE=argocd
 
 # configs

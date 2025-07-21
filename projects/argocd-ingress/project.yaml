@@ -4,7 +4,7 @@ metadata:
   name: argocd-ingress
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project to add ingress to argocd
   # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
@@ -34,7 +34,7 @@ spec:
   source:
     path: argocd-ingress
     repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    targetRevision: main
   project: argocd-ingress
   syncPolicy:
     automated:
