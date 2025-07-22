@@ -38,6 +38,5 @@ spec:
   project: argocd-ingress
   syncPolicy:
     automated:
-      automated:
-        prune: false
-        selfHeal: false
+      prune: false
+      selfHeal: false
