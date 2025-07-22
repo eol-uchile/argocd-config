@@ -1,11 +1,11 @@
-apiVersion: networking.k8s.io/v1beta1
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-argocd
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     # Authentication
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
@@ -14,37 +14,41 @@ spec:
   ingressClassName: "nginx"
   tls:
     - hosts:
-      - argo-oeol.uchile.cl
+        - argo-oeol.uchile.cl
       secretName: argocd-ingress-cert
   rules:
     - host: argo-oeol.uchile.cl
       http:
         paths:
-        - path: /
-          backend:
-            serviceName: argocd-server
-            servicePort: https
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: http
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-argocd-webhook
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: "nginx"
   tls:
     - hosts:
-      - argo-oeol.uchile.cl
+        - argo-oeol.uchile.cl
       secretName: argocd-ingress-cert
   rules:
     - host: argo-oeol.uchile.cl
       http:
         paths:
-        - path: /api/webhook
-          backend:
-            serviceName: argocd-server
-            servicePort: https
-
+          - path: /api/webhook
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: http
