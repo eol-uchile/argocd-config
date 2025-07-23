@@ -1,29 +1,30 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: reloader
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Reloader is a Kubernetes controller that automatically triggers rollouts of workloads (like Deployments, StatefulSets, and more) whenever referenced Secrets or ConfigMaps are updated.
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - '*'
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: reloader
-    server: https://kubernetes.default.svc
+    - namespace: reloader
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-  - group: 'rbac.authorization.k8s.io'
-    kind: 'ClusterRole'
-  - group: 'rbac.authorization.k8s.io'
-    kind: 'ClusterRoleBinding'
-  - group: ''
-    kind: Namespace
+    - group: 'rbac.authorization.k8s.io'
+      kind: 'ClusterRole'
+    - group: 'rbac.authorization.k8s.io'
+      kind: 'ClusterRoleBinding'
+    - group: ''
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: ''
-    kind: 'ServiceAccount'
-  - group: 'apps'
-    kind: 'Deployment'
+    - group: ''
+      kind: 'ServiceAccount'
+    - group: 'apps'
+      kind: 'Deployment'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -37,9 +38,8 @@ spec:
   source:
     path: reloader
     repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    targetRevision: main
   project: reloader
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
-
+      - CreateNamespace=true

@@ -1,35 +1,35 @@
 ---
 resources:
   - argocd-ingress/project.yaml
-# - monitoring/project.yaml
-# - edx-staging/project.yaml
-# - edx-ou-staging/project.yaml
-# - reloader/project.yaml
-# - graylog/project.yaml
-# - edx-sandbox/project.yaml
-# - edx-backup/project.yaml
-# - service-backup/project.yaml
-# - metabase/project.yaml
-# - otrs/project.yaml
-# - portal-eol/project.yaml
-# - edx-eol/project.yaml
-# - edx-uabierta/project.yaml
-# - edx-dgd/project.yaml
-# - eol-permissions.yaml
-# - openuchile/project.yaml
-# - openuchile/cert-manager.yaml
-# - openuchile/nginx.yaml
-# - openuchile/reloader.yaml
-# - openuchile/sealed-secrets.yaml
-# - openuchile/edx-openuchile.yaml
-# - openuchile/metrics.yaml
-# - norteamericano/edx-norteamericano.yaml
-# - edx-virtuallabx/virtuallabx.yaml
-# - docs-eol/project.yaml
-# - ./moodle-virtuallabx/moodle-backup.yaml
-# - ./moodle-virtuallabx/moodle-virtuallabx.yaml
-# - test-host-eol/project.yaml
-# - emi-project/project.yaml
+  # - monitoring/project.yaml
+  # - edx-staging/project.yaml
+  # - edx-ou-staging/project.yaml
+  - reloader/project.yaml
+  # - graylog/project.yaml
+  # - edx-sandbox/project.yaml
+  # - edx-backup/project.yaml
+  # - service-backup/project.yaml
+  # - metabase/project.yaml
+  # - otrs/project.yaml
+  # - portal-eol/project.yaml
+  # - edx-eol/project.yaml
+  # - edx-uabierta/project.yaml
+  # - edx-dgd/project.yaml
+  # - eol-permissions.yaml
+  # - openuchile/project.yaml
+  # - openuchile/cert-manager.yaml
+  # - openuchile/nginx.yaml
+  # - openuchile/reloader.yaml
+  # - openuchile/sealed-secrets.yaml
+  # - openuchile/edx-openuchile.yaml
+  # - openuchile/metrics.yaml
+  # - norteamericano/edx-norteamericano.yaml
+  # - edx-virtuallabx/virtuallabx.yaml
+  # - docs-eol/project.yaml
+  # - ./moodle-virtuallabx/moodle-backup.yaml
+  # - ./moodle-virtuallabx/moodle-virtuallabx.yaml
+  # - test-host-eol/project.yaml
+  # - emi-project/project.yaml
 
 
 namespace: argocd
