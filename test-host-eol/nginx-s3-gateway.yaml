@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,29 +18,29 @@ spec:
         app: test-host-deploy
     spec:
       containers:
-      - name: nginx-s3-gateway-20230808
-        image: ghcr.io/nginxinc/nginx-s3-gateway/nginx-oss-s3-gateway:latest-20230808
-        ports:
-        - containerPort: 80
-        envFrom:
-        - secretRef:
-            name: s3-config
-        resources:
-          requests:
-            memory: 100Mi
-            cpu: 50m
-          limits:
-            memory: 500Mi
-            cpu: 400m
+        - name: nginx-s3-gateway-20230808
+          image: ghcr.io/nginxinc/nginx-s3-gateway/nginx-oss-s3-gateway:latest-20230808
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: s3-config
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 50m
+            limits:
+              memory: 500Mi
+              cpu: 400m
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: NotIn
-                values:
-                - k8seol0107
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - k8seol0107
 ---
 apiVersion: v1
 kind: Service
@@ -49,6 +50,6 @@ spec:
   selector:
     app: test-host-deploy
   ports:
-  - name: "80"
-    port: 80
-    targetPort: 80
+    - name: "http"
+      port: 80
+      targetPort: 80

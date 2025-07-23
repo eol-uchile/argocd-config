@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -7,35 +8,35 @@ spec:
   description: Project to hosting testing aplications
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
-  # Only permit applications to deploy to the guestbook namespace in the same cluster
+    - '*'
+  # Only permit applications to deploy to the guestbook ns in the same cluster
   destinations:
-  - namespace: test-eol
-    server: https://kubernetes.default.svc
+    - namespace: test-eol
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ''
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: ConfigMap
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
-  - group: ''
-    kind: 'PersistentVolumeClaim'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: 'apps'
+      kind: '*'
+    - group: 'networking.k8s.io'
+      kind: '*'
+    - group: 'bitnami.com'
+      kind: SealedSecret
+    - group: 'batch'
+      kind: '*'
+    - group: ''
+      kind: 'Service'
+    - group: ''
+      kind: ConfigMap
+    - group: ''
+      kind: 'Endpoints'
+    - group: 'autoscaling'
+      kind: 'HorizontalPodAutoscaler'
+    - group: ''
+      kind: 'PersistentVolumeClaim'
+    - group: 'monitoring.coreos.com'
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -45,15 +46,15 @@ metadata:
 spec:
   destination:
     namespace: test-eol
-    server: 'https://kubernetes.default.svc'
+    server: 'https://146.83.63.70:6443'
   source:
     path: test-host-eol
     repoURL: 'https://github.com/eol-uchile/argocd-config.git'
-    targetRevision: HEAD
+    targetRevision: main
   project: test-host-eol
   syncPolicy:
     automated:
       prune: false
       selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
