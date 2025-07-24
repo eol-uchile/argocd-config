@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -6,26 +7,26 @@ spec:
   description: Metabase database exploring service
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - namespace: metabase
-    server: https://kubernetes.default.svc
+    - namespace: metabase
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: 'Endpoints'
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "Endpoints"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -35,15 +36,15 @@ metadata:
 spec:
   destination:
     namespace: metabase
-    server: 'https://kubernetes.default.svc'
+    server: "https://146.83.63.70:6443"
   source:
     path: metabase
-    repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
   project: metabase
   syncPolicy:
     automated:
       prune: false
       selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true

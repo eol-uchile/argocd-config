@@ -1,23 +1,27 @@
-apiVersion: networking.k8s.io/v1beta1
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: metabase-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
-    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
 spec:
+  ingressClassName: "nginx"
   tls:
     - secretName: metabase-ingress-certificate
       hosts:
-      - reporting.eol-ing.uchile.cl
+        - reporting.eol-ing.uchile.cl
   rules:
-  - host: reporting.eol-ing.uchile.cl
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: metabase
-          servicePort: 3000
+    - host: reporting.eol-ing.uchile.cl
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: metabase
+                port:
+                  number: 3000
