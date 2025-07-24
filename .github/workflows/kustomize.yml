@@ -54,10 +54,6 @@ jobs:
         run: |
           kustomize build docs-eol > /dev/null
 
-      - name: Check test-host-eol build
-        run: |
-          kustomize build test-host-eol > /dev/null
-
       - name: Check projects build
         run: |
           kustomize build projects > /dev/null
