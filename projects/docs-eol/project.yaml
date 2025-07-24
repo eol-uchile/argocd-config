@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -7,27 +8,27 @@ spec:
   description: Project for eol documentation
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: docs-eol
-    server: https://kubernetes.default.svc
+    - namespace: docs-eol
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: "monitoring.coreos.com"
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -37,15 +38,15 @@ metadata:
 spec:
   destination:
     namespace: docs-eol
-    server: 'https://kubernetes.default.svc'
+    server: "https://146.83.63.70:6443"
   source:
     path: docs-eol
-    repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
   project: docs-eol
   syncPolicy:
     automated:
       prune: false
       selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true

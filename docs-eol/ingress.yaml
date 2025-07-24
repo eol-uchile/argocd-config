@@ -1,30 +1,34 @@
-apiVersion: networking.k8s.io/v1beta1
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: docs-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
+  ingressClassName: "nginx"
   tls:
     - secretName: docs-tls-secret
       hosts:
-      - docs.oficinaeol.uchile.cl
+        - docs.oficinaeol.uchile.cl
   rules:
-  - host: docs.oficinaeol.uchile.cl
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: docs-svc
-          servicePort: 3000
+    - host: docs.oficinaeol.uchile.cl
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: docs-svc
+                port:
+                  number: 3000
+
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: docs-ingress-cached
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/proxy-buffering: "on"
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -37,15 +41,19 @@ metadata:
       proxy_hide_header "Set-Cookie";
       add_header X-Cache-Status $upstream_cache_status;
 spec:
+  ingressClassName: "nginx"
   tls:
     - secretName: docs-tls-secret
       hosts:
-      - docs.oficinaeol.uchile.cl
+        - docs.oficinaeol.uchile.cl
   rules:
-  - host: docs.oficinaeol.uchile.cl
-    http:
-      paths:
-      - path: /images/(.*\.[0-9a-f]{12}\..*)
-        backend:
-          serviceName: docs-svc
-          servicePort: 3000
+    - host: docs.oficinaeol.uchile.cl
+      http:
+        paths:
+          - path: /images/(.*\.[0-9a-f]{12}\..*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: docs-svc
+                port:
+                  number: 3000
