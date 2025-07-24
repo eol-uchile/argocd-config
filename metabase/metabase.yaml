@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,51 +18,51 @@ spec:
         service: metabase-deploy
     spec:
       containers:
-      - name: metabase
-        image: metabase/metabase:v0.50.1
-        env:
-        - name: MB_DB_TYPE
-          value: postgres
-        - name: JAVA_OPTS
-          value: '-Xmx1g'
-        - name: MB_DB_DBNAME
-          valueFrom:
-            secretKeyRef:
-              name: metabase
-              key: MB_DB_DBNAME
-        - name: MB_DB_PORT
-          valueFrom:
-            secretKeyRef:
-              name: metabase
-              key: MB_DB_PORT
-        - name: MB_DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: metabase
-              key: MB_DB_USER
-        - name: MB_DB_PASS
-          valueFrom:
-            secretKeyRef:
-              name: metabase
-              key: MB_DB_PASS
-        - name: MB_DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: metabase
-              key: MB_DB_HOST
-        ports:
-        - containerPort: 3000
-        resources:
-          requests:
-            memory: 1.2Gi
-            cpu: 600m
-          limits:
-            memory: 2Gi
-            cpu: 800m
+        - name: metabase
+          image: metabase/metabase:v0.50.1
+          env:
+            - name: MB_DB_TYPE
+              value: postgres
+            - name: JAVA_OPTS
+              value: "-Xmx1g"
+            - name: MB_DB_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: metabase
+                  key: MB_DB_DBNAME
+            - name: MB_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: metabase
+                  key: MB_DB_PORT
+            - name: MB_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: metabase
+                  key: MB_DB_USER
+            - name: MB_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: metabase
+                  key: MB_DB_PASS
+            - name: MB_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: metabase
+                  key: MB_DB_HOST
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: 1.2Gi
+              cpu: 600m
+            limits:
+              memory: 2Gi
+              cpu: 800m
       volumes:
-      - name: metabase-ca
-        secret:
-          secretName: metabase-ca
+        - name: metabase-ca
+          secret:
+            secretName: metabase-ca
 ---
 apiVersion: v1
 kind: Service
@@ -71,6 +72,6 @@ spec:
   selector:
     service: metabase-deploy
   ports:
-  - name: "3000"
-    port: 3000
-    targetPort: 3000
+    - name: "main"
+      port: 3000
+      targetPort: 3000
