@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,25 +16,25 @@ spec:
         app: emi-wordpress-nginx
     spec:
       containers:
-      - name: emi-wordpress-nginx
-        image: nginx:stable-alpine
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - name: wordpress-emi-content-volume
-          readOnly: false
-          mountPath: /var/www/html/
-        - name: config
-          mountPath: /etc/nginx/conf.d/wordpress.conf
-          subPath: wordpress.conf
-          readOnly: false
+        - name: emi-wordpress-nginx
+          image: nginx:stable-alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: wordpress-emi-content-volume
+              readOnly: false
+              mountPath: /var/www/html/
+            - name: config
+              mountPath: /etc/nginx/conf.d/wordpress.conf
+              subPath: wordpress.conf
+              readOnly: false
       volumes:
-      - name: wordpress-emi-content-volume
-        persistentVolumeClaim:
-          claimName: wordpress-emi-content-volume
-      - name: config
-        configMap:
-          name: emi-wordpress-nginx-config
+        - name: wordpress-emi-content-volume
+          persistentVolumeClaim:
+            claimName: wordpress-emi-content-volume
+        - name: config
+          configMap:
+            name: emi-wordpress-nginx-config
       terminationGracePeriodSeconds: 45
 ---
 apiVersion: v1
@@ -76,7 +77,7 @@ metadata:
     app: emi-wordpress-nginx
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
   selector:
     app: emi-wordpress-nginx
