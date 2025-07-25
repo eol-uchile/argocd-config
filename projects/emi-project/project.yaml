@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -7,29 +8,29 @@ spec:
   description: EMI Applications Project for the OpenUChile Cluster
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: emi-project
-    server: 'https://146.83.63.78:6443'
+    - namespace: emi-project
+      server: "https://146.83.63.78:6443"
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: ConfigMap
-  - group: ''
-    kind: 'PersistentVolumeClaim'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: "PersistentVolumeClaim"
+    - group: "monitoring.coreos.com"
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -39,17 +40,17 @@ metadata:
 spec:
   destination:
     namespace: emi-project
-    server: 'https://146.83.63.78:6443'
+    server: "https://146.83.63.78:6443"
   source:
     path: emi-project
-    repoURL: 'https://github.com/eol-uchile/argocd-config.git'
-    targetRevision: HEAD
+    repoURL: "https://github.com/eol-uchile/argocd-config.git"
+    targetRevision: main
   project: emi-project
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
