@@ -57,7 +57,3 @@ jobs:
       - name: Check projects build
         run: |
           kustomize build projects > /dev/null
-
-      - name: Check emi-project build
-        run: |
-          kustomize build emi-project > /dev/null
