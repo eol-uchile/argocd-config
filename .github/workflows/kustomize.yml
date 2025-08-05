@@ -26,9 +26,6 @@ jobs:
         run: |
           kustomize build graylog > /dev/null
 
-      - name: Check metabase build
-        run: |
-          kustomize build metabase > /dev/null
 
       - name: Check monitoring build
         run: |
@@ -49,10 +46,6 @@ jobs:
       - name: Check portal-eol build
         run: |
           kustomize build portal-eol > /dev/null
-
-      - name: Check docs-eol build
-        run: |
-          kustomize build docs-eol > /dev/null
 
       - name: Check projects build
         run: |
