@@ -26,9 +26,6 @@ jobs:
         run: |
           kustomize build graylog > /dev/null
 
-      - name: Check metabase build
-        run: |
-          kustomize build metabase > /dev/null
 
       - name: Check monitoring build
         run: |
