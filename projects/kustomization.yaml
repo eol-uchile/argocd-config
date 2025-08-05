@@ -28,7 +28,7 @@ resources:
 - ./moodle-virtuallabx/moodle-backup.yaml
 - ./moodle-virtuallabx/moodle-virtuallabx.yaml
 # - test-host-eol/project.yaml
-- emi-project/project.yaml
+# - emi-project/project.yaml
 
 
 namespace: argocd
