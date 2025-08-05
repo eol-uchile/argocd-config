@@ -50,10 +50,6 @@ jobs:
         run: |
           kustomize build portal-eol > /dev/null
 
-      - name: Check docs-eol build
-        run: |
-          kustomize build docs-eol > /dev/null
-
       - name: Check projects build
         run: |
           kustomize build projects > /dev/null
