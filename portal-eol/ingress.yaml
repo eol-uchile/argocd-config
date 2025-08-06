@@ -1,30 +1,33 @@
-apiVersion: networking.k8s.io/v1beta1
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: portal-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
+  ingressClassName: "nginx"
   tls:
     - secretName: portal-tls-secret
       hosts:
-      - oficinaeol.uchile.cl
+        - oficinaeol.uchile.cl
   rules:
-  - host: oficinaeol.uchile.cl
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: portal-svc
-          servicePort: 3000
+    - host: oficinaeol.uchile.cl
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: portal-svc
+                port:
+                  number: 3000
+              pathType: ImplementationSpecific
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: portal-ingress-cached
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/proxy-buffering: "on"
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -37,15 +40,19 @@ metadata:
       proxy_hide_header "Set-Cookie";
       add_header X-Cache-Status $upstream_cache_status;
 spec:
+  ingressClassName: "nginx"
   tls:
     - secretName: portal-tls-secret
       hosts:
-      - oficinaeol.uchile.cl
+        - oficinaeol.uchile.cl
   rules:
-  - host: oficinaeol.uchile.cl
-    http:
-      paths:
-      - path: /images/(.*\.[0-9a-f]{12}\..*)
-        backend:
-          serviceName: portal-svc
-          servicePort: 3000
+    - host: oficinaeol.uchile.cl
+      http:
+        paths:
+          - path: /images/(.*\.[0-9a-f]{12}\..*)
+            backend:
+              service:
+                name: portal-svc
+                port:
+                  number: 3000
+                pathType: ImplementationSpecific
