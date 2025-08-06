@@ -1,33 +1,34 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: portal-eol
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project for portal EOL website
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: portal-eol
-    server: https://kubernetes.default.svc
+    - namespace: portal-eol
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: "monitoring.coreos.com"
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -37,15 +38,15 @@ metadata:
 spec:
   destination:
     namespace: portal-eol
-    server: 'https://kubernetes.default.svc'
+    server: "https://146.83.63.70:6443"
   source:
     path: portal-eol
-    repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
   project: portal-eol
   syncPolicy:
     automated:
       prune: false
       selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
