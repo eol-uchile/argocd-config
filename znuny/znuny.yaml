@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -18,64 +19,64 @@ spec:
         service: otrs-deploy
     spec:
       containers:
-      - name: otrs
-        image: ghcr.io/eol-uchile/eol-otrs:znuny-6.5.15-eol2
-        env:
-        - name: OTRS_BACKUP_TIME
-          value: disabled
-        - name: OTRS_FQDN
-          value: eol-ayuda.uchile.cl
-        - name: OTRS_HTTPTYPE
-          value: https
-        - name: OTRS_TIMEZONE
-          value: UTC
-        - name: OTRS_NODEID
-          value: "1"
-        - name: SHOW_OTRS_LOGO
-          value: "no"
-        - name: OTRS_DEFAULT_EMAIL
-          value: no-reply@uchile.cl
-        - name: OTRS_ADMINEMAIL
-          value: eol-ing@uchile.cl
-        - name: OTRS_DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: otrs
-              key: OTRS_DB_HOST
-        - name: OTRS_DB_PORT
-          valueFrom:
-            secretKeyRef:
-              name: otrs
-              key: OTRS_DB_PORT
-        - name: OTRS_DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: otrs
-              key: OTRS_DB_NAME
-        - name: OTRS_DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: otrs
-              key: OTRS_DB_USER
-        - name: OTRS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: otrs
-              key: OTRS_DB_PASSWORD
-        - name: OTRS_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: otrs
-              key: OTRS_ROOT_PASSWORD
-        ports:
-        - containerPort: 80
-        resources:
-          requests:
-            memory: 2Gi
-            cpu: 400m
-          limits:
-            memory: 2400Mi
-            cpu: 750m
+        - name: otrs
+          image: ghcr.io/eol-uchile/eol-otrs:znuny-6.5.15-eol2
+          env:
+            - name: OTRS_BACKUP_TIME
+              value: disabled
+            - name: OTRS_FQDN
+              value: eol-ayuda.uchile.cl
+            - name: OTRS_HTTPTYPE
+              value: https
+            - name: OTRS_TIMEZONE
+              value: UTC
+            - name: OTRS_NODEID
+              value: "1"
+            - name: SHOW_OTRS_LOGO
+              value: "no"
+            - name: OTRS_DEFAULT_EMAIL
+              value: no-reply@uchile.cl
+            - name: OTRS_ADMINEMAIL
+              value: eol-ing@uchile.cl
+            - name: OTRS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: otrs
+                  key: OTRS_DB_HOST
+            - name: OTRS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: otrs
+                  key: OTRS_DB_PORT
+            - name: OTRS_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: otrs
+                  key: OTRS_DB_NAME
+            - name: OTRS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: otrs
+                  key: OTRS_DB_USER
+            - name: OTRS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: otrs
+                  key: OTRS_DB_PASSWORD
+            - name: OTRS_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: otrs
+                  key: OTRS_ROOT_PASSWORD
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 400m
+            limits:
+              memory: 2400Mi
+              cpu: 750m
 ---
 apiVersion: v1
 kind: Service
@@ -85,6 +86,6 @@ spec:
   selector:
     service: otrs-deploy
   ports:
-  - name: "80"
-    port: 80
-    targetPort: 80
+    - name: "http"
+      port: 80
+      targetPort: 80
