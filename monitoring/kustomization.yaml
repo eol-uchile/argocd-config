@@ -1,18 +1,19 @@
+---
 resources:
-- ingress.yaml
-- secret.yaml
-- psp.yaml
-- alerts.yaml
-- external/node-exporter.yaml
-- external/elastic-external/staging.yaml
-- external/mysql-external/eol.yaml
-- external/mysql-external/staging.yaml
-- external/mongodb-external/eol.yaml
-- external/minio-external/staging.yaml
-- external/redis-external/eol.yaml
-- external/redis-external/staging.yaml
-- discord.yaml
-- discord-secrets.yaml
-- additional-probes.yaml
+  - ingress.yaml
+  - secret.yaml
+  - psp.yaml
+  - alerts.yaml
+  - external/node-exporter.yaml
+  - external/elastic-external/staging.yaml
+  - external/mysql-external/eol.yaml
+  - external/mysql-external/staging.yaml
+  - external/mongodb-external/eol.yaml
+  - external/minio-external/staging.yaml
+  - external/redis-external/eol.yaml
+  - external/redis-external/staging.yaml
+  - discord.yaml
+  - discord-secrets.yaml
+  - additional-probes.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization

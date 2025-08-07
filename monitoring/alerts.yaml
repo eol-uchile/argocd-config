@@ -1,3 +1,4 @@
+---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -8,39 +9,37 @@ metadata:
     role: alert-rules
 spec:
   groups:
-  - name: blackbox-alerts
-    rules:
-    - alert: CertificateExpirationSoon
-      annotations:
-        description: The domain {{ $labels.instance }} certificate has not been renewed and going to expire. If this is not resolved, the domain will be inaccessible until resolved (Check cert-manager for any error)
-        runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/CertificateExpirationSoon
-        summary: The certificate of {{ $labels.instance }} is expiring.
-      expr: |
-        probe_ssl_earliest_cert_expiry - time()
-        < 1728000
-      for: 15m
-      labels:
-        severity: critical
-    - alert: SiteNotAvailable
-      annotations:
-        description: The site {{ $labels.instance }} is not available and can't be accessed from the internet. Check if the pods or nodes have failed.
-        runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/SiteNotAvailable
-        summary: The site {{ $labels.instance }} is not available.
-      expr: |
-        probe_success
-        < 1
-      for: 2m
-      labels:
-        severity: critical
-  - name: mysqld-alerts
-    rules:
-    - alert: MySQLDown
-      annotations:
-        description: 'MySQL {{$labels.job}} on {{$labels.instance}} is not up.'
-        summary: MySQL not up
-      expr: mysql_up != 1
-      for: 1m
-      labels:
-        severity: critical
-
-
+    - name: blackbox-alerts
+      rules:
+        - alert: CertificateExpirationSoon
+          annotations:
+            description: The domain {{ $labels.instance }} certificate has not been renewed and going to expire. If this is not resolved, the domain will be inaccessible until resolved (Check cert-manager for any error)
+            runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/CertificateExpirationSoon
+            summary: The certificate of {{ $labels.instance }} is expiring.
+          expr: |
+            probe_ssl_earliest_cert_expiry - time()
+            < 1728000
+          for: 15m
+          labels:
+            severity: critical
+        - alert: SiteNotAvailable
+          annotations:
+            description: The site {{ $labels.instance }} is not available and can't be accessed from the internet. Check if the pods or nodes have failed.
+            runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/SiteNotAvailable
+            summary: The site {{ $labels.instance }} is not available.
+          expr: |
+            probe_success
+            < 1
+          for: 2m
+          labels:
+            severity: critical
+    - name: mysqld-alerts
+      rules:
+        - alert: MySQLDown
+          annotations:
+            description: "MySQL {{$labels.job}} on {{$labels.instance}} is not up."
+            summary: MySQL not up
+          expr: mysql_up != 1
+          for: 1m
+          labels:
+            severity: critical
