@@ -1,50 +1,51 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: otrs
+  name: znuny
   namespace: argocd
 spec:
-  description: otrs database exploring service
+  description: EOL help desk implemented with Znuny
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - namespace: otrs
-    server: https://kubernetes.default.svc
+    - namespace: otrs
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: 'Endpoints'
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "Endpoints"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: otrs
+  name: znuny
   namespace: argocd
 spec:
   destination:
     namespace: otrs
-    server: 'https://kubernetes.default.svc'
+    server: "https://146.83.63.70:6443"
   source:
-    path: otrs
-    repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
-  project: otrs
+    path: znuny
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
+  project: znuny
   syncPolicy:
     automated:
       prune: false
       selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
