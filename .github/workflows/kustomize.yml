@@ -34,9 +34,9 @@ jobs:
         run: |
           kustomize build monitoring > /dev/null
 
-      - name: Check OTRS build
+      - name: Check znuny build
         run: |
-          kustomize build otrs > /dev/null
+          kustomize build znuny > /dev/null
 
       - name: Check reloader build
         run: |
