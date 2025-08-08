@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: otrs-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - secretName: otrs-ingress-certificate
+      hosts:
+        - eol-ayuda.uchile.cl
+  rules:
+    - host: eol-ayuda.uchile.cl
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: otrs
+                port:
+                  number: 80
