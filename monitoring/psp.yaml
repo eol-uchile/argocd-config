@@ -1,3 +1,4 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
@@ -8,9 +9,9 @@ roleRef:
   kind: ClusterRole
   name: psp-permissive
 subjects:
-- kind: ServiceAccount
-  name: node-exporter
-  namespace: monitoring
-- kind: ServiceAccount
-  name: kube-state-metrics
-  namespace: monitoring
+  - kind: ServiceAccount
+    name: node-exporter
+    namespace: monitoring
+  - kind: ServiceAccount
+    name: kube-state-metrics
+    namespace: monitoring
