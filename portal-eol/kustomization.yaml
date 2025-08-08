@@ -1,9 +1,10 @@
+---
 resources:
-- portal-eol.yaml
-- ingress.yaml
+  - portal-eol.yaml
+  - ingress.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-- name: portal
-  newName: ghcr.io/eol-uchile/portal-eol
-  newTag: f74d239af7ca6417e0fc8ee715fe732184e6a880
+  - name: portal
+    newName: ghcr.io/eol-uchile/portal-eol
+    newTag: f74d239af7ca6417e0fc8ee715fe732184e6a880
