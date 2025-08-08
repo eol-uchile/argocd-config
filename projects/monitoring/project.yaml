@@ -4,17 +4,13 @@ kind: AppProject
 metadata:
   name: monitoring
 spec:
-  description: Project to backup uabierta databases
+  description: Project for managing monitoring tools
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: monitoring
-      server: https://146.83.63.70:6443
-    - namespace: default
-      server: https://146.83.63.70:6443
-    - namespace: kube-system
       server: https://146.83.63.70:6443
   clusterResourceWhitelist:
     - group: "*"
