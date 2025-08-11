@@ -13,8 +13,5 @@ spec:
     targetRevision: HEAD
   project: openuchile-services
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
     - CreateNamespace=true
