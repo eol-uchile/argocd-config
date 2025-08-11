@@ -10,6 +10,10 @@ spec:
     - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
+    - namespace: default
+      server: https://146.83.63.70:6443
+    - namespace: kube-system
+      server: https://146.83.63.70:6443
     - namespace: monitoring
       server: https://146.83.63.70:6443
   clusterResourceWhitelist:
