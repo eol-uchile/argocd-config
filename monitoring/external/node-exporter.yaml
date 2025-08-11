@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -18,12 +19,12 @@ metadata:
   name: node-exporter-external
   namespace: monitoring
 subsets:
- - addresses:
-   - ip: 146.83.63.75
-   - ip: 146.83.63.76
-   ports:
-   - port: 9100
-     name: metrics
+  - addresses:
+      - ip: 146.83.63.75
+      - ip: 146.83.63.76
+    ports:
+      - port: 9100
+        name: metrics
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -38,5 +39,5 @@ spec:
     matchLabels:
       name: node-exporter-external
   endpoints:
-  - port: metrics
-    interval: 30s
+    - port: metrics
+      interval: 30s

@@ -1,3 +1,4 @@
+---
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
@@ -11,40 +12,25 @@ spec:
   targets:
     staticConfig:
       static:
-      - https://preview.cajalosandes.virtual-labx.cl/heartbeat
-      - https://studio.cajalosandes.virtual-labx.cl/heartbeat
-      - https://jcpp2030.cl/heartbeat
-      - https://studio.jcpp2030.cl/heartbeat
-      - https://preview.jcpp2030.cl/heartbeat
+        - https://preview.cajalosandes.virtual-labx.cl/heartbeat
+        - https://studio.cajalosandes.virtual-labx.cl/heartbeat
+        - https://jcpp2030.cl/heartbeat
+        - https://studio.jcpp2030.cl/heartbeat
+        - https://preview.jcpp2030.cl/heartbeat
 ---
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
- name: open-uchile-blackbox-monitoring
- namespace: monitoring
+  name: open-uchile-blackbox-monitoring
+  namespace: monitoring
 spec:
- interval: 90s
- module: http_2xx
- prober:
-   url: blackbox-exporter.monitoring.svc.cluster.local:19115
- targets:
-   staticConfig:
-     static:
-     - https://open.uchile.cl/heartbeat
-     - https://studio.open.uchile.cl/heartbeat
-     - https://preview.open.uchile.cl/heartbeat
-
-# kind: Probe
-# apiVersion: monitoring.coreos.com/v1
-# metadata:
-#   name: aulavirtual-blackbox-monitoring
-#   namespace: monitoring
-# spec:
-#   interval: 60s
-#   module: http_2xx
-#   prober:
-#     url: blackbox-exporter.monitoring.svc.cluster.local:19115
-#   targets:
-#     staticConfig:
-#       static:
-#       - https://aulavirtual.institutonacional.cl/
+  interval: 90s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:19115
+  targets:
+    staticConfig:
+      static:
+        - https://open.uchile.cl/heartbeat
+        - https://studio.open.uchile.cl/heartbeat
+        - https://preview.open.uchile.cl/heartbeat
