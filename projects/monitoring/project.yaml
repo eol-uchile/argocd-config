@@ -37,12 +37,8 @@ spec:
     targetRevision: HEAD
   project: monitoring
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
     - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -58,12 +54,8 @@ spec:
     targetRevision: eol
   project: monitoring
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
     - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
   # This solves a bug where argo-cd will mark the application as healthy but OutOfSync
   # this occurs because kube-prometheus updates the status field in the CRD. This field 
   # makes argo-cd diff's think it is out of sync.
