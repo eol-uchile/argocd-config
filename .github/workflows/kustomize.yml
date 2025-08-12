@@ -34,10 +34,6 @@ jobs:
         run: |
           kustomize build service-backup > /dev/null
 
-      - name: Check portal-eol build
-        run: |
-          kustomize build portal-eol > /dev/null
-
       - name: Check projects build
         run: |
           kustomize build projects > /dev/null
