@@ -1,3 +1,4 @@
+---
 # Source: vector-agent/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -120,7 +121,6 @@ spec:
   template:
     metadata:
       annotations:
-
         checksum/config: 75958f6034a2d836d57468a572df3af05ea5d4eaf4b8b5cbd6371e6ec319a696
 
       labels:
@@ -129,12 +129,10 @@ spec:
         vector.dev/exclude: "true"
     spec:
       serviceAccountName: vector-agent
-      securityContext:
-        {}
+      securityContext: {}
       containers:
         - name: vector
-          securityContext:
-            {}
+          securityContext: {}
           image: "timberio/vector:0.12.2-debian"
           imagePullPolicy: "IfNotPresent"
           args:

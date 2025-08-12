@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -18,53 +19,53 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: service
-                operator: In
-                values:
-                - es-deploy
-            topologyKey: "kubernetes.io/hostname"
+            - labelSelector:
+                matchExpressions:
+                  - key: service
+                    operator: In
+                    values:
+                      - es-deploy
+              topologyKey: "kubernetes.io/hostname"
       initContainers:
-      - name: init-sysctl
-        image: busybox:1.30
-        command: ["sysctl", "-w", "vm.max_map_count=262144"]
-        securityContext:
-          allowPrivilegeEscalation: true
-          privileged: true
+        - name: init-sysctl
+          image: busybox:1.30
+          command: ["sysctl", "-w", "vm.max_map_count=262144"]
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
       containers:
-      - name: es
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.8.13
-        readinessProbe:
-          tcpSocket:
-            port: 9200
-          initialDelaySeconds: 20
-          periodSeconds: 30
-        ports:
-        - containerPort: 9200
-        - containerPort: 9300
-        env:
-        - name: http.host
-          value: 0.0.0.0
-        - name: network.host
-          value: 0.0.0.0
-        - name: ES_JAVA_OPTS
-          value: "-Xms512m -Xmx512m"
-        volumeMounts:
-        - name: datastore
-          mountPath: /usr/share/elasticsearch/data
-          subPath: elasticsearch
-        resources:
-          requests:
-            memory: 2Gi
-            cpu: 250m
-          limits:
-            memory: 2Gi
-            cpu: 500m
+        - name: es
+          image: docker.elastic.co/elasticsearch/elasticsearch:6.8.13
+          readinessProbe:
+            tcpSocket:
+              port: 9200
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+          env:
+            - name: http.host
+              value: 0.0.0.0
+            - name: network.host
+              value: 0.0.0.0
+            - name: ES_JAVA_OPTS
+              value: "-Xms512m -Xmx512m"
+          volumeMounts:
+            - name: datastore
+              mountPath: /usr/share/elasticsearch/data
+              subPath: elasticsearch
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 250m
+            limits:
+              memory: 2Gi
+              cpu: 500m
       volumes:
-      - name: datastore
-        persistentVolumeClaim:
-          claimName: es6-graylog-volume
+        - name: datastore
+          persistentVolumeClaim:
+            claimName: es6-graylog-volume
 ---
 apiVersion: v1
 kind: Service
@@ -74,12 +75,12 @@ spec:
   selector:
     service: es-deploy
   ports:
-  - name: "9200"
-    port: 9200
-    targetPort: 9200
-  - name: "9300"
-    port: 9300
-    targetPort: 9300
+    - name: "port-9200"
+      port: 9200
+      targetPort: 9200
+    - name: "port-9300"
+      port: 9300
+      targetPort: 9300
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
