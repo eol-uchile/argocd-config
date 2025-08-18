@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,68 +18,68 @@ spec:
         service: graylog-deploy
     spec:
       containers:
-      - name: graylog4
-        image: graylog/graylog:4.2.0
-        env:
-        - name: GRAYLOG_PASSWORD_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: graylog
-              key: GRAYLOG_PASSWORD_SECRET
-        - name: GRAYLOG_ROOT_PASSWORD_SHA2
-          valueFrom:
-            secretKeyRef:
-              name: graylog
-              key: GRAYLOG_ROOT_PASSWORD_SHA2
-        - name: GRAYLOG_HTTP_EXTERNAL_URI
-          valueFrom:
-            secretKeyRef:
-              name: graylog
-              key: GRAYLOG_HTTP_EXTERNAL_URI
-        - name: GRAYLOG_ELASTICSEARCH_HOSTS
-          valueFrom:
-            secretKeyRef:
-              name: graylog
-              key: GRAYLOG_ELASTICSEARCH_HOSTS
-        - name: GRAYLOG_MONGODB_URI
-          valueFrom:
-            secretKeyRef:
-              name: graylog
-              key: GRAYLOG_MONGODB_URI
-        - name: GRAYLOG_TRANSPORT_EMAIL_ENABLED
-          value: "true"
-        - name: GRAYLOG_TRANSPORT_EMAIL_HOSTNAME
-          value: "mtaprod.uchile.cl"
-        - name: GRAYLOG_TRANSPORT_EMAIL_PORT
-          value: "25"
-        - name: GRAYLOG_TRANSPORT_EMAIL_USE_AUTH
-          value: "false"
-        - name: GRAYLOG_TRANSPORT_EMAIL_USE_TLS
-          value: "false"
-        - name: GRAYLOG_TRANSPORT_EMAIL_USE_SSL
-          value: "false"
-        - name: GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL
-          value: "no-reply@uchile.cl"
-        - name: GRAYLOG_TRANSPORT_EMAIL_WEB_INTERFACE_URL
-          value: "https://logmonitoring.eol-ing.uchile.cl"
-        ports:
-        - containerPort: 9000
-        - containerPort: 5555
-        volumeMounts:
-        - name: graylog-ca
-          mountPath: /etc/graylog/certs/
-          readOnly: true
-        resources:
-          requests:
-            memory: 1Gi
-            cpu: 250m
-          limits:
-            memory: 2Gi
-            cpu: 600m
+        - name: graylog4
+          image: graylog/graylog:4.2.0
+          env:
+            - name: GRAYLOG_PASSWORD_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: graylog
+                  key: GRAYLOG_PASSWORD_SECRET
+            - name: GRAYLOG_ROOT_PASSWORD_SHA2
+              valueFrom:
+                secretKeyRef:
+                  name: graylog
+                  key: GRAYLOG_ROOT_PASSWORD_SHA2
+            - name: GRAYLOG_HTTP_EXTERNAL_URI
+              valueFrom:
+                secretKeyRef:
+                  name: graylog
+                  key: GRAYLOG_HTTP_EXTERNAL_URI
+            - name: GRAYLOG_ELASTICSEARCH_HOSTS
+              valueFrom:
+                secretKeyRef:
+                  name: graylog
+                  key: GRAYLOG_ELASTICSEARCH_HOSTS
+            - name: GRAYLOG_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: graylog
+                  key: GRAYLOG_MONGODB_URI
+            - name: GRAYLOG_TRANSPORT_EMAIL_ENABLED
+              value: "true"
+            - name: GRAYLOG_TRANSPORT_EMAIL_HOSTNAME
+              value: "mtaprod.uchile.cl"
+            - name: GRAYLOG_TRANSPORT_EMAIL_PORT
+              value: "25"
+            - name: GRAYLOG_TRANSPORT_EMAIL_USE_AUTH
+              value: "false"
+            - name: GRAYLOG_TRANSPORT_EMAIL_USE_TLS
+              value: "false"
+            - name: GRAYLOG_TRANSPORT_EMAIL_USE_SSL
+              value: "false"
+            - name: GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL
+              value: "no-reply@uchile.cl"
+            - name: GRAYLOG_TRANSPORT_EMAIL_WEB_INTERFACE_URL
+              value: "https://logmonitoring.eol-ing.uchile.cl"
+          ports:
+            - containerPort: 9000
+            - containerPort: 5555
+          volumeMounts:
+            - name: graylog-ca
+              mountPath: /etc/graylog/certs/
+              readOnly: true
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 250m
+            limits:
+              memory: 2Gi
+              cpu: 600m
       volumes:
-      - name: graylog-ca
-        secret:
-          secretName: graylog-ca
+        - name: graylog-ca
+          secret:
+            secretName: graylog-ca
 ---
 apiVersion: v1
 kind: Service
@@ -88,9 +89,9 @@ spec:
   selector:
     service: graylog-deploy
   ports:
-  - name: "9000"
-    port: 9000
-    targetPort: 9000
-  - name: "5555"
-    port: 5555
-    targetPort: 5555
+    - name: "port-9000"
+      port: 9000
+      targetPort: 9000
+    - name: "port-5555"
+      port: 5555
+      targetPort: 5555
