@@ -22,10 +22,6 @@ jobs:
         run: |
           kustomize build edx-backup > /dev/null
 
-      - name: Check graylog build
-        run: |
-          kustomize build graylog > /dev/null
-
       - name: Check reloader build
         run: |
           kustomize build reloader > /dev/null
