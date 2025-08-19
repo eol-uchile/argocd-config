@@ -1,32 +1,33 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: service-backup
   namespace: argocd
 spec:
-  description: Project to backup metabase and otrs databases
+  description: Project to backup metabase, graylog and znuny databases
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - namespace: service-backup
-    server: https://kubernetes.default.svc
+    - namespace: service-backup
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  - group: 'policy'
-    kind: PodSecurityPolicy
+    - group: ""
+      kind: Namespace
+    - group: "policy"
+      kind: PodSecurityPolicy
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: Deployment
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: CronJob
-  - group: rbac.authorization.k8s.io
-    kind: Role
-  - group: rbac.authorization.k8s.io
-    kind: RoleBinding
+    - group: "apps"
+      kind: Deployment
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: CronJob
+    - group: rbac.authorization.k8s.io
+      kind: Role
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -36,15 +37,12 @@ metadata:
 spec:
   destination:
     namespace: service-backup
-    server: 'https://kubernetes.default.svc'
+    server: "https://146.83.63.70:6443"
   source:
     path: service-backup
-    repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
   project: service-backup
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
