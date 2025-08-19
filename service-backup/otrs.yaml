@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -11,32 +12,32 @@ spec:
         spec:
           restartPolicy: Never
           containers:
-          - name: otrs-backup
-            image: backup-container
-            args:
-            - /root/scripts/backup.sh
-            - daily
-            - postgresql
-            envFrom:
-            - secretRef:
-                name: otrs
-            - secretRef:
-                name: common
+            - name: otrs-backup
+              image: backup-container
+              args:
+                - /root/scripts/backup.sh
+                - daily
+                - postgresql
+              envFrom:
+                - secretRef:
+                    name: otrs
+                - secretRef:
+                    name: common
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0104
-                    - k8seol0105
-                    - k8seol0107
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: NotIn
+                        values:
+                          - k8seol0101
+                          - k8seol0102
+                          - k8seol0104
+                          - k8seol0105
+                          - k8seol0107
           tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
+            - key: "backups"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
