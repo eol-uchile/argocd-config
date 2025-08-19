@@ -6,12 +6,8 @@ metadata:
   namespace: graylog
 spec:
   privileged: true
-  hostNetwork: false
-  hostPorts: []
   allowPrivilegeEscalation: true
   defaultAllowPrivilegeEscalation: false
-  hostPID: false
-  hostIPC: false
   runAsUser:
     rule: RunAsAny
   fsGroup:
