@@ -26,10 +26,6 @@ jobs:
         run: |
           kustomize build reloader > /dev/null
 
-      - name: Check service-backup build
-        run: |
-          kustomize build service-backup > /dev/null
-
       - name: Check projects build
         run: |
           kustomize build projects > /dev/null
