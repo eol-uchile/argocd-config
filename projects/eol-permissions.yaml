@@ -1,28 +1,29 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: eol-permissions
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project to manage EOL permissions
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - namespace: '*'
-    server: https://kubernetes.default.svc
-  - namespace: default
-    server: 'https://146.83.63.78:6443'
+    - namespace: "*"
+      server: "https://146.83.63.70:6443"
+    - namespace: default
+      server: "https://146.83.63.78:6443"
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  - group: 'rbac.authorization.k8s.io'
-    kind: '*'
+    - group: ""
+      kind: Namespace
+    - group: "rbac.authorization.k8s.io"
+      kind: "*"
   namespaceResourceWhitelist:
-  - group: 'rbac.authorization.k8s.io'
-    kind: 'Role'
-  - group: 'rbac.authorization.k8s.io'
-    kind: 'RoleBinding'
+    - group: "rbac.authorization.k8s.io"
+      kind: "Role"
+    - group: "rbac.authorization.k8s.io"
+      kind: "RoleBinding"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -31,21 +32,21 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: 'default'
-    server: 'https://kubernetes.default.svc'
+    namespace: "default"
+    server: "https://146.83.63.70:6443"
   source:
-    path: '.'
-    repoURL: 'git@github.com:eol-uchile/eol-permissions.git'
-    targetRevision: HEAD
+    path: "."
+    repoURL: "git@github.com:eol-uchile/eol-permissions.git"
+    targetRevision: main
   project: eol-permissions
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: false
@@ -58,20 +59,20 @@ metadata:
 spec:
   destination:
     namespace: default
-    server: 'https://146.83.63.78:6443'
+    server: "https://146.83.63.78:6443"
   source:
-    path: '.'
-    repoURL: 'git@github.com:eol-uchile/eol-permissions.git'
-    targetRevision: HEAD
+    path: "."
+    repoURL: "git@github.com:eol-uchile/eol-permissions.git"
+    targetRevision: main
   project: eol-permissions
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: false
