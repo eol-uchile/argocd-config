@@ -4,21 +4,16 @@ kind: Kustomization
 resources:
 - secrets/common.yaml
 - secrets/eol.yaml
-- secrets/uabierta.yaml
 - secrets/virtuallabx.yaml
 - secrets/norteamericano.yaml
 - secrets/openuchile.yaml
 - psp.yaml
 - eol.yaml
-- uabierta.yaml
 - virtuallabx.yaml
 - norteamericano.yaml
 - openuchile.yaml
 - clean-node.yaml
 images:
-- name: uabierta-backup-container
-  newName: ghcr.io/eol-uchile/backup_container
-  newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
 - name: eol-backup-container
   newName: ghcr.io/eol-uchile/backup_container
   newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
