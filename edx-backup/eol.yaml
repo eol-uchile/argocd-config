@@ -17,7 +17,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: eol-backup-container
+            image: old-backup-container
             args:
             - /root/scripts/backup.sh
             - hourly
@@ -74,7 +74,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: eol-backup-container
+            image: old-backup-container
             args:
             - /root/scripts/backup.sh
             - hourly
@@ -130,7 +130,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: eol-backup
-            image: eol-backup-container
+            image: old-backup-container
             args:
             - /root/scripts/backup.sh
             - daily

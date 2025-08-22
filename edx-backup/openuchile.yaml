@@ -17,7 +17,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: openuchile-backup-container
+            image: old-backup-container
             args:
             - /root/scripts/backup.sh
             - daily

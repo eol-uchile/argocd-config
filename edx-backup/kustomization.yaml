@@ -14,15 +14,6 @@ resources:
 - openuchile.yaml
 - clean-node.yaml
 images:
-- name: eol-backup-container
-  newName: ghcr.io/eol-uchile/backup_container
-  newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
-- name: vlabx-backup-container
-  newName: ghcr.io/eol-uchile/backup_container
-  newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
-- name: norteamericano-backup-container
-  newName: ghcr.io/eol-uchile/backup_container
-  newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
-- name: openuchile-backup-container
+- name: old-backup-container
   newName: ghcr.io/eol-uchile/backup_container
   newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6

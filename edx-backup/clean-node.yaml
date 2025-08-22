@@ -14,7 +14,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: edx-backup
-            image: eol-backup-container
+            image: old-backup-container
             args:
             - /root/scripts/clear_mount.sh
             envFrom:
