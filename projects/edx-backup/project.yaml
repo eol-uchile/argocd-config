@@ -12,8 +12,6 @@ spec:
   destinations:
     - namespace: edx-backup
       server: https://146.83.63.70:6443
-    - namespace: edx-backup
-      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ''
       kind: Namespace
@@ -48,6 +46,30 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: oeol-edx-backup
+  namespace: argocd
+spec:
+  description: Project to backup edx storages
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: edx-backup
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: 'apps'
+      kind: Deployment
+    - group: 'bitnami.com'
+      kind: SealedSecret
+    - group: 'batch'
+      kind: CronJob
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
