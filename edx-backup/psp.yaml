@@ -6,12 +6,8 @@ metadata:
   namespace: edx-backup
 spec:
   privileged: false
-  hostNetwork: false
-  hostPorts: []
   allowPrivilegeEscalation: false
   defaultAllowPrivilegeEscalation: false
-  hostPID: false
-  hostIPC: false
   runAsUser:
     rule: RunAsAny
   fsGroup:
@@ -21,13 +17,13 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   volumes:
-    - configMap
-    - downwardAPI
-    - emptyDir
-    - persistentVolumeClaim
-    - secret
-    - projected
-    - nfs
+    - 'configMap'
+    - 'downwardAPI'
+    - 'emptyDir'
+    - 'persistentVolumeClaim'
+    - 'secret'
+    - 'projected'
+    - 'nfs'
   allowedCapabilities:
     - '*'
 ---
