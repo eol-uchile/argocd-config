@@ -13,4 +13,5 @@ kubectl -n $EDX_NAMESPACE get secret virtuallabx-config -o json | jq -r '.data |
 
 # OEOL
 kubectl config use-context oeol
+kubectl -n $EDX_NAMESPACE get secret common-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > oeol-common.env
 kubectl -n $EDX_NAMESPACE get secret umce-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > umce-config.env
