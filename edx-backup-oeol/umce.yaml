@@ -1,0 +1,43 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: umce-backup-daily
+spec:
+  schedule: 30 0 * * *
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: edx-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: eol-backup
+              image: backup-container
+              args:
+                - /root/scripts/backup.sh
+                - daily
+                - minio,mongodb,mysql
+                - no-keep
+              envFrom:
+                - secretRef:
+                    name: common-config
+                - secretRef:
+                    name: umce-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 750m
+                limits:
+                  memory: 2Gi
+                  cpu: 750m
+          tolerations:
+            - key: backups
+              operator: Equal
+              value: 'true'
+              effect: NoSchedule

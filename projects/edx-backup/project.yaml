@@ -1,32 +1,35 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: edx-backup
   namespace: argocd
 spec:
-  description: Project to backup edx databases
+  description: Project to backup edx storages
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - '*'
   destinations:
-  - namespace: edx-backup
-    server: https://kubernetes.default.svc
+    - namespace: edx-backup
+      server: https://146.83.63.70:6443
+    - namespace: edx-backup
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  - group: 'policy'
-    kind: PodSecurityPolicy
+    - group: ''
+      kind: Namespace
+    - group: 'policy'
+      kind: PodSecurityPolicy
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: Deployment
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: CronJob
-  - group: rbac.authorization.k8s.io
-    kind: Role
-  - group: rbac.authorization.k8s.io
-    kind: RoleBinding
+    - group: 'apps'
+      kind: Deployment
+    - group: 'bitnami.com'
+      kind: SealedSecret
+    - group: 'batch'
+      kind: CronJob
+    - group: rbac.authorization.k8s.io
+      kind: Role
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -36,15 +39,30 @@ metadata:
 spec:
   destination:
     namespace: edx-backup
-    server: 'https://kubernetes.default.svc'
+    server: 'https://146.83.63.70:6443'
   source:
     path: edx-backup
     repoURL: 'https://github.com/eol-uchile/argocd-config'
-    targetRevision: HEAD
+    targetRevision: main
   project: edx-backup
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oeol-edx-backup
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-backup
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: edx-backup-oeol
+    repoURL: 'https://github.com/eol-uchile/argocd-config'
+    targetRevision: main
+  project: oeol-edx-backup
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -13,23 +14,23 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: edx-backup
-            image: eol-backup-container
-            args:
-            - /root/scripts/clear_mount.sh
-            envFrom:
-            - secretRef:
-                name: common-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 100m
-              limits:
-                memory: 1Gi
-                cpu: 750m
-            volumeMounts:
-              - name: node7-persistent
-                mountPath: /host_mount
+            - name: edx-backup
+              image: old-backup-container
+              args:
+                - /root/scripts/clear_mount.sh
+              envFrom:
+                - secretRef:
+                    name: common-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 100m
+                limits:
+                  memory: 1Gi
+                  cpu: 750m
+              volumeMounts:
+                - name: node7-persistent
+                  mountPath: /host_mount
           volumes:
             - name: node7-persistent
               hostPath:
@@ -39,13 +40,13 @@ spec:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                    - k8seol0107
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                          - k8seol0107
           tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
+            - key: "backups"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"

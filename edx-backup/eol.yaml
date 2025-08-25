@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -16,43 +17,43 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: eol-backup
-            image: eol-backup-container
-            args:
-            - /root/scripts/backup.sh
-            - hourly
-            - mongodb_comments,mongodb,mysql
-            - .
-            envFrom:
-            - secretRef:
-                name: common-config
-            - secretRef:
-                name: eol-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 750m
-              limits:
-                memory: 2Gi
-                cpu: 750m
+            - name: eol-backup
+              image: old-backup-container
+              args:
+                - /root/scripts/backup.sh
+                - hourly
+                - mongodb_comments,mongodb,mysql
+                - .
+              envFrom:
+                - secretRef:
+                    name: common-config
+                - secretRef:
+                    name: eol-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 750m
+                limits:
+                  memory: 2Gi
+                  cpu: 750m
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
-                    - k8seol0105
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: NotIn
+                        values:
+                          - k8seol0101
+                          - k8seol0102
+                          - k8seol0103
+                          - k8seol0104
+                          - k8seol0105
           tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
+            - key: "backups"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -73,43 +74,43 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: eol-backup
-            image: eol-backup-container
-            args:
-            - /root/scripts/backup.sh
-            - hourly
-            - mongodb_comments,mongodb,mysql
-            - .
-            envFrom:
-            - secretRef:
-                name: common-config
-            - secretRef:
-                name: eol-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 750m
-              limits:
-                memory: 2Gi
-                cpu: 750m
+            - name: eol-backup
+              image: old-backup-container
+              args:
+                - /root/scripts/backup.sh
+                - hourly
+                - mongodb_comments,mongodb,mysql
+                - .
+              envFrom:
+                - secretRef:
+                    name: common-config
+                - secretRef:
+                    name: eol-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 750m
+                limits:
+                  memory: 2Gi
+                  cpu: 750m
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
-                    - k8seol0105
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: NotIn
+                        values:
+                          - k8seol0101
+                          - k8seol0102
+                          - k8seol0103
+                          - k8seol0104
+                          - k8seol0105
           tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
+            - key: "backups"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -129,28 +130,28 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: eol-backup
-            image: eol-backup-container
-            args:
-            - /root/scripts/backup.sh
-            - daily
-            - minio,mongodb_comments,mongodb,mysql
-            - keep
-            envFrom:
-            - secretRef:
-                name: common-config
-            - secretRef:
-                name: eol-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 750m
-              limits:
-                memory: 2Gi
-                cpu: 750m
-            volumeMounts:
-              - name: node7-persistent
-                mountPath: /host_mount
+            - name: eol-backup
+              image: old-backup-container
+              args:
+                - /root/scripts/backup.sh
+                - daily
+                - minio,mongodb_comments,mongodb,mysql
+                - keep
+              envFrom:
+                - secretRef:
+                    name: common-config
+                - secretRef:
+                    name: eol-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 750m
+                limits:
+                  memory: 2Gi
+                  cpu: 750m
+              volumeMounts:
+                - name: node7-persistent
+                  mountPath: /host_mount
           volumes:
             - name: node7-persistent
               hostPath:
@@ -160,17 +161,17 @@ spec:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
-                    - k8seol0105
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: NotIn
+                        values:
+                          - k8seol0101
+                          - k8seol0102
+                          - k8seol0103
+                          - k8seol0104
+                          - k8seol0105
           tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
+            - key: "backups"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"

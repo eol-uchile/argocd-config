@@ -7,7 +7,7 @@ resources:
   - reloader/project.yaml
   - graylog/project.yaml
   # - edx-sandbox/project.yaml
-  # - edx-backup/project.yaml
+  - edx-backup/project.yaml
   - service-backup/project.yaml
   - metabase/project.yaml
   - znuny/project.yaml

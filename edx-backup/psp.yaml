@@ -1,3 +1,4 @@
+---
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -20,15 +21,15 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   volumes:
-  - 'configMap'
-  - 'downwardAPI'
-  - 'emptyDir'
-  - 'persistentVolumeClaim'
-  - 'secret'
-  - 'projected'
-  - 'nfs'
+    - configMap
+    - downwardAPI
+    - emptyDir
+    - persistentVolumeClaim
+    - secret
+    - projected
+    - nfs
   allowedCapabilities:
-  - '*'
+    - '*'
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
@@ -36,14 +37,14 @@ metadata:
   name: policy-edx-backup
   namespace: edx-backup
 rules:
-- apiGroups:
-  - extensions
-  resources:
-  - podsecuritypolicies
-  resourceNames:
-  - 5policy-edx-backup
-  verbs:
-  - use
+  - apiGroups:
+      - extensions
+    resources:
+      - podsecuritypolicies
+    resourceNames:
+      - 5policy-edx-backup
+    verbs:
+      - use
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -51,9 +52,9 @@ metadata:
   name: policy-edx-backup
   namespace: edx-backup
 subjects:
-- kind: ServiceAccount
-  namespace: edx-backup
-  name: default
+  - kind: ServiceAccount
+    namespace: edx-backup
+    name: default
 roleRef:
   kind: Role
   name: policy-edx-backup

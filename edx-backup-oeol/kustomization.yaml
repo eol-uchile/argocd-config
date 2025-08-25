@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+namespace: edx-backup
+kind: Kustomization
+resources:
+  - umce.yaml
+  - secrets/common.yaml
+  - secrets/umce.yaml
+images:
+  - name: backup-container
+    newName: ghcr.io/eol-uchile/backup_container
+    newTag: 3979374bb653502af64169b9bc3262de3effd7dc

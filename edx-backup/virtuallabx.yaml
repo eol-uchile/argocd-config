@@ -1,9 +1,10 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: virtuallabx-backup-daily
 spec:
-  schedule: "0 5 * * *"
+  schedule: 0 5 * * *
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -16,28 +17,28 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: edx-backup
-            image: vlabx-backup-container
-            args:
-            - /root/scripts/backup.sh
-            - daily
-            - minio,mongodb_comments,mongodb,mysql
-            - keep
-            envFrom:
-            - secretRef:
-                name: common-config
-            - secretRef:
-                name: virtuallabx-config
-            resources:
-              requests:
-                memory: 256Mi
-                cpu: 750m
-              limits:
-                memory: 2Gi
-                cpu: 750m
-            volumeMounts:
-              - name: node7-persistent
-                mountPath: /host_mount
+            - name: edx-backup
+              image: old-backup-container
+              args:
+                - /root/scripts/backup.sh
+                - daily
+                - minio,mongodb_comments,mongodb,mysql
+                - keep
+              envFrom:
+                - secretRef:
+                    name: common-config
+                - secretRef:
+                    name: virtuallabx-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 750m
+                limits:
+                  memory: 2Gi
+                  cpu: 750m
+              volumeMounts:
+                - name: node7-persistent
+                  mountPath: /host_mount
           volumes:
             - name: node7-persistent
               hostPath:
@@ -47,17 +48,17 @@ spec:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: NotIn
-                    values:
-                    - k8seol0101
-                    - k8seol0102
-                    - k8seol0103
-                    - k8seol0104
-                    - k8seol0105
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: NotIn
+                        values:
+                          - k8seol0101
+                          - k8seol0102
+                          - k8seol0103
+                          - k8seol0104
+                          - k8seol0105
           tolerations:
-          - key: "backups"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
+            - key: backups
+              operator: Equal
+              value: 'true'
+              effect: NoSchedule
