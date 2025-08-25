@@ -1,19 +1,20 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 namespace: edx-backup
 kind: Kustomization
 resources:
-- secrets/common.yaml
-- secrets/eol.yaml
-- secrets/virtuallabx.yaml
-- secrets/norteamericano.yaml
-- secrets/openuchile.yaml
-- psp.yaml
-- eol.yaml
-- virtuallabx.yaml
-- norteamericano.yaml
-- openuchile.yaml
-- clean-node.yaml
+  - secrets/common.yaml
+  - secrets/eol.yaml
+  - secrets/virtuallabx.yaml
+  - secrets/norteamericano.yaml
+  - secrets/openuchile.yaml
+  - psp.yaml
+  - eol.yaml
+  - virtuallabx.yaml
+  - norteamericano.yaml
+  - openuchile.yaml
+  - clean-node.yaml
 images:
-- name: old-backup-container
-  newName: ghcr.io/eol-uchile/backup_container
-  newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
+  - name: old-backup-container
+    newName: ghcr.io/eol-uchile/backup_container
+    newTag: 8cf060a035f5f712ba2e15b0e033f033464cd2b6
