@@ -10,3 +10,7 @@ kubectl -n $EDX_NAMESPACE get secret eol-config -o json | jq -r '.data | keys[] 
 kubectl -n $EDX_NAMESPACE get secret norteamericano-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > norteamericano-config.env
 kubectl -n $EDX_NAMESPACE get secret openuchile-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > openuchile-config.env
 kubectl -n $EDX_NAMESPACE get secret virtuallabx-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > virtuallabx-config.env
+
+# OEOL
+kubectl config use-context oeol
+kubectl -n $EDX_NAMESPACE get secret umce-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > umce-config.env

@@ -12,6 +12,8 @@ spec:
   destinations:
     - namespace: edx-backup
       server: https://146.83.63.70:6443
+    - namespace: edx-backup
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ''
       kind: Namespace
@@ -43,6 +45,24 @@ spec:
     repoURL: 'https://github.com/eol-uchile/argocd-config'
     targetRevision: main
   project: edx-backup
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oeol-edx-backup
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-backup
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: edx-backup-oeol
+    repoURL: 'https://github.com/eol-uchile/argocd-config'
+    targetRevision: main
+  project: oeol-edx-backup
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
