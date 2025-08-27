@@ -8,7 +8,6 @@ resources:
   - secrets/virtuallabx.yaml
   - secrets/norteamericano.yaml
   - secrets/openuchile.yaml
-  - psp.yaml
   - eol.yaml
   - virtuallabx.yaml
   - norteamericano.yaml
