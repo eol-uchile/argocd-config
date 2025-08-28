@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: moodle-virtuallabx-backup-daily
+spec:
+  schedule: "0 1 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: moodle-virtuallabx-backup-daily
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: moodle-virtuallabx-backup-daily
+            image: ghcr.io/eol-uchile/backup_container:0178682d9483a5ceedae1c2a73c1329ea4a6ce61
+            args:
+            - /root/scripts/backup.sh
+            - daily
+            - postgresql,moodle
+            - .
+            envFrom:
+            - secretRef:
+                name: backup-config
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 150m
+              limits:
+                memory: 2Gi
+                cpu: 750m
+            volumeMounts:
+              - name: moodle-data
+                mountPath: /backup/moodle
+          volumes:
+            - name: moodle-data
+              hostPath:
+                path: /home/eol/virtuallabx/moodle/data
+                type: Directory
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                    - cloud-elearning01
+          tolerations:
+          - key: "backups"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"

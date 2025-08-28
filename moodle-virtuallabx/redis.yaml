@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+  annotations:
+    reloader.stakater.com/auto: "true"
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: redis
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cloud-elearning01
+      containers:
+        - image: redis:6
+          name: redis
+          command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+          env:
+            - name: REDIS_REPLICATION_MODE
+              value: master
+          volumeMounts:
+            - mountPath: /usr/local/etc/redis
+              name: config
+      volumes:
+        - name: config
+          secret:
+            secretName: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  ports:
+    - port: 6379
+      protocol: TCP
+  selector:
+    app: redis
