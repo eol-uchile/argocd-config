@@ -18,10 +18,6 @@ jobs:
         with:
           kustomize-version: 5.6.0
 
-      - name: Check backup build
-        run: |
-          kustomize build edx-backup > /dev/null
-
       - name: Check reloader build
         run: |
           kustomize build reloader > /dev/null
