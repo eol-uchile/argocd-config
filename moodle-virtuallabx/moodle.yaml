@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: moodle
+  annotations:
+    reloader.stakater.com/auto: "true"
+  name: moodle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: moodle
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cloud-elearning01
+      containers:
+        - image: ghcr.io/eol-virtuallabx/moodle-docker:f7777643a71519fd896940f0da595bd4515ceefc
+          name: moodle-docker
+          volumeMounts:
+            - mountPath: /var/www/html/config.php
+              name: config
+              subPath: moodle.php
+            - mountPath: /tmp
+              name: tmpfs
+            - mountPath: /var/www/moodledata
+              name: data
+          securityContext:
+            readOnlyRootFilesystem: false
+      volumes:
+        - name: tmpfs
+          emptyDir: {}
+        - name: config
+          secret:
+            secretName: moodle-config
+        - name: data
+          hostPath:
+            path: /home/eol/virtuallabx/moodle/data
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moodle
+  labels:
+    app: moodle
+spec:
+  ports:
+    - port: 9000
+      protocol: TCP
+  selector:
+    app: moodle

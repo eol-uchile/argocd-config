@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: moodle-cron
+  annotations:
+    reloader.stakater.com/auto: "true"
+  name: moodle-cron
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle-cron
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: moodle-cron
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cloud-elearning01
+      containers:
+        - image: ghcr.io/eol-virtuallabx/moodle-docker:f7777643a71519fd896940f0da595bd4515ceefc
+          name: moodle-cron
+          command: ["/bin/sh"]
+          args: ["-c", "trap exit TERM; while :; do php /var/www/html/admin/cli/cron.php; sleep 1m & wait $${!}; done;"]
+          volumeMounts:
+            - mountPath: /var/www/html/config.php
+              name: config
+              subPath: moodle.php
+            - mountPath: /tmp
+              name: tmpfs
+            - mountPath: /var/www/moodledata
+              name: data
+          securityContext:
+            readOnlyRootFilesystem: true
+      volumes:
+        - name: tmpfs
+          emptyDir: {}
+        - name: config
+          secret:
+            secretName: moodle-config
+        - name: data
+          hostPath:
+            path: /home/eol/virtuallabx/moodle/data
+            type: Directory
