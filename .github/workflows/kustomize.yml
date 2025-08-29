@@ -65,3 +65,11 @@ jobs:
       - name: Check emi-project build
         run: |
           kustomize build emi-project > /dev/null
+
+      - name: Check moodle-virtuallabx build
+        run: |
+          kustomize build moodle-virtuallabx > /dev/null
+
+      - name: Check moodle-vlabx-backup build
+        run: |
+          kustomize build moodle-vlabx-backup > /dev/null
