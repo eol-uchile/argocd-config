@@ -14,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: 'main'
 
       - name: Install kustomize
         uses: imranismail/setup-kustomize@v2.1.0
@@ -35,7 +37,7 @@ jobs:
             git config --global user.email "${{ github.actor }}@users.noreply.github.com"
             git add portal-eol/kustomization.yaml
             git commit -m "Update portal-eol version"
-            git push https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/eol-uchile/argocd-config.git HEAD:master
+            git push https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/eol-uchile/argocd-config.git HEAD:main
           else
             echo "No changes to commit. Skipping commit step."
           fi
