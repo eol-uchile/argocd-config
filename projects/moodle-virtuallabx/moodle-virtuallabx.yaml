@@ -47,7 +47,7 @@ spec:
     server: "https://146.83.63.78:6443"
   source:
     path: moodle-virtuallabx
-    repoURL: "git@github.com:eol-uchile/argocd-config.git"
+    repoURL: "https://github.com/eol-uchile/argocd-config"
     targetRevision: main
   project: moodle-virtuallabx
   syncPolicy:
