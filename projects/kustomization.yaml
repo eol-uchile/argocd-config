@@ -27,7 +27,7 @@ resources:
   # - edx-virtuallabx/virtuallabx.yaml
   - docs-eol/project.yaml
   # - ./moodle-virtuallabx/moodle-backup.yaml
-  # - ./moodle-virtuallabx/moodle-virtuallabx.yaml
+  - ./moodle-virtuallabx/moodle-virtuallabx.yaml
   - test-host-eol/project.yaml
   - emi-project/project.yaml
 
