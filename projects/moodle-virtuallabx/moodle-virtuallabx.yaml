@@ -1,39 +1,40 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: moodle-virtuallabx
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project for Virtuallabx's moodle
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - 'git@github.com:eol-virtuallabx/edx-argocd.git'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: moodle-ing
-    server: 'https://146.83.63.78:6443'
+    - namespace: moodle-ing
+      server: "https://146.83.63.78:6443"
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: 'ConfigMap'
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "ConfigMap"
+    - group: ""
+      kind: "Endpoints"
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
+    - group: "monitoring.coreos.com"
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -43,17 +44,17 @@ metadata:
 spec:
   destination:
     namespace: moodle-ing
-    server: 'https://146.83.63.78:6443'
+    server: "https://146.83.63.78:6443"
   source:
     path: moodle-virtuallabx
-    repoURL: 'git@github.com:eol-virtuallabx/edx-argocd.git'
-    targetRevision: HEAD
+    repoURL: "git@github.com:eol-uchile/argocd-config.git"
+    targetRevision: main
   project: moodle-virtuallabx
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
