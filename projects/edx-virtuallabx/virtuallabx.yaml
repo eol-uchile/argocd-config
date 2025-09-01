@@ -1,39 +1,40 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: edx-virtuallabx
   namespace: argocd
 spec:
-  description: Project for applications in virtuallabx
+  description: Project for applications in edx-virtuallabx
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - 'git@github.com:eol-virtuallabx/edx-argocd.git'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: virtuallabx
-    server: 'https://146.83.63.78:6443'
+    - namespace: virtuallabx
+      server: "https://146.83.63.78:6443"
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: ConfigMap
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
-  - group: ''
-    kind: 'PersistentVolumeClaim'
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: "Endpoints"
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
+    - group: ""
+      kind: "PersistentVolumeClaim"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -43,17 +44,17 @@ metadata:
 spec:
   destination:
     namespace: virtuallabx
-    server: 'https://146.83.63.78:6443'
+    server: "https://146.83.63.78:6443"
   source:
     path: edx-virtuallabx
-    repoURL: 'git@github.com:eol-virtuallabx/edx-argocd.git'
+    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
     targetRevision: HEAD
   project: edx-virtuallabx
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
