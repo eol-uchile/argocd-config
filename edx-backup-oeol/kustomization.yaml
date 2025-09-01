@@ -9,4 +9,4 @@ resources:
 images:
   - name: backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: 4a3916fbd9ea97dc974b5c6468df6bc8d119f5bb
+    newTag: 3e0f1c690dcd14f938895d2f52a93f95d0e4d603
