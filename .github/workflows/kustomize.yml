@@ -70,3 +70,6 @@ jobs:
         run: |
           kustomize build moodle-virtuallabx > /dev/null
 
+      - name: Check moodle-vlabx-backup build
+        run: |
+          kustomize build moodle-vlabx-backup > /dev/null
