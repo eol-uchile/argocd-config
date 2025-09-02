@@ -23,7 +23,7 @@ resources:
 - openuchile/edx-openuchile.yaml
 - openuchile/metrics.yaml
 - norteamericano/edx-norteamericano.yaml
-- edx-virtuallabx/virtuallabx.yaml
+# - edx-virtuallabx/virtuallabx.yaml
 # - docs-eol/project.yaml
 # - ./moodle-virtuallabx/moodle-backup.yaml
 # - ./moodle-virtuallabx/moodle-virtuallabx.yaml
