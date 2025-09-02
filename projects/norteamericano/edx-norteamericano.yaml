@@ -45,7 +45,7 @@ spec:
     server: "https://146.83.63.78:6443"
   source:
     path: edx-norteamericano
-    repoURL: "git@github.com:eol-uchile/edx-kustomize.git"
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
   project: edx-norteamericano
   syncPolicy:
