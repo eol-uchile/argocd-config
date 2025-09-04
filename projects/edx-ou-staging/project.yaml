@@ -1,39 +1,40 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: edx-ou-staging
   namespace: argocd
 spec:
-  description: Project staging openuchile
+  description: Project for applications in openuchile edx staging
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: edx-ou-staging
-    server: 'https://146.83.63.78:6443'
+    - namespace: edx-ou-staging
+      server: "https://146.83.63.78:6443"
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: ConfigMap
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: "Endpoints"
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
+    - group: "monitoring.coreos.com"
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -43,20 +44,17 @@ metadata:
 spec:
   destination:
     namespace: edx-ou-staging
-    server: 'https://146.83.63.78:6443'
+    server: "https://146.83.63.78:6443"
   source:
     path: ou-staging
-    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
   project: edx-ou-staging
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
