@@ -6,11 +6,11 @@ resources:
   - secrets/common.yaml
   - secrets/eol.yaml
   - secrets/virtuallabx.yaml
-  - secrets/norteamericano.yaml
+  - secrets/redfid.yaml
   - secrets/openuchile.yaml
   - eol.yaml
   - virtuallabx.yaml
-  - norteamericano.yaml
+  - redfid.yaml
   - openuchile.yaml
   - clean-node.yaml
 images:

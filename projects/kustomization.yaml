@@ -23,7 +23,7 @@ resources:
   # - openuchile/sealed-secrets.yaml
   # - openuchile/edx-openuchile.yaml
   # - openuchile/metrics.yaml
-  - norteamericano/edx-norteamericano.yaml
+  - redfid/edx-redfid.yaml
   - edx-virtuallabx/virtuallabx.yaml
   - docs-eol/project.yaml
   - ./moodle-virtuallabx/moodle-backup.yaml

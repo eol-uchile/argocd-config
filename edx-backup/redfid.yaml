@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: norteamericano-backup-daily
+  name: redfid-backup-daily
 spec:
   schedule: 0 10 * * *
   concurrencyPolicy: Forbid
@@ -28,7 +28,7 @@ spec:
                 - secretRef:
                     name: common-config
                 - secretRef:
-                    name: norteamericano-config
+                    name: redfid-config
               resources:
                 requests:
                   memory: 256Mi
