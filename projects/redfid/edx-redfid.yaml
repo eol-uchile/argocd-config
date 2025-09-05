@@ -2,10 +2,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: edx-norteamericano
+  name: edx-redfid
   namespace: argocd
 spec:
-  description: Project for applications in edx norteamericano
+  description: Project for applications in edx redfid
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "*"
@@ -37,17 +37,17 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edx-norteamericano
+  name: edx-redfid
   namespace: argocd
 spec:
   destination:
     namespace: edx-norteamericano
     server: "https://146.83.63.78:6443"
   source:
-    path: edx-norteamericano
+    path: edx-redfid
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
-  project: edx-norteamericano
+  project: edx-redfid
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
