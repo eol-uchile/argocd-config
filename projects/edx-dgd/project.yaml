@@ -1,35 +1,36 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: edx-dgd
   namespace: argocd
 spec:
-  description: Project to backup uabierta databases
+  description: Project for applications in edx DGD
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: edx-dgd
-    server: https://kubernetes.default.svc
+    - namespace: edx-dgd
+      server: https://146.83.63.70:6443
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "Endpoints"
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -39,20 +40,17 @@ metadata:
 spec:
   destination:
     namespace: edx-dgd
-    server: 'https://kubernetes.default.svc'
+    server: "https://146.83.63.70:6443"
   source:
     path: dgd
-    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
   project: edx-dgd
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
