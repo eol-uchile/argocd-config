@@ -1,59 +1,60 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: openuchile-edx-openuchile
+  name: edx-openuchile
   namespace: argocd
 spec:
-  description: Project OpenUchile
+  description: Project for applications in OpenUchile
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-  - namespace: edx-openuchile
-    server: 'https://146.83.63.78:6443'
+    - namespace: edx-openuchile
+      server: "https://146.83.63.78:6443"
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+    - group: ""
+      kind: Namespace
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: '*'
-  - group: 'networking.k8s.io'
-    kind: '*'
-  - group: 'bitnami.com'
-    kind: SealedSecret
-  - group: 'batch'
-    kind: '*'
-  - group: ''
-    kind: 'Service'
-  - group: ''
-    kind: ConfigMap
-  - group: ''
-    kind: 'Endpoints'
-  - group: 'autoscaling'
-    kind: 'HorizontalPodAutoscaler'
-  - group: 'monitoring.coreos.com'
-    kind: Probe
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: "Endpoints"
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
+    - group: "monitoring.coreos.com"
+      kind: Probe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openuchile-edx-openuchile
+  name: edx-openuchile
   namespace: argocd
 spec:
   destination:
     namespace: edx-openuchile
-    server: 'https://146.83.63.78:6443'
+    server: "https://146.83.63.78:6443"
   source:
     path: openuchile
-    repoURL: 'git@github.com:eol-uchile/edx-kustomize.git'
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
-  project: openuchile-edx-openuchile
+  project: edx-openuchile
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
