@@ -21,7 +21,7 @@ resources:
   # - openuchile/nginx.yaml
   # - openuchile/reloader.yaml
   # - openuchile/sealed-secrets.yaml
-  # - openuchile/edx-openuchile.yaml
+  - edx-openuchile/project.yaml
   # - openuchile/metrics.yaml
   - redfid/edx-redfid.yaml
   - edx-virtuallabx/virtuallabx.yaml
