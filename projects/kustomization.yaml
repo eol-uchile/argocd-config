@@ -20,7 +20,7 @@ resources:
 - openuchile/nginx.yaml
 - openuchile/reloader.yaml
 - openuchile/sealed-secrets.yaml
-- openuchile/edx-openuchile.yaml
+# - openuchile/edx-openuchile.yaml
 - openuchile/metrics.yaml
 # - norteamericano/edx-norteamericano.yaml
 # - edx-virtuallabx/virtuallabx.yaml
