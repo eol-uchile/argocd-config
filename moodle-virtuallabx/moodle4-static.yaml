@@ -19,7 +19,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01
       containers:
-        - image: ghcr.io/eol-virtuallabx/moodle-docker:nginx-5b2bf25d916a9897ae753198c977b21f8e7f3768
+        - image: ghcr.io/eol-uchile/moodle-vlabx-docker:nginx-7d7bd86720c7edb202ae078402d6ffdc04be504a
           name: moodle-static
 ---
 apiVersion: v1

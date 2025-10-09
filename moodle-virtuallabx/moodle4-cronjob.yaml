@@ -21,7 +21,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01
       containers:
-        - image: ghcr.io/eol-virtuallabx/moodle-docker:5b2bf25d916a9897ae753198c977b21f8e7f3768
+        - image: ghcr.io/eol-uchile/moodle-vlabx-docker:7d7bd86720c7edb202ae078402d6ffdc04be504a
           name: moodle4-cron
           command: ["/bin/sh"]
           args: ["-c", "trap exit TERM; while :; do php /var/www/html/admin/cli/cron.php; sleep 1m & wait $${!}; done;"]
