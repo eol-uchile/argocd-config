@@ -1,0 +1,96 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: discord-notify-morning
+  namespace: ing-utils
+spec:
+  schedule: "58 8 * * 1-5" 
+  timeZone: "America/Santiago"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: discord-alert
+              image: curlimages/curl:latest
+              env:
+                - name: WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: discord-webhook
+                      key: WEBHOOK_URL
+                - name: MESSAGE
+                  value: "@everyone Recuerda marcar tu entrada en https://marcaje.uchile.cl/"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" $WEBHOOK_URL
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 30
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: discord-notify-evening
+  namespace: ing-utils
+spec:
+  schedule: "15 18 * * 1-4"
+  timeZone: "America/Santiago"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: discord-alert
+              image: curlimages/curl:latest
+              env:
+                - name: WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: discord-webhook
+                      key: WEBHOOK_URL
+                - name: MESSAGE
+                  value: "@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" $WEBHOOK_URL
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 30
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: discord-notify-friday
+  namespace: ing-utils
+spec:
+  schedule: "0 16 * * 5"
+  timeZone: "America/Santiago"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: discord-alert
+              image: curlimages/curl:latest
+              env:
+                - name: WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: discord-webhook
+                      key: WEBHOOK_URL
+                - name: MESSAGE
+                  value: "@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDescansa y que tengas un buen fin de semana! :beach_umbrella:"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" $WEBHOOK_URL
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 30
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
