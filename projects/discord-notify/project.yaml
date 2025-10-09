@@ -1,0 +1,45 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: discord-notify
+  namespace: ing-utils
+spec:
+  description: Project for discord-notify app
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - '*'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+    - namespace: ing-utils
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: 'rbac.authorization.k8s.io'
+      kind: 'ClusterRole'
+    - group: 'rbac.authorization.k8s.io'
+      kind: 'ClusterRoleBinding'
+    - group: ''
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: ''
+      kind: 'ServiceAccount'
+    - group: 'apps'
+      kind: 'Deployment'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: discord-notify
+  namespace: argocd
+spec:
+  destination:
+    namespace: ing-utils
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: discord-notify
+    repoURL: 'https://github.com/eol-uchile/argocd-config'
+    targetRevision: main
+  project: discord-notify
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
