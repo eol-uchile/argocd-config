@@ -73,3 +73,7 @@ jobs:
       - name: Check moodle-vlabx-backup build
         run: |
           kustomize build moodle-vlabx-backup > /dev/null
+
+      - name: Check discord-notify build
+        run: |
+          kustomize build discord-notify > /dev/null
