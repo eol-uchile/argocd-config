@@ -5,7 +5,7 @@ metadata:
   name: discord-notify-morning
   namespace: ing-utils
 spec:
-  schedule: "58 8 * * 1-5" 
+  schedule: "58 8 * * 1-5"
   timeZone: "America/Santiago"
   jobTemplate:
     spec:
@@ -20,12 +20,12 @@ spec:
                     secretKeyRef:
                       name: discord-webhook
                       key: WEBHOOK_URL
-                - name: MESSAGE
-                  value: "@everyone Recuerda marcar tu entrada en https://marcaje.uchile.cl/"
               command: ["sh", "-c"]
               args:
                 - |
-                  curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" $WEBHOOK_URL
+                  curl -H "Content-Type: application/json" -X POST \
+                  -d '{"content":"@everyone Recuerda marcar tu entrada en https://marcaje.uchile.cl/"}' \
+                  $WEBHOOK_URL
           restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30
   successfulJobsHistoryLimit: 3
@@ -52,12 +52,12 @@ spec:
                     secretKeyRef:
                       name: discord-webhook
                       key: WEBHOOK_URL
-                - name: MESSAGE
-                  value: "@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"
               command: ["sh", "-c"]
               args:
                 - |
-                  curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" $WEBHOOK_URL
+                  curl -H "Content-Type: application/json" -X POST \
+                  -d '{"content":"@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"}' \
+                  $WEBHOOK_URL
           restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30
   successfulJobsHistoryLimit: 3
@@ -84,12 +84,12 @@ spec:
                     secretKeyRef:
                       name: discord-webhook
                       key: WEBHOOK_URL
-                - name: MESSAGE
-                  value: "@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDescansa y que tengas un buen fin de semana! :beach_umbrella:"
               command: ["sh", "-c"]
               args:
                 - |
-                  curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" $WEBHOOK_URL
+                  curl -H "Content-Type: application/json" -X POST   \
+                  -d '{"content":"@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDescansa y que tengas un buen fin de semana! :beach_umbrella:"}' \
+                  $WEBHOOK_URL
           restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30
   successfulJobsHistoryLimit: 3
