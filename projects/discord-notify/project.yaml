@@ -14,17 +14,15 @@ spec:
     - namespace: ing-utils
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-    - group: 'rbac.authorization.k8s.io'
-      kind: 'ClusterRole'
-    - group: 'rbac.authorization.k8s.io'
-      kind: 'ClusterRoleBinding'
     - group: ''
       kind: Namespace
   namespaceResourceWhitelist:
-    - group: ''
-      kind: 'ServiceAccount'
-    - group: 'apps'
-      kind: 'Deployment'
+    - group: 'bitnami.com'
+      kind: SealedSecret
+    - group: 'batch'
+      kind: CronJob
+    - group: "batch"
+      kind: Job
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
