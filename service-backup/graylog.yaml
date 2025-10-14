@@ -13,7 +13,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: graylog-backup
-              image: backup-container
+              image: old-backup-container
               args:
                 - /root/scripts/backup.sh
                 - daily

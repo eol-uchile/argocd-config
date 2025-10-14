@@ -13,4 +13,7 @@ kind: Kustomization
 images:
   - name: backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: 5f84072be4eb306865c3785ef7aba632020fa9fe
+    newTag: 4bf086f56775d73184ce4ca31e1bcebc4f772c9f
+  - name: old-backup-container
+    newName: ghcr.io/eol-uchile/backup_container
+    newTag: c807a42acecf9339783d19df0c0a09de46711921
