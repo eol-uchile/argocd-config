@@ -41,3 +41,46 @@ spec:
               operator: Equal
               value: 'true'
               effect: NoSchedule
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: umce-backup-hourly
+spec:
+  schedule: 30 6,12,18 * * *
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: edx-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: eol-backup
+              image: backup-container
+              args:
+                - /root/scripts/backup.sh
+                - hourly
+                - minio,mongodb,mysql
+                - no-keep
+              envFrom:
+                - secretRef:
+                    name: common-config
+                - secretRef:
+                    name: umce-config
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 750m
+                limits:
+                  memory: 2Gi
+                  cpu: 750m
+          tolerations:
+            - key: backups
+              operator: Equal
+              value: 'true'
+              effect: NoSchedule
