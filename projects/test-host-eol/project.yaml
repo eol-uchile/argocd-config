@@ -13,6 +13,8 @@ spec:
   destinations:
     - namespace: test-eol
       server: https://146.83.63.70:6443
+    - namespace: test-eol
+      server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: ''
       kind: Namespace
@@ -56,5 +58,23 @@ spec:
     automated:
       prune: false
       selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-host-eol-migration
+  namespace: argocd
+spec:
+  destination:
+    namespace: test-eol
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: test-host-eol
+    repoURL: 'https://github.com/eol-uchile/argocd-config.git'
+    targetRevision: oeol-apps-migration
+  project: test-host-eol
+  syncPolicy:
     syncOptions:
       - CreateNamespace=true
