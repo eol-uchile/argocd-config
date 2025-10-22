@@ -47,9 +47,6 @@ spec:
     targetRevision: main
   project: portal-eol
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
       - CreateNamespace=true
 ---
@@ -68,8 +65,5 @@ spec:
     targetRevision: main
   project: portal-eol
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
       - CreateNamespace=true
