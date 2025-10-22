@@ -13,6 +13,8 @@ spec:
   destinations:
     - namespace: portal-eol
       server: https://146.83.63.70:6443
+    - namespace: portal-eol
+      server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
@@ -39,6 +41,27 @@ spec:
   destination:
     namespace: portal-eol
     server: "https://146.83.63.70:6443"
+  source:
+    path: portal-eol
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
+  project: portal-eol
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: portal-oeol
+  namespace: argocd
+spec:
+  destination:
+    namespace: portal-eol
+    server: 'https://kubernetes.default.svc'
   source:
     path: portal-eol
     repoURL: "https://github.com/eol-uchile/argocd-config"
