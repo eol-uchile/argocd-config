@@ -12,7 +12,9 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: edx-staging
-      server: https://146.83.63.70:6443
+      server: "https://146.83.63.70:6443"
+    - namespace: edx-staging
+      server: "https://kubernetes.default.svc"
   namespaceResourceWhitelist:
     - group: "apps"
       kind: "*"
@@ -63,3 +65,21 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/replicas
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edx-staging-migration
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-staging
+    server: "https://kubernetes.default.svc"
+  source:
+    path: staging
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
+    targetRevision: vastorga/oeol-staging-migration
+  project: edx-staging
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
