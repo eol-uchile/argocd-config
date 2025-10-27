@@ -43,27 +43,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test-host-eol
-  namespace: argocd
-spec:
-  destination:
-    namespace: test-eol
-    server: 'https://146.83.63.70:6443'
-  source:
-    path: test-host-eol
-    repoURL: 'https://github.com/eol-uchile/argocd-config.git'
-    targetRevision: main
-  project: test-host-eol
-  syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: test-host-eol-migration
   namespace: argocd
 spec:
@@ -73,7 +52,7 @@ spec:
   source:
     path: test-host-eol
     repoURL: 'https://github.com/eol-uchile/argocd-config.git'
-    targetRevision: oeol-apps-migration
+    targetRevision: main
   project: test-host-eol
   syncPolicy:
     syncOptions:
