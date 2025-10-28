@@ -2,24 +2,24 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: otrs-deploy
+  name: znuny-sts
   labels:
-    service: otrs-deploy
+    service: znuny-svc
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
-  serviceName: otrs-deploy
+  serviceName: znuny-svc
   replicas: 1
   selector:
     matchLabels:
-      service: otrs-deploy
+      service: znuny-svc
   template:
     metadata:
       labels:
-        service: otrs-deploy
+        service: znuny-svc
     spec:
       containers:
-        - name: otrs
+        - name: znuny
           image: ghcr.io/eol-uchile/eol-otrs:znuny-6.5.18-eol1
           env:
             - name: OTRS_BACKUP_TIME
@@ -41,32 +41,32 @@ spec:
             - name: OTRS_DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: otrs
+                  name: znuny
                   key: OTRS_DB_HOST
             - name: OTRS_DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: otrs
+                  name: znuny
                   key: OTRS_DB_PORT
             - name: OTRS_DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: otrs
+                  name: znuny
                   key: OTRS_DB_NAME
             - name: OTRS_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: otrs
+                  name: znuny
                   key: OTRS_DB_USER
             - name: OTRS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: otrs
+                  name: znuny
                   key: OTRS_DB_PASSWORD
             - name: OTRS_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: otrs
+                  name: znuny
                   key: OTRS_ROOT_PASSWORD
           ports:
             - containerPort: 80
@@ -81,10 +81,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: otrs
+  name: znuny-svc
 spec:
   selector:
-    service: otrs-deploy
+    service: znuny-svc
   ports:
     - name: "http"
       port: 80
