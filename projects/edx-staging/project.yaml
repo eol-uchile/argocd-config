@@ -28,6 +28,8 @@ spec:
       kind: "Service"
     - group: ""
       kind: "Endpoints"
+    - group: "discovery.k8s.io"
+      kind: "EndpointSlice"
     - group: "autoscaling"
       kind: "HorizontalPodAutoscaler"
     - group: "monitoring.coreos.com"
