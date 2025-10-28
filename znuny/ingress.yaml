@@ -2,14 +2,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: otrs-ingress
+  name: znuny-ingress
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: "nginx"
   tls:
-    - secretName: otrs-ingress-certificate
+    - secretName: znuny-ingress-certificate
       hosts:
         - eol-ayuda.uchile.cl
   rules:
@@ -20,6 +20,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: otrs
+                name: znuny
                 port:
                   number: 80
