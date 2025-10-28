@@ -2,24 +2,24 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: otrs-deploy
+  name: znuny-deploy
   labels:
-    service: otrs-deploy
+    service: znuny-deploy
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
-  serviceName: otrs-deploy
+  serviceName: znuny-deploy
   replicas: 1
   selector:
     matchLabels:
-      service: otrs-deploy
+      service: znuny-deploy
   template:
     metadata:
       labels:
-        service: otrs-deploy
+        service: znuny-deploy
     spec:
       containers:
-        - name: otrs
+        - name: znuny
           image: ghcr.io/eol-uchile/eol-otrs:znuny-6.5.18-eol1
           env:
             - name: OTRS_BACKUP_TIME
@@ -81,10 +81,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: otrs
+  name: znuny
 spec:
   selector:
-    service: otrs-deploy
+    service: znuny-deploy
   ports:
     - name: "http"
       port: 80
