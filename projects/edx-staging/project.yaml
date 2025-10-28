@@ -52,7 +52,7 @@ spec:
   source:
     path: staging
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: main
+    targetRevision: master
   project: edx-staging
   syncPolicy:
     syncOptions:
