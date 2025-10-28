@@ -12,6 +12,8 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: docs-eol
+      server: 'https://kubernetes.default.svc'
+    - namespace: docs-eol
       server: https://146.83.63.70:6443
   clusterResourceWhitelist:
     - group: ""
@@ -39,6 +41,24 @@ spec:
   destination:
     namespace: docs-eol
     server: "https://146.83.63.70:6443"
+  source:
+    path: docs-eol
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
+  project: docs-eol
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: docs-oeol
+  namespace: argocd
+spec:
+  destination:
+    namespace: docs-eol
+    server: 'https://kubernetes.default.svc'
   source:
     path: docs-eol
     repoURL: "https://github.com/eol-uchile/argocd-config"
