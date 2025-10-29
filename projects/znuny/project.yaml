@@ -44,8 +44,5 @@ spec:
     targetRevision: main
   project: znuny
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: false
     syncOptions:
       - CreateNamespace=true
