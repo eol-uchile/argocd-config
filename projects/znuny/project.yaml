@@ -10,8 +10,6 @@ spec:
   sourceRepos:
     - "*"
   destinations:
-    - namespace: otrs
-      server: https://146.83.63.70:6443
     - namespace: znuny
       server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
@@ -38,30 +36,12 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: otrs
-    server: "https://146.83.63.70:6443"
-  source:
-    path: znuny
-    repoURL: "https://github.com/eol-uchile/argocd-config"
-    targetRevision: main
-  project: znuny
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: znuny-oeol
-  namespace: argocd
-spec:
-  destination:
     namespace: znuny
     server: 'https://kubernetes.default.svc'
   source:
     path: znuny
     repoURL: "https://github.com/eol-uchile/argocd-config"
-    targetRevision: vastorga/oeol-znuny-otrs-migration
+    targetRevision: main
   project: znuny
   syncPolicy:
     syncOptions:
