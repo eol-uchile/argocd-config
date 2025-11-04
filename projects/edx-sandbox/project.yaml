@@ -12,8 +12,6 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: edx-sandbox
-      server: https://146.83.63.70:6443
-    - namespace: edx-sandbox
       server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
@@ -44,34 +42,11 @@ metadata:
 spec:
   destination:
     namespace: edx-sandbox
-    server: "https://146.83.63.70:6443"
-  source:
-    path: sandbox
-    repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: HEAD
-  project: edx-sandbox
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: edx-sandbox-oeol
-  namespace: argocd
-spec:
-  destination:
-    namespace: edx-sandbox
     server: "https://kubernetes.default.svc"
   source:
     path: sandbox
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: vastorga/add-sandbox-oeol
+    targetRevision: master
   project: edx-sandbox
   syncPolicy:
     syncOptions:
