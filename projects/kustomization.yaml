@@ -9,6 +9,7 @@ resources:
   - edx-sandbox/project.yaml
   - edx-backup/project.yaml
   - service-backup/project.yaml
+  - backup-graylog/project.yaml
   - metabase/project.yaml
   - znuny/project.yaml
   - portal-eol/project.yaml

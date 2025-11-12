@@ -1,0 +1,48 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: backup-graylog
+  namespace: argocd
+spec:
+  description: Project to backup metabase, graylog and znuny databases
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: service-backup
+      server: https://146.83.63.70:6443
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+    - group: "policy"
+      kind: PodSecurityPolicy
+  namespaceResourceWhitelist:
+    - group: "apps"
+      kind: Deployment
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: CronJob
+    - group: rbac.authorization.k8s.io
+      kind: Role
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backup-graylog
+  namespace: argocd
+spec:
+  destination:
+    namespace: service-backup
+    server: "https://146.83.63.70:6443"
+  source:
+    path: backup-graylog
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: vastorga/migrate-service-backup
+  project: backup-graylog
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
