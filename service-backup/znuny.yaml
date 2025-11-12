@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otrs-backup-daily
+  name: znuny-backup-daily
 spec:
   schedule: "0 8 * * *"
   concurrencyPolicy: Forbid
@@ -12,7 +12,7 @@ spec:
         spec:
           restartPolicy: Never
           containers:
-            - name: otrs-backup
+            - name: znuny-backup
               image: old-backup-container
               args:
                 - /root/scripts/backup.sh
@@ -20,7 +20,7 @@ spec:
                 - postgresql
               envFrom:
                 - secretRef:
-                    name: otrs
+                    name: znuny
                 - secretRef:
                     name: common
           affinity:

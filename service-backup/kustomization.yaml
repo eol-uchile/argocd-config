@@ -1,10 +1,10 @@
 ---
 resources:
   - secrets/common.yaml
-  - secrets/otrs.yaml
+  - secrets/znuny.yaml
   - secrets/metabase.yaml
   - secrets/graylog.yaml
-  - otrs.yaml
+  - znuny.yaml
   - metabase.yaml
   - graylog.yaml
 namespace: service-backup
