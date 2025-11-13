@@ -23,15 +23,6 @@ spec:
                     name: znuny
                 - secretRef:
                     name: common
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: kubernetes.io/hostname
-                        operator: NotIn
-                        values:
-                          - k8seol0107
           tolerations:
             - key: "backups"
               operator: "Equal"
