@@ -5,13 +5,13 @@ metadata:
   name: service-backup
   namespace: argocd
 spec:
-  description: Project to backup metabase, graylog and znuny databases
+  description: Project to backup metabase and znuny databases
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "*"
   destinations:
     - namespace: service-backup
-      server: https://146.83.63.70:6443
+      server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
@@ -37,7 +37,7 @@ metadata:
 spec:
   destination:
     namespace: service-backup
-    server: "https://146.83.63.70:6443"
+    server: "https://kubernetes.default.svc"
   source:
     path: service-backup
     repoURL: "https://github.com/eol-uchile/argocd-config"
