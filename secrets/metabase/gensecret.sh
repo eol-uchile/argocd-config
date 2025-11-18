@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 
-kubectl config use-context eol
-export EDX_NAMESPACE=metabase
-
-kubectl -n $EDX_NAMESPACE create secret generic metabase --dry-run=client --from-env-file=./metabase.env -o yaml | kubeseal --controller-namespace sealed-secrets -o yaml > ../../metabase/secrets.yaml
-kubectl -n $EDX_NAMESPACE create secret generic basic-auth --dry-run=client --from-file=auth=./basic_auth -o yaml | kubeseal --controller-namespace sealed-secrets -o yaml > ../../metabase/access.yaml
+kubectl --context oeol -n metabase create secret generic metabase --dry-run=client --from-env-file=/home/vicente/Documentos/repo/argocd-config/metabase.env -o yaml | kubeseal --context oeol --controller-namespace sealed-secrets -o yaml > /home/vicente/Documentos/repo/argocd-config/metabase/secrets.yaml
+kubectl --context oeol -n metabase create secret generic basic-auth --dry-run=client --from-file=auth=/home/vicente/Documentos/repo/argocd-config/basic_auth -o yaml | kubeseal --context oeol --controller-namespace sealed-secrets -o yaml > /home/vicente/Documentos/repo/argocd-config/metabase/access.yaml
