@@ -10,8 +10,6 @@ spec:
     - "*"
   destinations:
     - namespace: metabase
-      server: https://146.83.63.70:6443
-    - namespace: metabase
       server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: ""
@@ -38,29 +36,11 @@ metadata:
 spec:
   destination:
     namespace: metabase
-    server: "https://146.83.63.70:6443"
-  source:
-    path: metabase
-    repoURL: "https://github.com/eol-uchile/argocd-config"
-    targetRevision: main
-  project: metabase
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: metabase-oeol
-  namespace: argocd
-spec:
-  destination:
-    namespace: metabase
     server: 'https://kubernetes.default.svc'
   source:
     path: metabase
     repoURL: "https://github.com/eol-uchile/argocd-config"
-    targetRevision: vastorga/migrate-metabase-oeol
+    targetRevision: main
   project: metabase
   syncPolicy:
     syncOptions:
