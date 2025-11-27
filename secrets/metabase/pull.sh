@@ -2,5 +2,5 @@
 set -e
 
 # configs
-kubectl --context oeol -n metabase get secret metabase -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > /home/vicente/Documentos/repo/argocd-config/metabase.env
-kubectl --context oeol -n metabase get secret basic-auth -o jsonpath="{.data['auth']}" | base64 -d > /home/vicente/Documentos/repo/argocd-config/basic_auth
+kubectl --context oeol -n metabase get secret metabase -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > metabase.env
+kubectl --context oeol -n metabase get secret basic-auth -o jsonpath="{.data['auth']}" | base64 -d > basic_auth
