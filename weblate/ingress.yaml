@@ -1,0 +1,31 @@
+---
+# Source: weblate/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: weblate
+  namespace: weblate
+  labels:
+    app.kubernetes.io/name: weblate
+    app.kubernetes.io/instance: weblate
+    app.kubernetes.io/version: "5.14.3.0"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/custom-headers: ingress-nginx/cm-robots-none-headers
+spec:
+  tls:
+    - hosts:
+        - "weblate.oeol.uchile.cl"
+      secretName: weblate-certificate
+  ingressClassName: nginx
+  rules:
+    - host: "weblate.oeol.uchile.cl"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: weblate
+                port:
+                  number: 80

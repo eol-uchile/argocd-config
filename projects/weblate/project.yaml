@@ -1,0 +1,47 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: weblate
+spec:
+  description: Weblate continuous localization service
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: weblate
+      server: 'https://kubernetes.default.svc'
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "Endpoints"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: weblate
+  namespace: argocd
+spec:
+  destination:
+    namespace: weblate
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: weblate
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
+  project: weblate
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

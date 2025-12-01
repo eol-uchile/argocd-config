@@ -1,0 +1,107 @@
+---
+# Source: weblate/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weblate
+  namespace: weblate
+  labels:
+    app.kubernetes.io/name: weblate
+    app.kubernetes.io/instance: weblate
+    app.kubernetes.io/version: "5.14.3.0"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: weblate
+      app.kubernetes.io/instance: weblate
+  template:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        app.kubernetes.io/name: weblate
+        app.kubernetes.io/instance: weblate
+    spec:
+      serviceAccountName: weblate
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: weblate
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1001
+          image: "weblate/weblate:5.14.3.0@sha256:1fce3ec38d9534dae72284abb5b9a1da5d093ebe5984f81b120306600735eaea"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: WEBLATE_ENABLE_HTTPS
+              value: "true"
+            - name: WEBLATE_SECURE_PROXY_SSL_HEADER
+              value: "HTTP_X_FORWARDED_PROTO,https"
+            - name: IP_BEHIND_REVERSE_PROXY
+              value: "true"
+            - name: WEBLATE_IP_PROXY_HEADER
+              value: "HTTP_X_FORWARDED_FOR"
+          envFrom:
+            - secretRef:
+                name: weblate
+          livenessProbe:
+            httpGet:
+              path: /weblate/healthz/
+              port: http
+            failureThreshold: 10
+            initialDelaySeconds: 300
+            successThreshold: 1
+            timeoutSeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /weblate/healthz/
+              port: http
+            failureThreshold: 2
+            initialDelaySeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+            periodSeconds: 30
+          volumeMounts:
+            - mountPath: /tmp
+              name: empty-tmp
+            - mountPath: /run
+              name: empty-run
+            - mountPath: /app/data
+              name: weblate-fs
+            - mountPath: "/app/data/settings-override.py"
+              name: weblate-config
+              subPath: "settings-override.py"
+          resources:
+            limits:
+              cpu: 2
+              memory: 3G
+            requests:
+              cpu: 1
+              memory: 2G
+      volumes:
+        - name: empty-tmp
+          emptyDir: {}
+        - name: empty-run
+          emptyDir: {}
+        - name: weblate-config
+          configMap:
+            name: weblate
+            items:
+            - key: "settings-override.py"
+              path: "settings-override.py"
+        - name: weblate-fs
+          persistentVolumeClaim:
+            claimName: weblate-filesystem

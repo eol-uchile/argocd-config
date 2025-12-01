@@ -1,0 +1,19 @@
+---
+# Source: weblate/charts/redis/templates/master/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: weblate-redis-master
+  namespace: "weblate"
+  labels:
+    app.kubernetes.io/instance: weblate
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/version: 8.0.2
+    app.kubernetes.io/component: master
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: weblate
+      app.kubernetes.io/name: redis
+      app.kubernetes.io/component: master

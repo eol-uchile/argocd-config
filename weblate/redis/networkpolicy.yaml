@@ -1,0 +1,25 @@
+---
+# Source: weblate/charts/redis/templates/networkpolicy.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: weblate-redis
+  namespace: "weblate"
+  labels:
+    app.kubernetes.io/instance: weblate
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/version: 8.0.2
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: weblate
+      app.kubernetes.io/name: redis
+  policyTypes:
+    - Ingress
+    - Egress
+  egress:
+    - {}
+  ingress:
+    # Allow inbound connections
+    - ports:
+        - port: 6379
