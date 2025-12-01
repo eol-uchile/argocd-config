@@ -1,0 +1,22 @@
+---
+# Source: weblate/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: weblate
+  namespace: weblate
+  labels:
+    app.kubernetes.io/name: weblate
+    app.kubernetes.io/instance: weblate
+    app.kubernetes.io/version: "5.14.3.0"
+spec:
+  type: ClusterIP
+  publishNotReadyAddresses: false
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: weblate
+    app.kubernetes.io/instance: weblate
