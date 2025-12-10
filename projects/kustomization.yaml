@@ -29,6 +29,7 @@ resources:
   - test-host-eol/project.yaml
   - emi-project/project.yaml
   - discord-notify/project.yaml
+  - weblate/project.yaml
 
 
 namespace: argocd
