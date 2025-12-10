@@ -55,5 +55,8 @@ spec:
     targetRevision: master
   project: edx-staging
   syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
