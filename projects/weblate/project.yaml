@@ -26,7 +26,15 @@ spec:
     - group: ""
       kind: "Service"
     - group: ""
-      kind: "Endpoints"
+      kind: ConfigMap
+    - group: ''
+      kind: 'ServiceAccount'
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
+    - group: ""
+      kind: "PersistentVolumeClaim"
+    - group: "policy"
+      kind: "PodDisruptionBudget"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
