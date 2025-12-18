@@ -12,8 +12,6 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: edx-uabierta
-      server: https://146.83.63.70:6443
-    - namespace: edx-uabierta
       server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
@@ -50,34 +48,11 @@ metadata:
 spec:
   destination:
     namespace: edx-uabierta
-    server: "https://146.83.63.70:6443"
-  source:
-    path: uabierta
-    repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: HEAD
-  project: edx-uabierta
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: edx-uabierta-oeol
-  namespace: argocd
-spec:
-  destination:
-    namespace: edx-uabierta
     server: "https://kubernetes.default.svc"
   source:
     path: uabierta
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: vastorga/migrate-uabierta-oeol
+    targetRevision: master
   project: edx-uabierta
   syncPolicy:
     syncOptions:
