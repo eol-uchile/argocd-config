@@ -13,6 +13,8 @@ spec:
   destinations:
     - namespace: emi-project
       server: "https://146.83.63.78:6443"
+    - namespace: emi-project
+      server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
@@ -54,3 +56,21 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/replicas
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: emi-project-oeol
+  namespace: argocd
+spec:
+  destination:
+    namespace: emi-project
+    server: "https://kubernetes.default.svc"
+  source:
+    path: emi-project
+    repoURL: "https://github.com/eol-uchile/argocd-config.git"
+    targetRevision: vastorga/migrate-emi-oeol
+  project: emi-project
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
