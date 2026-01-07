@@ -37,11 +37,11 @@ spec:
                 name: emi-wordpress
           resources:
             requests:
-              memory: 600Mi
-              cpu: 400m
+              memory: 300Mi
+              cpu: 200m
             limits:
-              memory: 700Mi
-              cpu: 600m
+              memory: 400Mi
+              cpu: 400m
       volumes:
         - name: emi-wordpress-fpm-content
           persistentVolumeClaim:
