@@ -67,6 +67,11 @@ data:
             internal;
             alias /var/www/html/wp-content/blogs.dir;
         }
+
+        location ~ ^/\.user\.ini {
+            deny all;
+            return 404;
+        }
     }
 ---
 apiVersion: v1
