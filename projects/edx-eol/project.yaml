@@ -5,7 +5,7 @@ metadata:
   name: edx-eol
   namespace: argocd
 spec:
-  description: Project for applications in edx eol
+  description: Project for applications & analytics in edx eol
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "*"
@@ -49,6 +49,29 @@ spec:
     server: "https://146.83.63.70:6443"
   source:
     path: eol
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
+    targetRevision: HEAD
+  project: edx-eol
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: analytics-eol
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-eol
+    server: "https://146.83.63.70:6443"
+  source:
+    path: analytics-eol
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
   project: edx-eol
