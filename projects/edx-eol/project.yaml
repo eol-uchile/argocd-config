@@ -13,6 +13,8 @@ spec:
   destinations:
     - namespace: edx-eol
       server: https://146.83.63.70:6443
+    - namespace: edx-eol
+      server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
@@ -57,6 +59,24 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/replicas
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edx-eol-oeol
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-eol
+    server: "https://kubernetes.default.svc"
+  source:
+    path: eol
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
+    targetRevision: vastorga/migrate-edxeol-oeol
+  project: edx-eol
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
