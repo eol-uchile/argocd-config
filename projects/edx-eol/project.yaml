@@ -39,6 +39,8 @@ spec:
       kind: "PersistentVolumeClaim"
     - group: "monitoring.coreos.com"
       kind: Probe
+    - group: "discovery.k8s.io"
+      kind: "EndpointSlice"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
