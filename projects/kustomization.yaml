@@ -5,7 +5,6 @@ resources:
   - edx-staging/project.yaml
   - edx-ou-staging/project.yaml
   - reloader/project.yaml
-  - graylog/project.yaml
   - edx-sandbox/project.yaml
   - edx-backup/project.yaml
   - service-backup/project.yaml
