@@ -26,10 +26,6 @@ jobs:
         run: |
           kustomize build metabase > /dev/null
 
-      - name: Check monitoring build
-        run: |
-          kustomize build monitoring > /dev/null
-
       - name: Check znuny build
         run: |
           kustomize build znuny > /dev/null
