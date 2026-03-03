@@ -3,20 +3,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: moodle-cron
+    app: moodle4-dev-cron
   annotations:
     reloader.stakater.com/auto: "true"
-  name: moodle-cron
+  name: moodle4-dev-cron
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moodle-cron
+      app: moodle4-dev-cron
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: moodle-cron
+        app: moodle4-dev-cron
     spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01

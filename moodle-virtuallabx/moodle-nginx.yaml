@@ -3,18 +3,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: moodle-nginx
-  name: moodle-nginx
+    app: moodle4-dev-nginx
+  name: moodle4-dev-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moodle-nginx
+      app: moodle4-dev-nginx
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: moodle-nginx
+        app: moodle4-dev-nginx
     spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01
@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: moodle-nginx-config
+            name: moodle4-dev-nginx-config
         - name: data
           hostPath:
             path: /home/eol/virtuallabx/moodle/data
@@ -40,7 +40,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: moodle-nginx-config
+  name: moodle4-dev-nginx-config
 data:
   nginx.conf: |
     server {
@@ -57,13 +57,13 @@ data:
             fastcgi_param   PATH_INFO       $fastcgi_path_info;
             fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
             fastcgi_param   HTTPS              on;
-            fastcgi_pass moodle:9000;
+            fastcgi_pass moodle4-dev:9000;
             fastcgi_buffers 16 16k;
             fastcgi_buffer_size 32k;
         }
 
         location ~ ^/(h5p|theme(?!/.+\.php)|blocks)/.+\.(js|map|mustache|css|ico|gif|jpg|png|svg|ttf|woff2?|feature|html|txt|xml) {
-            proxy_pass http://moodle-static;
+            proxy_pass http://moodle4-dev-static;
         }
 
         location /dataroot/ {
@@ -75,12 +75,12 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: moodle-nginx
+  name: moodle4-dev-nginx
   labels:
-    app: moodle-nginx
+    app: moodle4-dev-nginx
 spec:
   ports:
     - port: 80
       protocol: TCP
   selector:
-    app: moodle-nginx
+    app: moodle4-dev-nginx

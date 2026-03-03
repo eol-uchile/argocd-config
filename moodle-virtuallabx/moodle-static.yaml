@@ -3,18 +3,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: moodle-static
-  name: moodle-static
+    app: moodle4-dev-static
+  name: moodle4-dev-static
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moodle-static
+      app: moodle4-dev-static
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: moodle-static
+        app: moodle4-dev-static
     spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01
@@ -25,12 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: moodle-static
+  name: moodle4-dev-static
   labels:
-    app: moodle-static
+    app: moodle4-dev-static
 spec:
   ports:
     - port: 80
       protocol: TCP
   selector:
-    app: moodle-static
+    app: moodle4-dev-static
