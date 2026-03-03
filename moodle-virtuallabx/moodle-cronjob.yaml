@@ -40,7 +40,7 @@ spec:
           emptyDir: {}
         - name: config
           secret:
-            secretName: moodle-config
+            secretName: moodle4-dev-config
         - name: data
           hostPath:
             path: /home/eol/virtuallabx/moodle/data

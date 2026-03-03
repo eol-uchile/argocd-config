@@ -15,7 +15,7 @@ resources:
   - ./redis.yaml
   - ./ingress.yaml
   # - ./unavailable.yaml
-  - ./secrets/moodle-config.yaml
+  - ./secrets/moodle4-dev-config.yaml
   - ./secrets/moodle4-config.yaml
   - ./secrets/postgres.yaml
   - ./secrets/redis.yaml
