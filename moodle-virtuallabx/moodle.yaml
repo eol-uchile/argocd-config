@@ -3,20 +3,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: moodle
+    app: moodle4-dev
   annotations:
     reloader.stakater.com/auto: "true"
-  name: moodle
+  name: moodle4-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moodle
+      app: moodle4-dev
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: moodle
+        app: moodle4-dev
     spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01
@@ -47,12 +47,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: moodle
+  name: moodle4-dev
   labels:
-    app: moodle
+    app: moodle4-dev
 spec:
   ports:
     - port: 9000
       protocol: TCP
   selector:
-    app: moodle
+    app: moodle4-dev
