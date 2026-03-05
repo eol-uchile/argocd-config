@@ -11,8 +11,6 @@ spec:
     - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-    - namespace: edx-norteamericano
-      server: "https://146.83.63.78:6443"
     - namespace: edx-redfid
       server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
@@ -41,7 +39,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edx-redfid-oeol
+  name: edx-redfid
   namespace: argocd
 spec:
   destination:
@@ -50,31 +48,8 @@ spec:
   source:
     path: edx-redfid
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: vastorga/migrate-redfid-oeol
+    targetRevision: master
   project: edx-redfid
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: edx-redfid
-  namespace: argocd
-spec:
-  destination:
-    namespace: edx-norteamericano
-    server: "https://146.83.63.78:6443"
-  source:
-    path: edx-redfid
-    repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: HEAD
-  project: edx-redfid
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
