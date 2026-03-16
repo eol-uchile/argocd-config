@@ -7,3 +7,4 @@ resources:
   - secrets/emi-wordpress.yaml
   - wordpress-fpm.yaml
   - wordpress-nginx.yaml
+  - unavailable.yaml
