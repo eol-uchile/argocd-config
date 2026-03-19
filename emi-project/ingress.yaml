@@ -6,7 +6,6 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
-    nginx.ingress.kubernetes.io/proxy-buffering: "on"
 spec:
   ingressClassName: "nginx"
   tls:
@@ -21,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: emi-wordpress-nginx-svc
+                name: maintenance-nginx-svc
                 port:
                   number: 80

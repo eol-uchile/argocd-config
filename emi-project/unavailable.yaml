@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintenance-nginx-svc
+  labels:
+    app: maintenance-nginx
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: maintenance-nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintenance-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintenance-nginx
+  template:
+    metadata:
+      labels:
+        app: maintenance-nginx
+    spec:
+      containers:
+        - name: maintenance-eol
+          image: ghcr.io/eol-uchile/maintenance-container:eol-bd7086d25d3c5f27d199a4305af796defc9de540
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: message-mount
+              mountPath: /usr/share/nginx/html/config/
+      volumes:
+        - name: message-mount
+          configMap:
+            name: maintenance-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maintenance-config
+data:
+  message.json: '{"message": "Estamos trabajando para restablecer el servicio a la brevedad"}'
