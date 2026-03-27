@@ -12,8 +12,6 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: edx-eol
-      server: https://146.83.63.70:6443
-    - namespace: edx-eol
       server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
@@ -59,21 +57,8 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: analytics-eol
-  namespace: argocd
-spec:
-  destination:
-    namespace: edx-eol
-    server: "https://146.83.63.70:6443"
-  source:
-    path: analytics-eol
-    repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: HEAD
-  project: edx-eol
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
