@@ -19,12 +19,12 @@ spec:
     spec:
       containers:
         - name: metabase
-          image: metabase/metabase:v0.50.1
+          image: metabase/metabase:v0.50.36
           env:
             - name: MB_DB_TYPE
               value: postgres
             - name: JAVA_OPTS
-              value: "-Xmx1g"
+              value: "-Xmx1500m"
             - name: MB_DB_DBNAME
               valueFrom:
                 secretKeyRef:
@@ -54,7 +54,7 @@ spec:
             - containerPort: 3000
           resources:
             requests:
-              memory: 1.2Gi
+              memory: 1500Mi
               cpu: 600m
             limits:
               memory: 2Gi
