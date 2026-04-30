@@ -3,10 +3,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 namespace: edx-backup
 kind: Kustomization
 resources:
+  - redfid.yaml
   - umce.yaml
   - secrets/common.yaml
+  - secrets/redfid.yaml
   - secrets/umce.yaml
 images:
   - name: backup-container
     newName: ghcr.io/eol-uchile/backup_container
     newTag: 4bf086f56775d73184ce4ca31e1bcebc4f772c9f
+  - name: old-backup-container
+    newName: ghcr.io/eol-uchile/backup_container
+    newTag: 67c54592a99d983f2aca437a2583049c65e8d75d
