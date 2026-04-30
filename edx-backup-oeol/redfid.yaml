@@ -37,28 +37,16 @@ spec:
                   memory: 2Gi
                   cpu: 750m
               volumeMounts:
-                - name: node7-persistent
+                - name: backup-storage
                   mountPath: /host_mount
           volumes:
-            - name: node7-persistent
-              hostPath:
-                path: /mnt/data
-                type: Directory
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: kubernetes.io/hostname
-                        operator: NotIn
-                        values:
-                          - k8seol0101
-                          - k8seol0102
-                          - k8seol0103
-                          - k8seol0104
-                          - k8seol0105
-          tolerations:
-            - key: backups
-              operator: Equal
-              value: 'true'
-              effect: NoSchedule
+            - name: backup-storage
+              ephemeral:
+                volumeClaimTemplate:
+                  spec:
+                    accessModes:
+                      - ReadWriteOnce
+                    storageClassName: longhorn-single-replica
+                    resources:
+                      requests:
+                        storage: 14Gi
