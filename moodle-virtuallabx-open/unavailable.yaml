@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: not-available-nginx-svc
+  labels:
+    app: not-available-nginx
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: not-available-nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-available-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: not-available-nginx
+  template:
+    metadata:
+      labels:
+        app: not-available-nginx
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cloud-elearning01
+      containers:
+        - name: not-available-eol
+          image: ghcr.io/eol-uchile/not-available-container:virtuallabx-625cccc7bc886c88df466e84e830d6115d4b6dde
+          ports:
+            - containerPort: 80

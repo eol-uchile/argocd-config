@@ -1,0 +1,86 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: moodle4-nginx
+  name: moodle4-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle4-nginx
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: moodle4-nginx
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cloud-elearning01
+      containers:
+        - image: nginx:stable-alpine
+          name: moodle4-nginx
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nginx/conf.d/
+              readOnly: false
+            - mountPath: /moodle/dataroot
+              name: data
+              readOnly: false
+      volumes:
+        - name: config
+          configMap:
+            name: moodle4-nginx-config
+        - name: data
+          hostPath:
+            path: /home/eol/virtuallabx/moodle4/data
+            type: Directory
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: moodle4-nginx-config
+data:
+  nginx.conf: |
+    server {
+        listen 80 default_server;
+        server_name _;
+        client_max_body_size 600M;
+
+        location / {
+            root /var/www/html;
+            include fastcgi_params;
+            include /etc/nginx/mime.types;
+            fastcgi_split_path_info ^(.+\.php[3457]?)(/.+)$;
+            fastcgi_index index.php;
+            fastcgi_param   PATH_INFO       $fastcgi_path_info;
+            fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param   HTTPS              on;
+            fastcgi_pass moodle4:9000;
+            fastcgi_buffers 16 16k;
+            fastcgi_buffer_size 32k;
+        }
+
+        location ~ ^/(h5p|theme(?!/.+\.php)|blocks)/.+\.(js|map|mustache|css|ico|gif|jpg|png|svg|ttf|woff2?|feature|html|txt|xml) {
+            proxy_pass http://moodle4-static;
+        }
+
+        location /dataroot/ {
+            internal;
+            alias /moodle/dataroot/;
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moodle4-nginx
+  labels:
+    app: moodle4-nginx
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: moodle4-nginx
