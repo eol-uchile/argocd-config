@@ -3,23 +3,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: moodle4-dev
+    app: moodle-dev
   annotations:
     reloader.stakater.com/auto: "true"
-  name: moodle4-dev
+  name: moodle-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moodle4-dev
+      app: moodle-dev
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: moodle4-dev
+        app: moodle-dev
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: cloud-elearning01
       containers:
         - image: ghcr.io/eol-uchile/moodle-vlabx-docker:8566546abee0d0bf606a56104d02c30f87c839ae
           name: moodle-docker
@@ -38,21 +36,20 @@ spec:
           emptyDir: {}
         - name: config
           secret:
-            secretName: moodle4-dev-config
+            secretName: moodle-dev-config
         - name: data
-          hostPath:
-            path: /home/eol/virtuallabx/moodle/data
-            type: Directory
+          persistentVolumeClaim:
+            claimName: moodle-dev-volume
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: moodle4-dev
+  name: moodle-dev
   labels:
-    app: moodle4-dev
+    app: moodle-dev
 spec:
   ports:
     - port: 9000
       protocol: TCP
   selector:
-    app: moodle4-dev
+    app: moodle-dev

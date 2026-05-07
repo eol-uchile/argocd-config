@@ -2,14 +2,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: moodle4-dev-nginx
+  name: moodle-dev-nginx
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/proxy-body-size: 600m
+    nginx.ingress.kubernetes.io/custom-headers: ingress-nginx/cm-robots-none-headers
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_force_ranges "On";
 spec:
+  ingressClassName: "nginx"
   tls:
     - secretName: moodle-dev-tls-secret
       hosts:
@@ -22,6 +22,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: moodle4-dev-nginx
+                name: moodle-dev-nginx
                 port:
                   number: 80

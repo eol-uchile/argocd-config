@@ -3,21 +3,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: moodle4-dev-static
-  name: moodle4-dev-static
+    app: moodle-dev-static
+  name: moodle-dev-static
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moodle4-dev-static
+      app: moodle-dev-static
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: moodle4-dev-static
+        app: moodle-dev-static
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: cloud-elearning01
       containers:
         - image: ghcr.io/eol-uchile/moodle-vlabx-docker:nginx-8566546abee0d0bf606a56104d02c30f87c839ae
           name: moodle-static
@@ -25,12 +23,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: moodle4-dev-static
+  name: moodle-dev-static
   labels:
-    app: moodle4-dev-static
+    app: moodle-dev-static
 spec:
   ports:
     - port: 80
       protocol: TCP
   selector:
-    app: moodle4-dev-static
+    app: moodle-dev-static

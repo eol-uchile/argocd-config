@@ -13,7 +13,7 @@ kubectl --context openuchile -n moodle-ing get secret redis -o jsonpath="{.data[
 
 # Development
 # Moodle dev configuration
-kubectl --context oeol -n moodle-ing get secret moodle4-dev-config -o jsonpath="{.data['moodle\.php']}" | base64 -d > moodle4-dev.php
+kubectl --context oeol -n moodle-ing get secret moodle-dev-config -o jsonpath="{.data['moodle\.php']}" | base64 -d > moodle-dev.php
 
 # Postgres config
 kubectl --context oeol -n moodle-ing get secret postgres -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > postgres.env
