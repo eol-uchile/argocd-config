@@ -58,3 +58,52 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/replicas
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: moodle-virtuallabx-oeol
+  namespace: argocd
+spec:
+  description: Project for Virtuallabx's moodle in cluster oeol
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - "*"
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+    - namespace: moodle-ing
+      server: 'https://kubernetes.default.svc'
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "ConfigMap"
+    - group: ""
+      kind: "PersistentVolumeClaim"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: moodle-virtuallabx-oeol
+  namespace: argocd
+spec:
+  destination:
+    namespace: moodle-ing
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: moodle-virtuallabx-oeol
+    repoURL: "https://github.com/eol-uchile/argocd-config"
+    targetRevision: main
+  project: moodle-virtuallabx-oeol
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
