@@ -7,16 +7,10 @@ resources:
   - ./moodle4-dev-static.yaml
   - ./moodle4-dev.yaml
   - ./postgres.yaml
-  - ./moodle4-cronjob.yaml
-  - ./moodle4-static.yaml
-  - ./moodle4-nginx.yaml
-  - ./moodle4.yaml
-  - ./postgres13.yaml
   - ./redis.yaml
   - ./ingress.yaml
   # - ./unavailable.yaml
   - ./secrets/moodle4-dev-config.yaml
-  - ./secrets/moodle4-config.yaml
   - ./secrets/postgres.yaml
   - ./secrets/redis.yaml
 namespace: moodle-ing
