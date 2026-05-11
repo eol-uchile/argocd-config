@@ -21,7 +21,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: cloud-elearning01
       containers:
-        - image: ghcr.io/eol-uchile/moodle-vlabx-docker:0ca8459e5a4215ea84c528b5a27515c18c54c48a
+        - image: ghcr.io/eol-uchile/moodle-vlabx-docker:8566546abee0d0bf606a56104d02c30f87c839ae
           name: moodle4-docker
           volumeMounts:
             - mountPath: /var/www/html/config.php
