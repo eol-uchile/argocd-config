@@ -22,3 +22,27 @@ spec:
   resources:
     requests:
       storage: 6Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "longhorn-xfs"
+  resources:
+    requests:
+      storage: 3Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: moodle-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "longhorn-xfs"
+  resources:
+    requests:
+      storage: 12Gi
