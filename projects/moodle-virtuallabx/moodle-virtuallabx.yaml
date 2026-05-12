@@ -12,66 +12,6 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: moodle-ing
-      server: "https://146.83.63.78:6443"
-  clusterResourceWhitelist:
-    - group: ""
-      kind: Namespace
-  namespaceResourceWhitelist:
-    - group: "apps"
-      kind: "*"
-    - group: "networking.k8s.io"
-      kind: "*"
-    - group: "bitnami.com"
-      kind: SealedSecret
-    - group: "batch"
-      kind: "*"
-    - group: ""
-      kind: "Service"
-    - group: ""
-      kind: "ConfigMap"
-    - group: ""
-      kind: "Endpoints"
-    - group: "autoscaling"
-      kind: "HorizontalPodAutoscaler"
-    - group: "monitoring.coreos.com"
-      kind: Probe
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: moodle-virtuallabx
-  namespace: argocd
-spec:
-  destination:
-    namespace: moodle-ing
-    server: "https://146.83.63.78:6443"
-  source:
-    path: moodle-virtuallabx
-    repoURL: "https://github.com/eol-uchile/argocd-config"
-    targetRevision: main
-  project: moodle-virtuallabx
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: moodle-virtuallabx-oeol
-  namespace: argocd
-spec:
-  description: Project for Virtuallabx's moodle in cluster oeol
-  # Allow manifests to deploy from any Git repos
-  sourceRepos:
-    - "*"
-  # Only permit applications to deploy to the guestbook namespace in the same cluster
-  destinations:
-    - namespace: moodle-ing
       server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: ""
@@ -93,17 +33,17 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: moodle-virtuallabx-oeol
+  name: moodle-virtuallabx
   namespace: argocd
 spec:
   destination:
     namespace: moodle-ing
     server: 'https://kubernetes.default.svc'
   source:
-    path: moodle-virtuallabx-oeol
+    path: moodle-virtuallabx
     repoURL: "https://github.com/eol-uchile/argocd-config"
     targetRevision: main
-  project: moodle-virtuallabx-oeol
+  project: moodle-virtuallabx
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
