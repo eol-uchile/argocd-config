@@ -18,8 +18,6 @@ spec:
       labels:
         app: redis
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: cloud-elearning01
       containers:
         - image: redis:6
           name: redis

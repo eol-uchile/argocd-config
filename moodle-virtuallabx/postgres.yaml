@@ -3,28 +3,26 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    app: postgres13
-  name: postgres13
+    app: postgres
+  name: postgres
 spec:
   replicas: 1
-  serviceName: "postgres13"
+  serviceName: "postgres"
   selector:
     matchLabels:
-      app: postgres13
+      app: postgres
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: postgres13
+        app: postgres
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: cloud-elearning01
       containers:
         - image: postgres:13
-          name: postgres13
+          name: postgres
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: data
+            - mountPath: /var/lib/postgresql
+              name: pglib
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -39,20 +37,19 @@ spec:
             - name: PGDATA
               value: /var/lib/postgresql/data
       volumes:
-        - name: data
-          hostPath:
-            path: /home/eol/virtuallabx/moodle4/postgresql
-            type: Directory
+        - name: pglib
+          persistentVolumeClaim:
+            claimName: postgres-volume
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres13
+  name: postgres
   labels:
-    app: postgres13
+    app: postgres
 spec:
   ports:
     - port: 5432
       protocol: TCP
   selector:
-    app: postgres13
+    app: postgres

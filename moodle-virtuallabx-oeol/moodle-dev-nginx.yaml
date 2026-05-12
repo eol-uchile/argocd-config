@@ -17,7 +17,7 @@ spec:
         app: moodle-dev-nginx
     spec:
       containers:
-        - image: nginx:stable
+        - image: nginx:stable-alpine
           name: moodle-nginx
           volumeMounts:
             - name: config

@@ -3,7 +3,7 @@ set -e
 
 # Production
 # Moodle configuration
-kubectl --context oeol -n moodle-ing get secret moodle4-config -o jsonpath="{.data['moodle\.php']}" | base64 -d > moodle4.php
+kubectl --context oeol -n moodle-ing get secret moodle-config -o jsonpath="{.data['moodle\.php']}" | base64 -d > moodle.php
 
 # Development
 # Moodle dev configuration

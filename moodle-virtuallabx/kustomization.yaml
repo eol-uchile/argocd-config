@@ -9,6 +9,7 @@ resources:
   - ./postgres.yaml
   - ./redis.yaml
   - ./ingress.yaml
+  - ../moodle-virtuallabx-oeol/volumes.yaml
   # - ./unavailable.yaml
   - ./secrets/moodle-config.yaml
   - ./secrets/postgres.yaml
