@@ -20,4 +20,4 @@ images:
     newTag: 4bf086f56775d73184ce4ca31e1bcebc4f772c9f
   - name: old-backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: 67c54592a99d983f2aca437a2583049c65e8d75d
+    newTag: 229c53b6872546ab2ab84ab8cb01f431a0cdb53c # temp testing image
