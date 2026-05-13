@@ -25,7 +25,7 @@ spec:
               readOnly: false
             - mountPath: /moodle/dataroot
               name: data
-              readOnly: false
+              readOnly: true
       volumes:
         - name: config
           configMap:

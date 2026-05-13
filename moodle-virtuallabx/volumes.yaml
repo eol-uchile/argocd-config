@@ -41,7 +41,7 @@ metadata:
   name: moodle-volume
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: "longhorn-xfs"
   resources:
     requests:

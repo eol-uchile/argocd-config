@@ -29,6 +29,7 @@ spec:
               name: tmpfs
             - mountPath: /var/www/moodledata
               name: data
+              readOnly: false
           securityContext:
             readOnlyRootFilesystem: false
       volumes:
