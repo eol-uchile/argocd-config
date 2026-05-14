@@ -5,5 +5,4 @@ namespace: emi-project
 resources:
   - ingress.yaml
   - secrets/emi-wordpress.yaml
-  - wordpress-fpm.yaml
-  - wordpress-nginx.yaml
+  - wordpress.yaml
