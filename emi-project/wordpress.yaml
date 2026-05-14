@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: emi-wordpress-fpm
+  name: emi-wordpress
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: emi-wordpress-fpm
+      app: emi-wordpress
   template:
     metadata:
       labels:
-        app: emi-wordpress-fpm
+        app: emi-wordpress
     spec:
       containers:
         - name: emi-wordpress-fpm
@@ -21,7 +21,7 @@ spec:
           ports:
             - containerPort: 9000
           volumeMounts:
-            - name: emi-wordpress-fpm-content
+            - name: emi-wordpress-content
               readOnly: false
               mountPath: /var/www/html/
             - name: emi-wordpress-fpm-ini
@@ -42,8 +42,27 @@ spec:
             limits:
               memory: 400Mi
               cpu: 400m
+        - name: emi-wordpress-nginx
+          image: nginx:stable-alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: emi-wordpress-content
+              readOnly: false
+              mountPath: /var/www/html/
+            - name: config
+              mountPath: /etc/nginx/conf.d/wordpress.conf
+              subPath: wordpress.conf
+              readOnly: true
+          resources:
+            requests:
+              memory: 50Mi
+              cpu: 100m
+            limits:
+              memory: 100Mi
+              cpu: 200m
       volumes:
-        - name: emi-wordpress-fpm-content
+        - name: emi-wordpress-content
           persistentVolumeClaim:
             claimName: wordpress-emi-content-volume
         - name: emi-wordpress-fpm-ini
@@ -52,20 +71,10 @@ spec:
         - name: emi-www-extra-conf
           configMap:
             name: www-extra-conf
+        - name: config
+          configMap:
+            name: emi-wordpress-nginx-config
       terminationGracePeriodSeconds: 45
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: emi-wordpress-fpm-svc
-  labels:
-    app: emi-wordpress-fpm
-spec:
-  ports:
-    - port: 9000
-      targetPort: 9000
-  selector:
-    app: emi-wordpress-fpm
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -101,3 +110,53 @@ data:
     php_admin_flag[log_errors] = on
     php_admin_flag[display_errors] = off
     php_admin_value[error_reporting] = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: emi-wordpress-nginx-config
+data:
+  wordpress.conf: |
+    server {
+        listen 80 default_server;
+        server_name _;
+        client_max_body_size 300M;
+        index index.php;
+        root /var/www/html;
+
+        location ~ [^/]\.php(/|$) {
+            root /var/www/html;
+            include fastcgi_params;
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_pass localhost:9000;
+        }
+
+        location ~ .+\.(js|map|mustache|css|ico|gif|jpg|png|svg|ttf|woff2?|feature|html|txt|xml)$ {
+            root /var/www/html;
+        }
+
+        location ^~ /blogs.dir {
+            internal;
+            alias /var/www/html/wp-content/blogs.dir;
+        }
+
+        location ~ ^/\.user\.ini {
+            deny all;
+            return 404;
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emi-wordpress-svc
+  labels:
+    app: emi-wordpress
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: emi-wordpress

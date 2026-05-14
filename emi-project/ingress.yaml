@@ -20,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: emi-wordpress-nginx-svc
+                name: emi-wordpress-svc
                 port:
                   number: 80
