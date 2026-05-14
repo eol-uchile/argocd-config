@@ -23,7 +23,7 @@ spec:
           name: moodle-docker
           volumeMounts:
             - mountPath: /var/www/html/config.php
-              name: config
+              name: moodle-config
               subPath: moodle.php
             - mountPath: /tmp
               name: tmpfs
@@ -32,15 +32,77 @@ spec:
               readOnly: false
           securityContext:
             readOnlyRootFilesystem: false
+        - image: ghcr.io/eol-uchile/moodle-vlabx-docker:8566546abee0d0bf606a56104d02c30f87c839ae
+          name: moodle-cron
+          command: ["/bin/sh"]
+          args: ["-c", "trap exit TERM; while :; do php /var/www/html/admin/cli/cron.php; sleep 1m & wait $${!}; done;"]
+          volumeMounts:
+            - mountPath: /var/www/html/config.php
+              name: moodle-config
+              subPath: moodle.php
+            - mountPath: /tmp
+              name: tmpfs
+            - mountPath: /var/www/moodledata
+              name: data
+              readOnly: false
+          securityContext:
+            readOnlyRootFilesystem: true
+        - image: ghcr.io/eol-uchile/moodle-vlabx-docker:nginx-8566546abee0d0bf606a56104d02c30f87c839ae
+          name: moodle-nginx
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/
+              readOnly: false
+            - mountPath: /moodle/dataroot
+              name: data
+              readOnly: true
       volumes:
         - name: tmpfs
           emptyDir: {}
-        - name: config
+        - name: moodle-config
           secret:
             secretName: moodle-config
         - name: data
           persistentVolumeClaim:
             claimName: moodle-volume
+        - name: nginx-config
+          configMap:
+            name: moodle-nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: moodle-nginx-config
+data:
+  nginx.conf: |
+    server {
+        listen 80 default_server;
+        server_name _;
+        client_max_body_size 600M;
+
+        location / {
+            root /var/www/html;
+            include fastcgi_params;
+            include /etc/nginx/mime.types;
+            fastcgi_split_path_info ^(.+\.php[3457]?)(/.+)$;
+            fastcgi_index index.php;
+            fastcgi_param   PATH_INFO       $fastcgi_path_info;
+            fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param   HTTPS              on;
+            fastcgi_pass localhost:9000;
+            fastcgi_buffers 16 16k;
+            fastcgi_buffer_size 32k;
+        }
+
+        location ~ ^/(h5p|theme(?!/.+\.php)|blocks)/.+\.(js|map|mustache|css|ico|gif|jpg|png|svg|ttf|woff2?|feature|html|txt|xml) {
+            root /var/www/html;
+        }
+
+        location /dataroot/ {
+            internal;
+            alias /moodle/dataroot/;
+        }
+    }
 ---
 apiVersion: v1
 kind: Service
@@ -50,7 +112,7 @@ metadata:
     app: moodle
 spec:
   ports:
-    - port: 9000
+    - port: 80
       protocol: TCP
   selector:
     app: moodle
