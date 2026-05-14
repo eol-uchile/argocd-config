@@ -133,7 +133,10 @@ spec:
           initContainers:
             - name: cleanup-pvc
               image: busybox:1.36
-              command: ["sh", "-c", "rm -rf /host_mount/* /host_mount/.[!.]* 2>/dev/null; echo 'PVC cleanup done'"]
+              command:
+                - sh
+                - -c
+                - "rm -rf /host_mount/* /host_mount/.[!.]* 2>/dev/null && echo 'PVC cleanup done'"
               volumeMounts:
                 - name: eol-bkp
                   mountPath: /host_mount
@@ -142,7 +145,7 @@ spec:
               image: old-backup-container
               args:
                 - /root/scripts/backup.sh
-                - daily-test
+                - daily
                 - minio,mongodb_comments,mongodb,mysql
                 - keep
               envFrom:
