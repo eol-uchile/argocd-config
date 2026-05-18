@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: openuchile-backup-daily
+  name: virtuallabx-backup-daily
 spec:
-  schedule: 30 10 * * *
+  schedule: 0 5 * * *
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
   successfulJobsHistoryLimit: 2
@@ -16,6 +16,16 @@ spec:
             app: edx-backup
         spec:
           restartPolicy: OnFailure
+          initContainers:
+            - name: cleanup-pvc
+              image: busybox:1.36
+              command:
+                - sh
+                - -c
+                - "rm -rf /host_mount/* /host_mount/.[!.]* 2>/dev/null && echo 'PVC cleanup done'"
+              volumeMounts:
+                - name: virtuallabx-bkp
+                  mountPath: /host_mount
           containers:
             - name: edx-backup
               image: old-backup-container
@@ -28,7 +38,7 @@ spec:
                 - secretRef:
                     name: common-config
                 - secretRef:
-                    name: openuchile-config
+                    name: virtuallabx-config
               resources:
                 requests:
                   memory: 256Mi
@@ -37,28 +47,21 @@ spec:
                   memory: 2Gi
                   cpu: 750m
               volumeMounts:
-                - name: node7-persistent
+                - name: virtuallabx-bkp
                   mountPath: /host_mount
           volumes:
-            - name: node7-persistent
-              hostPath:
-                path: /mnt/data
-                type: Directory
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: kubernetes.io/hostname
-                        operator: NotIn
-                        values:
-                          - k8seol0101
-                          - k8seol0102
-                          - k8seol0103
-                          - k8seol0104
-                          - k8seol0105
-          tolerations:
-            - key: backups
-              operator: Equal
-              value: 'true'
-              effect: NoSchedule
+            - name: virtuallabx-bkp
+              persistentVolumeClaim:
+                claimName: virtuallabx-bkp-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: virtuallabx-bkp-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-single-replica
+  resources:
+    requests:
+      storage: 200Gi
