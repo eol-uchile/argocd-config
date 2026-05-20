@@ -15,6 +15,16 @@ spec:
           labels:
             app: edx-backup
         spec:
+          initContainers:
+            - name: cleanup-pvc
+              image: busybox:1.36
+              command:
+                - sh
+                - -c
+                - "rm -rf /host_mount/* /host_mount/.[!.]* 2>/dev/null && echo 'PVC cleanup done'"
+              volumeMounts:
+                - name: redfid-bkp
+                  mountPath: /host_mount
           restartPolicy: OnFailure
           containers:
             - name: edx-backup
@@ -37,16 +47,21 @@ spec:
                   memory: 2Gi
                   cpu: 750m
               volumeMounts:
-                - name: backup-storage
+                - name: redfid-bkp
                   mountPath: /host_mount
           volumes:
-            - name: backup-storage
-              ephemeral:
-                volumeClaimTemplate:
-                  spec:
-                    accessModes:
-                      - ReadWriteOnce
-                    storageClassName: longhorn-single-replica
-                    resources:
-                      requests:
-                        storage: 14Gi
+            - name: redfid-bkp
+              persistentVolumeClaim:
+                claimName: redfid-bkp-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redfid-bkp-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-single-replica
+  resources:
+    requests:
+      storage: 14Gi
