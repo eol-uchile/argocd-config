@@ -11,7 +11,7 @@ resources:
 images:
   - name: backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: 4bf086f56775d73184ce4ca31e1bcebc4f772c9f
+    newTag: e7d191eeb61f0c10e93f50ec07f9a16defbb5b81
   - name: old-backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: 67c54592a99d983f2aca437a2583049c65e8d75d
+    newTag: b8f3899351938d6ae3a12cfd0700e3ce575308b8
