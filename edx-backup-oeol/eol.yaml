@@ -16,6 +16,16 @@ spec:
           labels:
             app: edx-backup
         spec:
+          initContainers:
+            - name: cleanup-pvc
+              image: busybox:1.36
+              command:
+                - sh
+                - -c
+                - "rm -rf /host_mount/eol/* /host_mount/eol/.[!.]* 2>/dev/null && echo 'PVC cleanup done'"
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /host_mount
           restartPolicy: OnFailure
           containers:
             - name: eol-backup
@@ -118,6 +128,7 @@ kind: CronJob
 metadata:
   name: eol-backup-daily
 spec:
+  suspend: true
   schedule: "30 0 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
@@ -151,28 +162,43 @@ spec:
                   memory: 2Gi
                   cpu: 750m
               volumeMounts:
-                - name: node7-persistent
+                - name: backup-storage
                   mountPath: /host_mount
           volumes:
-            - name: node7-persistent
-              hostPath:
-                path: /mnt/data
-                type: Directory
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: kubernetes.io/hostname
-                        operator: NotIn
-                        values:
-                          - k8seol0101
-                          - k8seol0102
-                          - k8seol0103
-                          - k8seol0104
-                          - k8seol0105
-          tolerations:
-            - key: "backups"
-              operator: "Equal"
-              value: "true"
-              effect: "NoSchedule"
+            - name: backup-storage
+              persistentVolumeClaim:
+                claimName: pvc-qnap-eol
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-qnap-eol
+spec:
+  capacity:
+    storage: 300Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    name: pvc-qnap-eol
+    namespace: edx-backup
+  nfs:
+    server: 172.28.8.55
+    path: /bkp_tmp
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4.1
+    - hard
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-qnap-eol
+  namespace: edx-backup
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Gi
+  volumeName: pv-qnap-eol
+  storageClassName: ""
