@@ -4,8 +4,6 @@ namespace: edx-backup
 kind: Kustomization
 resources:
   - secrets/common.yaml
-  - secrets/virtuallabx.yaml
-  - virtuallabx.yaml
   - clean-node.yaml
 images:
   - name: old-backup-container
