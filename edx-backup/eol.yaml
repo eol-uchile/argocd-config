@@ -4,6 +4,7 @@ kind: CronJob
 metadata:
   name: eol-backup-00
 spec:
+  suspend: true
   schedule: "0 14,19 * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
