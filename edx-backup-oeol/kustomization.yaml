@@ -6,10 +6,12 @@ resources:
   - redfid.yaml
   - umce.yaml
   - eol.yaml
+  - openuchile.yaml
   - secrets/common.yaml
   - secrets/redfid.yaml
   - secrets/umce.yaml
   - secrets/eol.yaml
+  - secrets/openuchile.yaml
 images:
   - name: backup-container
     newName: ghcr.io/eol-uchile/backup_container
