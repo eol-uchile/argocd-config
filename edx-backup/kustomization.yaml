@@ -5,9 +5,7 @@ kind: Kustomization
 resources:
   - secrets/common.yaml
   - secrets/virtuallabx.yaml
-  - secrets/openuchile.yaml
   - virtuallabx.yaml
-  - openuchile.yaml
   - clean-node.yaml
 images:
   - name: old-backup-container
