@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: oeol-edx-backup
+  name: edx-backup
   namespace: argocd
 spec:
   description: Project to backup edx storages
@@ -30,17 +30,17 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: oeol-edx-backup
+  name: edx-backup
   namespace: argocd
 spec:
   destination:
     namespace: edx-backup
     server: 'https://kubernetes.default.svc'
   source:
-    path: edx-backup-oeol
+    path: edx-backup
     repoURL: 'https://github.com/eol-uchile/argocd-config'
     targetRevision: main
-  project: oeol-edx-backup
+  project: edx-backup
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
