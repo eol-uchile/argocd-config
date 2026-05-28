@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-# eol-c
-kubectl --context eol -n edx-backup get secret common-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > common.env
-
-# oeol-c
 kubectl --context oeol -n edx-backup get secret virtuallabx-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > virtuallabx-config.env
 kubectl --context oeol -n edx-backup get secret openuchile-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > openuchile-config.env
 kubectl --context oeol -n edx-backup get secret eol-config -o json | jq -r '.data | keys[] as $k | "\($k)=\(.[$k] | @base64d)"' > eol-config.env
