@@ -5,6 +5,8 @@ metadata:
   name: metabase-ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/satisfy: any
+    nginx.ingress.kubernetes.io/whitelist-source-range: 172.16.244.47/24,172.25.0.1/24
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
     nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
