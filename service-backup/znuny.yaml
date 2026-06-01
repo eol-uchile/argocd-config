@@ -6,8 +6,12 @@ metadata:
 spec:
   schedule: "0 8 * * *"
   concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
   jobTemplate:
     spec:
+      backoffLimit: 1
+      ttlSecondsAfterFinished: 432000 # 5 días
       template:
         spec:
           restartPolicy: Never
