@@ -7,10 +7,15 @@ metadata:
 spec:
   schedule: "58 8 * * 1-5"
   timeZone: "America/Santiago"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 432000 # 5 días
       template:
         spec:
+          restartPolicy: Never
           containers:
             - name: discord-alert
               image: curlimages/curl:latest
@@ -26,10 +31,7 @@ spec:
                   curl -H "Content-Type: application/json" -X POST \
                   -d '{"content":"@everyone Recuerda marcar tu entrada en https://marcaje.uchile.cl/"}' \
                   $WEBHOOK_URL
-          restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -39,10 +41,15 @@ metadata:
 spec:
   schedule: "15 18 * * 1-4"
   timeZone: "America/Santiago"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 432000 # 5 días
       template:
         spec:
+          restartPolicy: Never
           containers:
             - name: discord-alert
               image: curlimages/curl:latest
@@ -58,10 +65,7 @@ spec:
                   curl -H "Content-Type: application/json" -X POST \
                   -d '{"content":"@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"}' \
                   $WEBHOOK_URL
-          restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -71,10 +75,15 @@ metadata:
 spec:
   schedule: "0 16 * * 5"
   timeZone: "America/Santiago"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 432000 # 5 días
       template:
         spec:
+          restartPolicy: Never
           containers:
             - name: discord-alert
               image: curlimages/curl:latest
@@ -90,7 +99,4 @@ spec:
                   curl -H "Content-Type: application/json" -X POST   \
                   -d '{"content":"@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDescansa y que tengas un buen fin de semana! :beach_umbrella:"}' \
                   $WEBHOOK_URL
-          restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
