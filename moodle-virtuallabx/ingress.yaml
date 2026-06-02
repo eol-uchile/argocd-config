@@ -22,7 +22,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: moodle
+                name: not-available-nginx-svc
                 port:
                   number: 80
 ---
@@ -49,6 +49,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: moodle-dev
+                name: not-available-nginx-svc
                 port:
                   number: 80

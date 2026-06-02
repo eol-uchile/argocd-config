@@ -2,16 +2,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./moodle-dev.yaml
-  - ./postgres-dev.yaml
-  - ./moodle.yaml
-  - ./postgres.yaml
-  - ./redis.yaml
+  # - ./moodle-dev.yaml
+  # - ./postgres-dev.yaml
+  # - ./moodle.yaml
+  # - ./postgres.yaml
+  # - ./redis.yaml
   - ./ingress.yaml
-  - ./volumes.yaml
-  # - ./unavailable.yaml
-  - ./secrets/moodle-dev-config.yaml
-  - ./secrets/moodle-config.yaml
-  - ./secrets/postgres.yaml
-  - ./secrets/redis.yaml
+  # - ./volumes.yaml
+  - ./unavailable.yaml
+  # - ./secrets/moodle-dev-config.yaml
+  # - ./secrets/moodle-config.yaml
+  # - ./secrets/postgres.yaml
+  # - ./secrets/redis.yaml
 namespace: moodle-ing
