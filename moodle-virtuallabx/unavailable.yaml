@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
         - name: not-available-eol
-          image: ghcr.io/eol-uchile/not-available-container:virtuallabx-625cccc7bc886c88df466e84e830d6115d4b6dde
+          image: ghcr.io/eol-uchile/not-available-container:virtuallabx-5d2e006f1a251e0c874ae1772b36c4cf626273db
           ports:
             - containerPort: 80
