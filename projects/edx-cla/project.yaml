@@ -2,10 +2,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: edx-virtuallabx
+  name: edx-cla
   namespace: argocd
 spec:
-  description: Project for applications in edx-virtuallabx
+  description: Project for applications in edx-cla
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "*"
@@ -13,6 +13,8 @@ spec:
   destinations:
     - namespace: virtuallabx
       server: "https://146.83.63.78:6443"
+    - namespace: edx-cla
+      server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
@@ -35,6 +37,33 @@ spec:
       kind: "HorizontalPodAutoscaler"
     - group: ""
       kind: "PersistentVolumeClaim"
+    - group: "monitoring.coreos.com"
+      kind: Probe
+    - group: "discovery.k8s.io"
+      kind: "EndpointSlice"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edx-cla
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-cla
+    server: "https://kubernetes.default.svc"
+  source:
+    path: edx-cla
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
+    targetRevision: vastorga/migrate-vlabx-oeol
+  project: edx-cla
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -49,7 +78,7 @@ spec:
     path: edx-virtuallabx
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: HEAD
-  project: edx-virtuallabx
+  project: edx-cla
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
