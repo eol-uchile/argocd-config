@@ -11,8 +11,6 @@ spec:
     - "*"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-    - namespace: virtuallabx
-      server: "https://146.83.63.78:6443"
     - namespace: edx-cla
       server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
@@ -54,30 +52,7 @@ spec:
   source:
     path: edx-cla
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: vastorga/migrate-vlabx-oeol
-  project: edx-cla
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: edx-virtuallabx
-  namespace: argocd
-spec:
-  destination:
-    namespace: virtuallabx
-    server: "https://146.83.63.78:6443"
-  source:
-    path: edx-virtuallabx
-    repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: HEAD
+    targetRevision: master
   project: edx-cla
   syncPolicy:
     syncOptions:
