@@ -1,0 +1,62 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: eol-lilac-staging
+  namespace: argocd
+spec:
+  description: Project for applications in eol lilac staging
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - "*"
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  destinations:
+    - namespace: edx-lilac-staging
+      server: "https://kubernetes.default.svc"
+  namespaceResourceWhitelist:
+    - group: "apps"
+      kind: "*"
+    - group: "networking.k8s.io"
+      kind: "*"
+    - group: "bitnami.com"
+      kind: SealedSecret
+    - group: "batch"
+      kind: "*"
+    - group: ""
+      kind: "Service"
+    - group: ""
+      kind: "Endpoints"
+    - group: "discovery.k8s.io"
+      kind: "EndpointSlice"
+    - group: "autoscaling"
+      kind: "HorizontalPodAutoscaler"
+    - group: "monitoring.coreos.com"
+      kind: Probe
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: "PersistentVolumeClaim"
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eol-lilac-staging
+  namespace: argocd
+spec:
+  destination:
+    namespace: edx-lilac-staging
+    server: "https://kubernetes.default.svc"
+  source:
+    path: eol-lilac-staging
+    repoURL: "https://github.com/eol-uchile/edx-kustomize"
+    targetRevision: master
+  project: eol-lilac-staging
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
