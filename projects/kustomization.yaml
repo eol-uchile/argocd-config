@@ -11,6 +11,7 @@ resources:
   - edx-staging/project.yaml
   - edx-uabierta/project.yaml
   - emi-project/project.yaml
+  - eol-lilac-staging/project.yaml
   - metabase/project.yaml
   # - ./moodle-virtuallabx/moodle-backup.yaml
   - ./moodle-virtuallabx/moodle-virtuallabx.yaml
