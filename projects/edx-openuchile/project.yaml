@@ -12,8 +12,6 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: edx-openuchile
-      server: "https://146.83.63.78:6443"
-    - namespace: edx-openuchile
       server: "https://kubernetes.default.svc"
   clusterResourceWhitelist:
     - group: ""
@@ -43,7 +41,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edx-openuchile-oeol
+  name: edx-openuchile
   namespace: argocd
 spec:
   destination:
@@ -52,30 +50,7 @@ spec:
   source:
     path: openuchile
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: vastorga/migrate-openuchile-oeol
-  project: edx-openuchile
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: edx-openuchile
-  namespace: argocd
-spec:
-  destination:
-    namespace: edx-openuchile
-    server: "https://146.83.63.78:6443"
-  source:
-    path: openuchile
-    repoURL: "https://github.com/eol-uchile/edx-kustomize"
-    targetRevision: HEAD
+    targetRevision: master
   project: edx-openuchile
   syncPolicy:
     syncOptions:
