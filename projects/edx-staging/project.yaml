@@ -50,7 +50,7 @@ spec:
     namespace: edx-staging
     server: "https://kubernetes.default.svc"
   source:
-    path: staging
+    path: eol-koa-staging
     repoURL: "https://github.com/eol-uchile/edx-kustomize"
     targetRevision: master
   project: edx-staging
