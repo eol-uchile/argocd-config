@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: virtuallabx-backup-daily
+  name: cla-backup-daily
 spec:
   schedule: 0 5 * * *
   concurrencyPolicy: Forbid
@@ -21,7 +21,7 @@ spec:
               command:
                 - sh
                 - -c
-                - "rm -rf /host_mount/virtuallabx/* /host_mount/virtuallabx/.[!.]* 2>/dev/null && echo 'PVC cleanup done'"
+                - "rm -rf /host_mount/cla/* /host_mount/cla/.[!.]* 2>/dev/null && echo 'PVC cleanup done'"
               volumeMounts:
                 - name: backup-storage
                   mountPath: /host_mount
@@ -38,7 +38,7 @@ spec:
                 - secretRef:
                     name: common-config
                 - secretRef:
-                    name: virtuallabx-config
+                    name: cla-config
               resources:
                 requests:
                   memory: 256Mi
@@ -52,19 +52,19 @@ spec:
           volumes:
             - name: backup-storage
               persistentVolumeClaim:
-                claimName: pvc-qnap-virtuallabx
+                claimName: pvc-qnap-cla
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-qnap-virtuallabx
+  name: pv-qnap-cla
 spec:
   capacity:
     storage: 200Gi
   accessModes:
     - ReadWriteOnce
   claimRef:
-    name: pvc-qnap-virtuallabx
+    name: pvc-qnap-cla
     namespace: edx-backup
   nfs:
     server: 172.28.8.55
@@ -77,7 +77,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-qnap-virtuallabx
+  name: pvc-qnap-cla
   namespace: edx-backup
 spec:
   accessModes:
@@ -85,5 +85,5 @@ spec:
   resources:
     requests:
       storage: 200Gi
-  volumeName: pv-qnap-virtuallabx
+  volumeName: pv-qnap-cla
   storageClassName: ""
