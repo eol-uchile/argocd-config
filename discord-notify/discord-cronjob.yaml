@@ -63,7 +63,40 @@ spec:
               args:
                 - |
                   curl -H "Content-Type: application/json" -X POST \
-                  -d '{"content":"@everyone Recuerda marcar tu salida en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"}' \
+                  -d '{"content":"@everyone Si no estás haciendo recuperación horaria, recuerda marcar tu salida en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"}' \
+                  $WEBHOOK_URL
+          terminationGracePeriodSeconds: 30
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: discord-notify-recovering-2026
+  namespace: ing-utils
+spec:
+  schedule: "45 18 * * mon-thu"
+  timeZone: "America/Santiago"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 432000 # 5 días
+      template:
+        spec:
+          containers:
+            - name: discord-alert
+              image: curlimages/curl:latest
+              env:
+                - name: WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: discord-webhook
+                      key: WEBHOOK_URL
+              command: ["sh", "-c"]
+              args:
+                - |
+                  curl -H "Content-Type: application/json" -X POST \
+                  -d '{"content":"@everyone Recuerda marcar tu salida recuperativa en https://marcaje.uchile.cl/\nDesconéctate y ten una buena tarde! :mobile_phone_off:"}' \
                   $WEBHOOK_URL
           terminationGracePeriodSeconds: 30
 ---
