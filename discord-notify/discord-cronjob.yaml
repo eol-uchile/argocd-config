@@ -83,6 +83,7 @@ spec:
       ttlSecondsAfterFinished: 432000 # 5 días
       template:
         spec:
+          restartPolicy: Never
           containers:
             - name: discord-alert
               image: curlimages/curl:latest
