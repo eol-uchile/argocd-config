@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - nginx-s3-gateway.yaml
   - secrets/s3-settings.yaml
-  - ingress.yaml
+  - listenerset.yaml
