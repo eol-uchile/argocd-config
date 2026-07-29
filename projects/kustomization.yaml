@@ -1,6 +1,5 @@
 ---
 resources:
-  - argocd-ingress/project.yaml
   - edx-staging/project.yaml
   - edx-ou-staging/project.yaml
   - reloader/project.yaml
