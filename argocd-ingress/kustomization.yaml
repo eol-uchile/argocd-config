@@ -1,5 +1,0 @@
-resources:
-- ingress.yaml
-- secret.yaml
-
-namespace: argocd
