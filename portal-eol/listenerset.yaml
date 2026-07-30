@@ -1,0 +1,50 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: ListenerSet
+metadata:
+  name: portal-listeners
+  namespace: portal-eol
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production-gateway
+spec:
+  parentRef:
+    name: public-gateway
+    namespace: tigera-gateway
+    kind: Gateway
+  listeners:
+    - name: oficinaeol-uchile-cl-https
+      protocol: HTTPS
+      port: 443
+      hostname: "oficinaeol.uchile.cl"
+      allowedRoutes:
+        namespaces:
+          from: Same  # solo acepta rutas locales de este namespace
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: portal-tls-secret
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: oficinaeol-uchile-cl-https-route
+  namespace: portal-eol
+spec:
+  hostnames:
+  - oficinaeol.uchile.cl
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: ListenerSet
+      name: portal-listeners
+      namespace: portal-eol
+      sectionName: oficinaeol-uchile-cl-https
+  rules:
+    - backendRefs:
+        - name: portal-svc
+          namespace: portal-eol
+          port: 3000
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
