@@ -1,0 +1,49 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: ListenerSet
+metadata:
+  name: znuny-listeners
+  namespace: znuny
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production-gateway
+spec:
+  parentRef:
+    name: public-gateway
+    namespace: tigera-gateway
+    kind: Gateway
+  listeners:
+    - name: eol-ayuda-uchile-cl-https
+      port: 443
+      protocol: HTTPS
+      hostname: "eol-ayuda.uchile.cl"
+      allowedRoutes:
+        namespaces:
+          from: Same  # solo acepta rutas locales de este namespace
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: znuny-ingress-certificate
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: znuny-https-route
+  namespace: znuny
+spec:
+  hostnames:
+    - eol-ayuda.uchile.cl
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: ListenerSet
+      name: znuny-listeners
+      namespace: znuny
+      sectionName: eol-ayuda-uchile-cl-https
+  rules:
+    - backendRefs:
+        - name: znuny-svc
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
