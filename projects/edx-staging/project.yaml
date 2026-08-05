@@ -36,6 +36,12 @@ spec:
       kind: ConfigMap
     - group: ""
       kind: "PersistentVolumeClaim"
+    - group: 'gateway.networking.k8s.io'
+      kind: ListenerSet
+    - group: 'gateway.networking.k8s.io'
+      kind: HTTPRoute
+    - group: 'gateway.envoyproxy.io'
+      kind: BackendTrafficPolicy
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
