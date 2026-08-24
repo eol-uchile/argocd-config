@@ -39,6 +39,12 @@ spec:
       kind: "PersistentVolumeClaim"
     - group: "monitoring.coreos.com"
       kind: Probe
+    - group: 'gateway.networking.k8s.io'
+      kind: ListenerSet
+    - group: 'gateway.networking.k8s.io'
+      kind: HTTPRoute
+    - group: 'gateway.envoyproxy.io'
+      kind: HTTPRouteFilter
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
