@@ -39,6 +39,12 @@ spec:
       kind: Probe
     - group: "discovery.k8s.io"
       kind: "EndpointSlice"
+    - group: 'gateway.networking.k8s.io'
+      kind: ListenerSet
+    - group: 'gateway.networking.k8s.io'
+      kind: HTTPRoute
+    - group: 'gateway.envoyproxy.io'
+      kind: HTTPRouteFilter
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
