@@ -35,6 +35,10 @@ spec:
       kind: "PersistentVolumeClaim"
     - group: "policy"
       kind: "PodDisruptionBudget"
+    - group: 'gateway.networking.k8s.io'
+      kind: ListenerSet
+    - group: 'gateway.networking.k8s.io'
+      kind: HTTPRoute
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
