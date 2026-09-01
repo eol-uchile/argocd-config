@@ -4,6 +4,7 @@ kind: CronJob
 metadata:
   name: cla-backup-daily
 spec:
+  suspend: true
   schedule: 0 5 * * *
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 2
