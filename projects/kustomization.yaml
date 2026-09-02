@@ -21,8 +21,6 @@ resources:
   # - openuchile/metrics.yaml
   - redfid/edx-redfid.yaml
   - edx-cla/project.yaml
-  # - ./moodle-virtuallabx/moodle-backup.yaml
-  - ./moodle-virtuallabx/moodle-virtuallabx.yaml
   - test-host-eol/project.yaml
   - emi-project/project.yaml
   - discord-notify/project.yaml
