@@ -12,13 +12,7 @@ resources:
   - edx-eol/project.yaml
   - edx-uabierta/project.yaml
   # - eol-permissions.yaml
-  # - openuchile/project.yaml
-  # - openuchile/cert-manager.yaml
-  # - openuchile/nginx.yaml
-  # - openuchile/reloader.yaml
-  # - openuchile/sealed-secrets.yaml
   - edx-openuchile/project.yaml
-  # - openuchile/metrics.yaml
   - redfid/edx-redfid.yaml
   - edx-cla/project.yaml
   - test-host-eol/project.yaml
