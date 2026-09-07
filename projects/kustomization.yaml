@@ -11,7 +11,6 @@ resources:
   - portal-eol/project.yaml
   - edx-eol/project.yaml
   - edx-uabierta/project.yaml
-  # - eol-permissions.yaml
   - edx-openuchile/project.yaml
   - redfid/edx-redfid.yaml
   - edx-cla/project.yaml
