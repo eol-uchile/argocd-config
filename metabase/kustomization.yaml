@@ -6,3 +6,4 @@ resources:
   - listenerset.yaml
   - secrets.yaml
   - access.yaml
+  - patch-basic-auth.yaml

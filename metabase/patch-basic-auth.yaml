@@ -1,0 +1,19 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: metabase-basic-auth-realm
+  namespace: metabase
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: reporting-eol-ing-uchile-cl-https-route
+  lua:
+    - type: Inline
+      inline: |
+        function envoy_on_response(response_handle)
+          local auth_header = response_handle:headers():get("www-authenticate")
+          if auth_header and string.match(auth_header, 'Basic realm="https://reporting%.eol%-ing%.uchile%.cl/') then
+            response_handle:headers():replace("www-authenticate", 'Basic realm="Metabase"')
+          end
+        end
