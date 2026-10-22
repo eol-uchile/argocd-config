@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: emi-wordpress-fpm
-          image: wordpress:php8.2-fpm-alpine
+          image: wordpress:php8.5-fpm-alpine
+          imagePullPolicy: Always
           ports:
             - containerPort: 9000
           volumeMounts:
