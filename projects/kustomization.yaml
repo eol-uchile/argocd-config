@@ -13,7 +13,6 @@ resources:
   - edx-uabierta/project.yaml
   - edx-openuchile/project.yaml
   - redfid/edx-redfid.yaml
-  - edx-cla/project.yaml
   - test-host-eol/project.yaml
   - emi-project/project.yaml
   - discord-notify/project.yaml
