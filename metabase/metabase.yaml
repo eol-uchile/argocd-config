@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: metabase
-          image: metabase/metabase:v0.50.36
+          image: metabase/metabase:v0.64-lts
           env:
             - name: MB_DB_TYPE
               value: postgres
