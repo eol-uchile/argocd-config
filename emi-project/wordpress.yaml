@@ -45,6 +45,7 @@ spec:
               cpu: 400m
         - name: emi-wordpress-nginx
           image: nginx:stable-alpine
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           volumeMounts:
