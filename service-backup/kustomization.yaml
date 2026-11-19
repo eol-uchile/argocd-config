@@ -11,7 +11,7 @@ kind: Kustomization
 images:
   - name: backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: jammy-eol1
+    newTag: jammy-eol2
   - name: old-backup-container
     newName: ghcr.io/eol-uchile/backup_container
-    newTag: b8f3899351938d6ae3a12cfd0700e3ce575308b8
+    newTag: old-eol1
