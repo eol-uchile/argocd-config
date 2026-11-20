@@ -50,6 +50,11 @@ spec:
                 secretKeyRef:
                   name: metabase
                   key: MB_DB_HOST
+            - name: MB_ENCRYPTION_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: metabase
+                  key: MB_ENCRYPTION_SECRET_KEY
           ports:
             - containerPort: 3000
           resources:
